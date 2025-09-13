@@ -1,2 +1,5 @@
 .env
 CLAUDE.md
+./history/
+./history/*
+/backend/node_modules
