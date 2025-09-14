@@ -1,0 +1,89 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+const Navigation: React.FC = () => {
+  const location = useLocation();
+
+  const navItems = [
+    { path: '/', label: 'Me', pageIndicator: '/me', isHome: true },
+    { path: '/resume', label: 'Resume', pageIndicator: '/resume', isHome: false },
+    { path: '/projects', label: 'Projects', pageIndicator: '/projects', isHome: false },
+  ];
+
+  const getCurrentPage = () => {
+    const currentItem = navItems.find(item => {
+      if (item.isHome) {
+        return location.pathname === '/';
+      }
+      return location.pathname === item.path;
+    });
+    return currentItem ? currentItem.pageIndicator : '/me';
+  };
+
+  const isActive = (path: string, isHome: boolean) => {
+    if (isHome) {
+      return location.pathname === '/';
+    }
+    return location.pathname === path;
+  };
+
+  return (
+    <header style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: '60px',
+      backgroundColor: 'var(--bg-primary)',
+      zIndex: 1000,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '0 2rem'
+    }}>
+      {/* Left side - Name and current page */}
+      <div style={{
+        color: 'var(--text-primary)',
+        fontSize: '18px',
+        fontWeight: '500'
+      }}>
+        Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
+      </div>
+
+      {/* Right side - Navigation links */}
+      <nav>
+        <div style={{ display: 'flex', gap: '2rem' }}>
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              style={{
+                color: isActive(item.path, item.isHome) ? 'var(--text-primary)' : 'var(--text-muted)',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '400',
+                transition: 'color 0.2s ease',
+                borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--text-primary)' : '2px solid transparent',
+                paddingBottom: '2px'
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(item.path, item.isHome)) {
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(item.path, item.isHome)) {
+                  e.currentTarget.style.color = 'var(--text-muted)';
+                }
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default Navigation;

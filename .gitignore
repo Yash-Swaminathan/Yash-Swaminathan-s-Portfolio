@@ -1,5 +1,40 @@
+# Dependencies
+node_modules/
+*/node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment variables
 .env
-CLAUDE.md
+.env.local
+.env.production
+
+# Build outputs
+frontend/build/
+backend/dist/
+
+# Database data (if using local volumes)
+postgres_data/
+pgadmin_data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# History and temp files
 ./history/
 ./history/*
-/backend/node_modules
+
+# Runtime files
+.cache/
+.temp/
