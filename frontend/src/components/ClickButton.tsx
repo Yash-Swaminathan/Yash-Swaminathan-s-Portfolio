@@ -61,11 +61,11 @@ const ClickButton: React.FC = () => {
 
   return (
     <div style={{
-      position: 'fixed',
-      right: '10%',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      zIndex: 40
+      position: 'relative',
+      marginLeft: 'auto',
+      marginRight: '10%',
+      marginTop: '2rem',
+      width: 'fit-content'
     }}>
       {/* Container box with border and lighter blackish-grey background */}
       <div style={{

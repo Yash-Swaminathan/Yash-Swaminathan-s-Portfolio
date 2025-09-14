@@ -38,3 +38,16 @@ Thumbs.db
 # Runtime files
 .cache/
 .temp/
+
+CLAUDE.md
+
+/frontend/src/logo.svg
+frontend/src/setupTests.ts
+frontend/src/react-app-env.d.ts
+frontend/public/logo192.png
+frontend/public/logo512.png
+frontend/public/logo.svg
+frontend/public/manifest.json
+frontend/public/robots.txt
+frontend/public/favicon.ico
+frontend/README.md
