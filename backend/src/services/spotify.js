@@ -135,7 +135,7 @@ class SpotifyService {
       // Fetch top tracks and artists (currentlyPlaying already fetched above)
       const [topTracksShort, topArtistsShort] = await Promise.all([
         this.getTopTracks('short_term', 8), // Last 4 weeks
-        this.getTopArtists('short_term', 6), // Last 4 weeks
+        this.getTopArtists('short_term', 8), // Last 4 weeks - exactly 8 artists
       ]);
 
       // Process and cache the data

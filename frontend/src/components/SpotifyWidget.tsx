@@ -171,7 +171,7 @@ const SpotifyWidget: React.FC = () => {
           display: 'flex',
           alignItems: 'center'
         }}>
-          🎵 {(spotifyData.currentlyPlaying?.is_playing) ? 'Currently Vibing To' : 'Music Taste'}
+           {'What I listen to!'}
         </h3>
       </div>
 
@@ -212,7 +212,7 @@ const SpotifyWidget: React.FC = () => {
                 color: 'var(--text-secondary)',
                 marginBottom: '4px'
               }}>
-                {(spotifyData.currentlyPlaying.is_playing) ? '🔴 Now Playing' : '⏸️ Last Played'}
+                {(spotifyData.currentlyPlaying.is_playing) ? '🟢 Now Playing' : '⏸️ Last Played'}
               </div>
               <div style={{
                 fontSize: '16px',
@@ -248,7 +248,7 @@ const SpotifyWidget: React.FC = () => {
           gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
           gap: '1rem'
         }}>
-          {spotifyData.topArtists.items.slice(0, 6).map((artist) => (
+          {spotifyData.topArtists.items.slice(0, 8).map((artist) => (
             <a
               key={artist.id}
               href={artist.external_urls.spotify}
