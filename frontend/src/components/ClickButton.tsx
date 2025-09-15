@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ButtonService } from '../services/buttonService';
 
 const ClickButton: React.FC = () => {
@@ -6,25 +6,6 @@ const ClickButton: React.FC = () => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  useEffect(() => {
-    // Get initial click count when component mounts
-    loadInitialCount();
-  }, []);
-
-  const loadInitialCount = async () => {
-    try {
-      const response = await ButtonService.getButtonStats('click-me');
-      if (response.success && response.data) {
-        setClickCount(response.data.click_count);
-        if (response.data.click_count > 0) {
-          setIsClicked(true);
-        }
-      }
-    } catch (error) {
-      console.log('Button not found yet, will be created on first click');
-      // This is fine - button will be created on first click
-    }
-  };
 
   const handleClick = async () => {
     // Start animation
@@ -89,7 +70,7 @@ const ClickButton: React.FC = () => {
             marginBottom: '0.5rem',
             fontFamily: 'Georgia, serif'
           }}>
-            Press it
+            Press The Button
           </div>
           <div style={{
             color: 'var(--text-muted)',

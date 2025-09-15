@@ -45,7 +45,7 @@ export class ButtonService {
 
   static async getButtonStats(buttonName: string): Promise<StatsResponse> {
     try {
-      const response = await fetch(`${API_BASE_URL}/${buttonName}/stats`);
+      const response = await fetch(`${API_BASE_URL}/${buttonName}`);
 
       if (!response.ok) {
         if (response.status === 404) {

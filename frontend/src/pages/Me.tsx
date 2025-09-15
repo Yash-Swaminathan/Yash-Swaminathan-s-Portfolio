@@ -1,5 +1,6 @@
 import React from 'react';
 import ClickButton from '../components/ClickButton';
+import SpotifyWidget from '../components/SpotifyWidget';
 
 const Me: React.FC = () => {
   return (
@@ -45,8 +46,8 @@ const Me: React.FC = () => {
             </p>
 
             <p style={{ marginBottom: '1.2rem' }}>
-              When I'm not coding, you'll probably find me gaming (2K, Call of Duty, Fortnite, and of course Clash Royale),
-              hitting the gym, listening to music, or watching basketball (Clippers fan :( ).
+              When I'm not coding, you'll probably find me gaming (Call of Duty, Fortnite, and of course Clash Royale),
+              working out, listening to music, or watching basketball.
             </p>
 
             <p style={{ marginBottom: '1.2rem' }}>
@@ -64,6 +65,13 @@ const Me: React.FC = () => {
 
       {/* Click Me Button */}
       <ClickButton />
+
+      {/* Spotify Widget */}
+      <div style={{ padding: '0 2rem' }}>
+        <div style={{ maxWidth: '800px', margin: '0', marginLeft: '2rem' }}>
+          <SpotifyWidget />
+        </div>
+      </div>
 
       {/* Additional spacing */}
       <div style={{ padding: '2rem' }}>

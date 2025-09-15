@@ -6,6 +6,7 @@ require('dotenv').config({ path: '../.env' });
 
 // Import routes
 const buttonRoutes = require('./routes/buttons');
+const spotifyRoutes = require('./routes/spotify');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,20 +14,41 @@ const PORT = process.env.PORT || 3001;
 // Security middleware
 app.use(helmet());
 
-// Rate limiting
+// Rate limiting - More permissive for development
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 1000, // much higher limit for development
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 app.use(limiter);
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://yashswaminathan.com']
-    : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:5173', 'http://127.0.0.1:5173'],
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'http://localhost:3003',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001'
+    ];
+
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // For legacy browser support
 }));
 
 // Body parsing middleware
@@ -44,6 +66,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/buttons', buttonRoutes);
+app.use('/api/spotify', spotifyRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
