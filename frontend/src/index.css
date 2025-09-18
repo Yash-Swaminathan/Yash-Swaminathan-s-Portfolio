@@ -1,30 +1,111 @@
-:root {
-  /* Dark Theme Color Palette */
-  --bg-primary: #cbd5e0;
-  --bg-secondary: #151518;
-  --bg-tertiary: #1e1e22;
-  --bg-quaternary: #2a2a2f;
-  --bg-accent: #3a3a42;
+/* Theme System with CSS Variables */
+/* Light Theme (Default) */
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --surface-elevated: #ffffff;
+  --surface-hover: #f1f5f9;
 
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --text-muted: #a0a0a0;
-  --text-disabled: #666666;
+  /* Text */
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-secondary: #475569;
 
-  --border-subtle: #333338;
-  --border-default: #44444f;
-  --border-strong: #555563;
+  /* Primary & Accent */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
 
-  --accent-blue: #4a9eff;
-  --accent-purple: #8b5cf6;
-  --accent-success: #10b981;
-  --accent-warning: #f59e0b;
-  --accent-error: #ef4444;
+  /* Semantic colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+  /* Borders & Focus */
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --ring: #3b82f6;
+  --focus: #3b82f6;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-elevated: #334155;
+  --surface-hover: #475569;
+
+  /* Text */
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-secondary: #cbd5e1;
+
+  /* Primary & Accent */
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+  --accent: #a78bfa;
+  --accent-hover: #8b5cf6;
+
+  /* Semantic colors */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+
+  /* Borders & Focus */
+  --border: #334155;
+  --border-strong: #475569;
+  --ring: #60a5fa;
+  --focus: #60a5fa;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* High Contrast Theme (WCAG AAA Compliant) */
+[data-theme="hc"] {
+  /* Backgrounds */
+  --bg: #000000;
+  --surface: #1a1a1a;
+  --surface-elevated: #333333;
+  --surface-hover: #4d4d4d;
+
+  /* Text - High contrast ratios */
+  --text: #ffffff;
+  --text-muted: #cccccc;
+  --text-secondary: #e6e6e6;
+
+  /* Primary & Accent - Higher contrast */
+  --primary: #00ccff;
+  --primary-hover: #0099cc;
+  --accent: #ff6600;
+  --accent-hover: #cc5200;
+
+  /* Semantic colors - High contrast */
+  --success: #00ff00;
+  --warning: #ffff00;
+  --error: #ff0000;
+
+  /* Borders & Focus - High contrast */
+  --border: #666666;
+  --border-strong: #999999;
+  --ring: #00ccff;
+  --focus: #00ccff;
+
+  /* Shadows - More pronounced */
+  --shadow-sm: 0 2px 4px 0 rgba(255, 255, 255, 0.1);
+  --shadow-md: 0 6px 12px -2px rgba(255, 255, 255, 0.15), 0 4px 8px -2px rgba(255, 255, 255, 0.1);
+  --shadow-lg: 0 20px 30px -6px rgba(255, 255, 255, 0.2), 0 8px 16px -4px rgba(255, 255, 255, 0.15);
 }
 
 body {
@@ -34,8 +115,35 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Update existing utility classes to use new variables */
+.bg-white {
+  background-color: var(--bg);
+}
+.text-gray-800 {
+  color: var(--text);
+}
+.text-gray-600 {
+  color: var(--text-muted);
 }
 
 /* Basic Tailwind-like utilities */
