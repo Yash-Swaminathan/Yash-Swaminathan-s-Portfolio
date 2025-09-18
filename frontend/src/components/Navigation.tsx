@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
@@ -34,7 +35,8 @@ const Navigation: React.FC = () => {
       left: 0,
       right: 0,
       height: '60px',
-      backgroundColor: 'var(--bg-primary)',
+      backgroundColor: 'var(--bg)',
+      borderBottom: '1px solid var(--border)',
       zIndex: 1000,
       display: 'flex',
       alignItems: 'center',
@@ -43,16 +45,16 @@ const Navigation: React.FC = () => {
     }}>
       {/* Left side - Name and current page */}
       <div style={{
-        color: 'var(--text-primary)',
+        color: 'var(--text)',
         fontSize: '18px',
         fontWeight: '500'
       }}>
         Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
       </div>
 
-      {/* Right side - Navigation links */}
+      {/* Right side - Navigation links and theme toggle */}
       <nav>
-        <div style={{ display: 'flex', gap: '2rem' }}>
+        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
           {navItems.map((item) => (
             item.isExternal ? (
               <a
@@ -83,12 +85,12 @@ const Navigation: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 style={{
-                  color: isActive(item.path, item.isHome) ? 'var(--text-primary)' : 'var(--text-muted)',
+                  color: isActive(item.path, item.isHome) ? 'var(--text)' : 'var(--text-muted)',
                   textDecoration: 'none',
                   fontSize: '16px',
                   fontWeight: '400',
                   transition: 'color 0.2s ease',
-                  borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--text-primary)' : '2px solid transparent',
+                  borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--primary)' : '2px solid transparent',
                   paddingBottom: '2px'
                 }}
                 onMouseEnter={(e) => {
@@ -106,6 +108,7 @@ const Navigation: React.FC = () => {
               </Link>
             )
           ))}
+          <ThemeToggle compact={true} />
         </div>
       </nav>
     </header>
