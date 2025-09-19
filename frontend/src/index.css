@@ -4,31 +4,31 @@
 [data-theme="light"] {
   /* Backgrounds */
   --bg: #ffffff;
-  --surface: #f8fafc;
+  --surface: #ffffff;
   --surface-elevated: #ffffff;
-  --surface-hover: #f1f5f9;
+  --surface-hover: #f5f5f5;
 
   /* Text */
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --text-secondary: #475569;
+  --text: #000000;
+  --text-muted: #666666;
+  --text-secondary: #333333;
 
   /* Primary & Accent */
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --accent: #8b5cf6;
-  --accent-hover: #7c3aed;
+  --primary: #000000;
+  --primary-hover: #333333;
+  --accent: #000000;
+  --accent-hover: #333333;
 
   /* Semantic colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
+  --success: #000000;
+  --warning: #000000;
+  --error: #000000;
 
   /* Borders & Focus */
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --ring: #3b82f6;
-  --focus: #3b82f6;
+  --border: #e0e0e0;
+  --border-strong: #cccccc;
+  --ring: #000000;
+  --focus: #000000;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -39,74 +39,39 @@
 /* Dark Theme */
 [data-theme="dark"] {
   /* Backgrounds */
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --surface-elevated: #334155;
-  --surface-hover: #475569;
+  --bg: #000000;
+  --surface: #000000;
+  --surface-elevated: #1a1a1a;
+  --surface-hover: #333333;
 
   /* Text */
-  --text: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-secondary: #cbd5e1;
-
-  /* Primary & Accent */
-  --primary: #60a5fa;
-  --primary-hover: #3b82f6;
-  --accent: #a78bfa;
-  --accent-hover: #8b5cf6;
-
-  /* Semantic colors */
-  --success: #34d399;
-  --warning: #fbbf24;
-  --error: #f87171;
-
-  /* Borders & Focus */
-  --border: #334155;
-  --border-strong: #475569;
-  --ring: #60a5fa;
-  --focus: #60a5fa;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-}
-
-/* High Contrast Theme (WCAG AAA Compliant) */
-[data-theme="hc"] {
-  /* Backgrounds */
-  --bg: #000000;
-  --surface: #1a1a1a;
-  --surface-elevated: #333333;
-  --surface-hover: #4d4d4d;
-
-  /* Text - High contrast ratios */
   --text: #ffffff;
   --text-muted: #cccccc;
-  --text-secondary: #e6e6e6;
+  --text-secondary: #e0e0e0;
 
-  /* Primary & Accent - Higher contrast */
-  --primary: #00ccff;
-  --primary-hover: #0099cc;
-  --accent: #ff6600;
-  --accent-hover: #cc5200;
+  /* Primary & Accent */
+  --primary: #ffffff;
+  --primary-hover: #cccccc;
+  --accent: #ffffff;
+  --accent-hover: #cccccc;
 
-  /* Semantic colors - High contrast */
-  --success: #00ff00;
-  --warning: #ffff00;
-  --error: #ff0000;
+  /* Semantic colors */
+  --success: #ffffff;
+  --warning: #ffffff;
+  --error: #ffffff;
 
-  /* Borders & Focus - High contrast */
-  --border: #666666;
-  --border-strong: #999999;
-  --ring: #00ccff;
-  --focus: #00ccff;
+  /* Borders & Focus */
+  --border: #333333;
+  --border-strong: #666666;
+  --ring: #ffffff;
+  --focus: #ffffff;
 
-  /* Shadows - More pronounced */
-  --shadow-sm: 0 2px 4px 0 rgba(255, 255, 255, 0.1);
-  --shadow-md: 0 6px 12px -2px rgba(255, 255, 255, 0.15), 0 4px 8px -2px rgba(255, 255, 255, 0.1);
-  --shadow-lg: 0 20px 30px -6px rgba(255, 255, 255, 0.2), 0 8px 16px -4px rgba(255, 255, 255, 0.15);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(255, 255, 255, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
 }
+
 
 body {
   margin: 0;
@@ -148,7 +113,7 @@ body {
 
 /* Basic Tailwind-like utilities */
 .min-h-screen { min-height: 100vh; }
-.bg-gradient-to-br { background: linear-gradient(135deg, #dbeafe 0%, #fff 50%, #faf5ff 100%); }
+.bg-gradient-to-br { background: linear-gradient(135deg, #f5f5f5 0%, #fff 50%, #f5f5f5 100%); }
 .text-center { text-align: center; }
 .mb-4 { margin-bottom: 1rem; }
 .mb-6 { margin-bottom: 1.5rem; }
@@ -173,9 +138,9 @@ body {
 .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
 .max-w-4xl { max-width: 56rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
-.bg-white { background-color: white; }
-.text-gray-800 { color: #1f2937; }
-.text-gray-600 { color: #4b5563; }
+.bg-white { background-color: var(--bg); }
+.text-gray-800 { color: var(--text); }
+.text-gray-600 { color: var(--text-muted); }
 .fixed { position: fixed; }
 .z-50 { z-index: 50; }
 .top-6 { top: 1.5rem; }

@@ -19,11 +19,6 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
       icon: '🌙',
       label: 'Dark',
       ariaLabel: 'Switch to dark theme'
-    },
-    hc: {
-      icon: '⬛⬜',
-      label: 'HC',
-      ariaLabel: 'Switch to high contrast theme'
     }
   };
 

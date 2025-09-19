@@ -52,7 +52,7 @@ const POPULAR_CITIES: CityLocation[] = [
 ];
 
 const CityLocator: React.FC<CityLocatorProps> = ({ onLocationDetected, children, onToggleSelector }) => {
-  const [currentLocation, setCurrentLocation] = useState<CityLocation>(TORONTO_LOCATION);
+  const [, setCurrentLocation] = useState<CityLocation>(TORONTO_LOCATION);
   const [isLocationPermissionGranted, setIsLocationPermissionGranted] = useState<boolean | null>(null);
   const [showCitySelector, setShowCitySelector] = useState(false);
 

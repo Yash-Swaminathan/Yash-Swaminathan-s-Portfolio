@@ -32,7 +32,7 @@ const MiniMap: React.FC<MiniMapProps> = ({
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const { theme } = useTheme();
 
-  // Get tile layer based on theme (inverted: dark map on light theme, white map on dark theme)
+  // Get tile layer based on theme (inverted: dark map on light theme, blue map on dark theme)
   const getTileLayer = useCallback(() => {
     const tileConfigs = {
       light: {
@@ -40,10 +40,6 @@ const MiniMap: React.FC<MiniMapProps> = ({
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>'
       },
       dark: {
-        url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-      },
-      hc: {
         url: 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>'
       }

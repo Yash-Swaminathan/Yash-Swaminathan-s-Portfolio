@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
-export type Theme = 'light' | 'dark' | 'hc';
+export type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -16,9 +16,17 @@ interface ThemeProviderProps {
 
 // Helper function to get initial theme
 const getInitialTheme = (): Theme => {
-  // Check localStorage first
-  const savedTheme = localStorage.getItem('theme') as Theme | null;
-  if (savedTheme && ['light', 'dark', 'hc'].includes(savedTheme)) {
+  // Check localStorage first (check raw value before casting)
+  const savedThemeRaw = localStorage.getItem('theme');
+
+  // Force reset any invalid themes (like 'hc') to light
+  if (!savedThemeRaw || !['light', 'dark'].includes(savedThemeRaw)) {
+    localStorage.setItem('theme', 'light');
+    return 'light';
+  }
+
+  const savedTheme = savedThemeRaw as Theme;
+  if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
     return savedTheme;
   }
 
@@ -32,6 +40,10 @@ const getInitialTheme = (): Theme => {
 
 // Helper function to set theme on document
 const applyTheme = (theme: Theme) => {
+  // Force remove any old theme attributes
+  document.documentElement.removeAttribute('data-theme');
+
+  // Set new theme
   document.documentElement.setAttribute('data-theme', theme);
 
   // Set cookie for SSR (if needed in future)
@@ -39,7 +51,22 @@ const applyTheme = (theme: Theme) => {
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme());
+  const [theme, setThemeState] = useState<Theme>(() => {
+    // Force cleanup on initialization - clear any invalid themes
+    const rawTheme = localStorage.getItem('theme');
+    if (rawTheme && !['light', 'dark'].includes(rawTheme)) {
+      localStorage.removeItem('theme');
+      localStorage.setItem('theme', 'light');
+    }
+
+    // Remove any invalid data-theme attributes
+    const currentDataTheme = document.documentElement.getAttribute('data-theme');
+    if (currentDataTheme && !['light', 'dark'].includes(currentDataTheme)) {
+      document.documentElement.removeAttribute('data-theme');
+    }
+
+    return getInitialTheme();
+  });
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
@@ -48,7 +75,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   const toggleTheme = () => {
-    const themeOrder: Theme[] = ['light', 'dark', 'hc'];
+    const themeOrder: Theme[] = ['light', 'dark'];
     const currentIndex = themeOrder.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themeOrder.length;
     setTheme(themeOrder[nextIndex]);
