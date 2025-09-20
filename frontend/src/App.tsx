@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import CurrentCityMap, { MapToggleButton } from './components/CurrentCityMap';
 import Me from './pages/Me';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
   const [isMapVisible, setIsMapVisible] = useState(true);
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Me />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:slug" element={<ProjectDetail />} />
             </Routes>
 
             {/* Mini Map */}
