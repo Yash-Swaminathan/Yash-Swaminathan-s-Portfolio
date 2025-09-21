@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ButtonService } from '../services/buttonService';
 
 const ClickButton: React.FC = () => {
   const [clickCount, setClickCount] = useState<number>(0);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [hasClickedThisVisit, setHasClickedThisVisit] = useState<boolean>(false);
+
+  // Check if user has already clicked during this visit
+  useEffect(() => {
+    const clickedThisVisit = localStorage.getItem('button-clicked-this-visit');
+    if (clickedThisVisit === 'true') {
+      setHasClickedThisVisit(true);
+      setIsClicked(true);
+    }
+  }, []);
 
 
   const handleClick = async () => {
+    // Don't allow clicking if already clicked this visit
+    if (hasClickedThisVisit) return;
+
     // Start animation
     setIsAnimating(true);
 
@@ -16,12 +29,18 @@ const ClickButton: React.FC = () => {
       if (response.success) {
         setClickCount(response.clickCount);
         setIsClicked(true);
+        setHasClickedThisVisit(true);
+        // Mark as clicked for this visit
+        localStorage.setItem('button-clicked-this-visit', 'true');
       }
     } catch (error) {
       console.error('Failed to track click:', error);
       // Fallback - increment locally if API fails
       setClickCount(prev => prev + 1);
       setIsClicked(true);
+      setHasClickedThisVisit(true);
+      // Mark as clicked for this visit even if API fails
+      localStorage.setItem('button-clicked-this-visit', 'true');
     }
 
     // End animation after delay
@@ -31,7 +50,13 @@ const ClickButton: React.FC = () => {
   };
 
   const getButtonText = () => {
-    if (!isClicked || clickCount === 0) {
+    if (hasClickedThisVisit) {
+      if (clickCount === 1) {
+        return "Thanks!\nYou've already\nclicked this visit";
+      } else {
+        return `Thanks!\nYou've already\nclicked this visit\n(${clickCount} total)`;
+      }
+    } else if (!isClicked || clickCount === 0) {
       return 'Click\nMe!';
     } else if (clickCount === 1) {
       return "I've been\nclicked\n1 time!";
@@ -88,16 +113,16 @@ const ClickButton: React.FC = () => {
           style={{
             position: 'relative',
             overflow: 'hidden',
-            background: '#1e40af', // Deep blue solid color
+            background: hasClickedThisVisit ? '#6b7280' : '#1e40af', // Grey if already clicked, blue if available
             border: 'none',
             color: 'white',
             fontWeight: 'bold',
             width: '180px',
             height: '180px',
             borderRadius: '50%', // Perfect circle
-            boxShadow: '0 6px 20px rgba(30, 64, 175, 0.4)',
+            boxShadow: hasClickedThisVisit ? '0 6px 20px rgba(107, 114, 128, 0.4)' : '0 6px 20px rgba(30, 64, 175, 0.4)',
             transition: 'all 0.3s ease',
-            cursor: 'pointer',
+            cursor: hasClickedThisVisit ? 'not-allowed' : 'pointer',
             fontSize: '16px',
             fontFamily: 'Georgia, serif',
             lineHeight: '1.2',
@@ -105,21 +130,24 @@ const ClickButton: React.FC = () => {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            transform: isAnimating ? 'scale(1.05)' : 'scale(1)'
+            transform: isAnimating ? 'scale(1.05)' : 'scale(1)',
+            opacity: hasClickedThisVisit ? 0.7 : 1
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#1d4ed8'; // Slightly lighter deep blue on hover
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 8px 25px rgba(30, 64, 175, 0.5)';
+            if (!hasClickedThisVisit) {
+              e.currentTarget.style.background = '#1d4ed8'; // Slightly lighter deep blue on hover
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(30, 64, 175, 0.5)';
+            }
           }}
           onMouseLeave={(e) => {
-            if (!isAnimating) {
+            if (!isAnimating && !hasClickedThisVisit) {
               e.currentTarget.style.background = '#1e40af';
               e.currentTarget.style.transform = 'scale(1)';
               e.currentTarget.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4)';
             }
           }}
-          disabled={isAnimating}
+          disabled={isAnimating || hasClickedThisVisit}
         >
           <span style={{
             opacity: isAnimating ? '0.7' : '1',
