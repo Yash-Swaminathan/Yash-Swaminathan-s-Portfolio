@@ -80,10 +80,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             display: 'block',
             animation: 'gooseBob 2500ms ease-in-out',
             filter: 'drop-shadow(5px 5px 10px rgba(0,0,0,0.5))',
-            background: 'linear-gradient(45deg, #1a1a1a 40%, #FFD320 60%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            color: '#4a4037'
           }}>
             🪿
           </div>
@@ -109,10 +106,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             animation: 'gooseBob 2500ms ease-in-out',
             animationDelay: '300ms',
             filter: 'drop-shadow(4px 4px 8px rgba(0,0,0,0.4))',
-            background: 'linear-gradient(45deg, #1a1a1a 35%, #FFD320 65%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            color: '#3d362a'
           }}>
             🪿
           </div>
@@ -138,10 +132,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             animation: 'gooseBob 2500ms ease-in-out',
             animationDelay: '600ms',
             filter: 'drop-shadow(3px 3px 6px rgba(0,0,0,0.35))',
-            background: 'linear-gradient(45deg, #1a1a1a 30%, #FFD320 70%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            color: '#5a4f42'
           }}>
             🪿
           </div>
