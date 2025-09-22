@@ -56,13 +56,13 @@ const ClickButton: React.FC = () => {
 
   const getButtonText = () => {
     if (animationState === 'playing') {
-      return 'You startled\nthe geese!';
+      return 'You startled\nthe Waterloo\ngeese!';
     } else if (clickCount === 0) {
       return 'Click\nMe!';
     } else if (clickCount === 1) {
-      return "The geese have\nbeen startled\n1 time";
+      return "The Waterloo geese\nhave been startled\n1 time";
     } else {
-      return `The geese have\nbeen startled\n${clickCount} times`;
+      return `The Waterloo geese\nhave been startled\n${clickCount} times`;
     }
   };
 
@@ -113,7 +113,7 @@ const ClickButton: React.FC = () => {
           <button
             onClick={handleClick}
             onKeyDown={handleKeyDown}
-            aria-label={`Interactive button clicked ${clickCount} times. Press to startle the geese.`}
+            aria-label={`Interactive button clicked ${clickCount} times. Press to startle the Waterloo geese.`}
             aria-live="polite"
             aria-pressed={animationState === 'playing'}
             tabIndex={0}
