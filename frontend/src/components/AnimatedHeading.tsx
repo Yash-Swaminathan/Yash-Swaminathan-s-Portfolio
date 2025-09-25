@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface AnimatedHeadingProps {
   className?: string;
@@ -6,50 +6,123 @@ interface AnimatedHeadingProps {
 
 const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => {
   const [displayText, setDisplayText] = useState('Me');
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const isRunningRef = useRef(false);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const isMountedRef = useRef(true);
 
-  const finalText = "Hey, I'm Yash! Nice to meet you";
+  const greetings = [
+    "Hey, I'm Yash! Nice to meet you!",          // English
+    "नमस्ते, मैं यश हूं! आपसे मिलकर खुशी हुई",      // Hindi
+    "你好，我是雅什！很高兴见到你！",                    // Mandarin
+  ];
+
+  // Clear all timeouts when component unmounts
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+      isRunningRef.current = false;
+      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+    };
+  }, []);
 
   useEffect(() => {
-    // Start animation after 2 seconds
-    const startTimer = setTimeout(() => {
-      setIsAnimating(true);
-      animateText();
-    }, 2000);
-
     // Cursor blinking effect
     const cursorTimer = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
 
+    // Start animation after a brief delay
+    const startTimer = setTimeout(() => {
+      if (!isRunningRef.current) {
+        console.log('Starting animation...');
+        isRunningRef.current = true;
+        startAnimation();
+      }
+    }, 100);
+
     return () => {
-      clearTimeout(startTimer);
       clearInterval(cursorTimer);
+      clearTimeout(startTimer);
     };
   }, []);
 
-  const animateText = async () => {
-    // First, delete "Me" character by character
-    for (let i = displayText.length; i >= 0; i--) {
-      setDisplayText(displayText.substring(0, i));
-      await new Promise(resolve => setTimeout(resolve, 100));
+  const delay = (ms: number): Promise<void> => {
+    return new Promise(resolve => {
+      const timeout = setTimeout(resolve, ms);
+      timeoutsRef.current.push(timeout);
+    });
+  };
+
+  const typeText = async (text: string, speed: number = 80): Promise<void> => {
+    for (let i = 0; i <= text.length; i++) {
+      if (!isRunningRef.current) return;
+      setDisplayText(text.substring(0, i));
+      await delay(speed);
     }
+  };
 
-    // Small pause before typing new text
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    // Then type the new text character by character
-    for (let i = 0; i <= finalText.length; i++) {
-      setDisplayText(finalText.substring(0, i));
-      await new Promise(resolve => setTimeout(resolve, 80));
+  const deleteText = async (text: string, speed: number = 60): Promise<void> => {
+    for (let i = text.length; i >= 0; i--) {
+      if (!isRunningRef.current) return;
+      setDisplayText(text.substring(0, i));
+      await delay(speed);
     }
+  };
 
-    // Stop cursor blinking after animation is complete
-    setTimeout(() => {
-      setShowCursor(false);
-      setIsAnimating(false);
-    }, 1000);
+  const startAnimation = async (): Promise<void> => {
+    console.log('Animation function started');
+    try {
+      while (isRunningRef.current) {
+        console.log('Starting animation cycle');
+        // Initial state: "Me" for 2 seconds
+        setDisplayText('Me');
+        console.log('Waiting at Me for 2 seconds...');
+        await delay(2000);
+
+        // Delete "Me"
+        await deleteText('Me', 100);
+        await delay(300);
+
+        // Type English greeting
+        await typeText(greetings[0], 80);
+        await delay(3000);
+
+        // Cycle through Hindi and Mandarin
+        for (let i = 1; i < greetings.length; i++) {
+          if (!isRunningRef.current) return;
+
+          // Delete current text
+          await deleteText(greetings[i - 1], 60);
+          await delay(200);
+
+          // Type new language
+          await typeText(greetings[i], 80);
+          await delay(3000);
+        }
+
+        // Delete last language and return to English
+        await deleteText(greetings[greetings.length - 1], 60);
+        await delay(200);
+        await typeText(greetings[0], 80);
+        await delay(3000);
+
+        // Return to "Me"
+        await deleteText(greetings[0], 60);
+        await delay(200);
+        await typeText('Me', 100);
+
+        // Wait at "Me" for 10 seconds
+        console.log('Starting 10 second wait at Me...');
+        await delay(10000);
+        console.log('10 second wait complete, restarting cycle...');
+
+        // Small pause before restarting
+        await delay(1000);
+      }
+    } catch (error) {
+      console.error('Animation error:', error);
+    }
   };
 
   return (
@@ -67,7 +140,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
         position: 'relative',
-        minHeight: '5rem', // Prevent layout shift
+        minHeight: '5rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
@@ -87,21 +160,6 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
             |
           </span>
         </span>
-
-        {/* Subtle underline - only show when animation is complete */}
-        {!isAnimating && (
-          <div style={{
-            position: 'absolute',
-            bottom: '-8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: displayText === finalText ? '200px' : '60px',
-            height: '3px',
-            background: 'linear-gradient(90deg, transparent, var(--text-primary), transparent)',
-            borderRadius: '2px',
-            transition: 'width 0.5s ease'
-          }}></div>
-        )}
       </h1>
     </div>
   );
