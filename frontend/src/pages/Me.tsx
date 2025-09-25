@@ -3,6 +3,7 @@ import ClickButton from '../components/ClickButton';
 import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
+import SocialIcons from '../components/SocialIcons';
 
 const Me: React.FC = () => {
   return (
@@ -151,6 +152,47 @@ const Me: React.FC = () => {
       {/* Click Me Button */}
       <ClickButton />
 
+      {/* Social Media Icons */}
+      <div style={{
+        padding: '2rem',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          backgroundColor: 'var(--bg-secondary)',
+          padding: '2rem',
+          borderRadius: '20px',
+          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
+          border: '1px solid var(--border-default)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Subtle background effect */}
+          <div style={{
+            position: 'absolute',
+            top: '-50%',
+            left: '-50%',
+            width: '200%',
+            height: '200%',
+            background: 'radial-gradient(circle, rgba(41, 50, 65, 0.05) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }}></div>
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <h3 style={{
+              color: 'var(--text-primary)',
+              textAlign: 'center',
+              marginBottom: '1.5rem',
+              fontSize: '20px',
+              fontWeight: '600',
+              letterSpacing: '0.5px'
+            }}>
+              Let's Connect
+            </h3>
+            <SocialIcons />
+          </div>
+        </div>
+      </div>
 
       {/* Spotify Widget */}
       <div style={{ padding: '0 2rem' }}>
