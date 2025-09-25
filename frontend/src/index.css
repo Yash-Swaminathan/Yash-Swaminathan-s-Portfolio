@@ -4,12 +4,15 @@
 [data-theme="light"] {
   /* Backgrounds */
   --bg: #ffffff;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
   --surface: #ffffff;
   --surface-elevated: #ffffff;
   --surface-hover: #f5f5f5;
 
   /* Text */
   --text: #000000;
+  --text-primary: #000000;
   --text-muted: #666666;
   --text-secondary: #333333;
 
@@ -26,6 +29,7 @@
 
   /* Borders & Focus */
   --border: #e0e0e0;
+  --border-default: #e0e0e0;
   --border-strong: #cccccc;
   --ring: #000000;
   --focus: #000000;
@@ -39,13 +43,16 @@
 /* Dark Theme */
 [data-theme="dark"] {
   /* Backgrounds */
-  --bg: #000000;
-  --surface: #000000;
-  --surface-elevated: #1a1a1a;
+  --bg: #293241;
+  --bg-primary: #293241;
+  --bg-secondary: #3d4b57;
+  --surface: #293241;
+  --surface-elevated: #f9f9f9;
   --surface-hover: #333333;
 
   /* Text */
   --text: #ffffff;
+  --text-primary: #ffffff;
   --text-muted: #cccccc;
   --text-secondary: #e0e0e0;
 
@@ -62,6 +69,7 @@
 
   /* Borders & Focus */
   --border: #333333;
+  --border-default: #4a5568;
   --border-strong: #666666;
   --ring: #ffffff;
   --focus: #ffffff;

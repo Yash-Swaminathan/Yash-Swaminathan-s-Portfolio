@@ -32,7 +32,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
           alignItems: 'center',
           gap: '8px',
           padding: '6px 12px',
-          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#f5f3f0',
+          backgroundColor: theme === 'dark' ? '#293241' : '#f5f3f0',
           borderRadius: '24px',
           fontSize: '12px',
           fontWeight: '500',

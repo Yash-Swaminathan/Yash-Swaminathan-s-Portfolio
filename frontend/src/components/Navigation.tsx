@@ -35,7 +35,7 @@ const Navigation: React.FC = () => {
       left: 0,
       right: 0,
       height: '60px',
-      backgroundColor: 'var(--bg)',
+      backgroundColor: 'var(--surface-elevated)',
       borderBottom: '1px solid var(--border)',
       zIndex: 1000,
       display: 'flex',
@@ -45,11 +45,11 @@ const Navigation: React.FC = () => {
     }}>
       {/* Left side - Name and current page */}
       <div style={{
-        color: 'var(--text)',
+        color: '#000000',
         fontSize: '18px',
         fontWeight: '500'
       }}>
-        Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
+        Yash Swaminathan <span style={{ color: '#666666' }}>{getCurrentPage()}</span>
       </div>
 
       {/* Right side - Navigation links and theme toggle */}
@@ -63,7 +63,7 @@ const Navigation: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  color: 'var(--text-muted)',
+                  color: '#666666',
                   textDecoration: 'none',
                   fontSize: '16px',
                   fontWeight: '400',
@@ -72,10 +72,10 @@ const Navigation: React.FC = () => {
                   paddingBottom: '2px'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--text-secondary)';
+                  e.currentTarget.style.color = '#333333';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--text-muted)';
+                  e.currentTarget.style.color = '#666666';
                 }}
               >
                 {item.label}
@@ -85,22 +85,22 @@ const Navigation: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 style={{
-                  color: isActive(item.path, item.isHome) ? 'var(--text)' : 'var(--text-muted)',
+                  color: isActive(item.path, item.isHome) ? '#000000' : '#666666',
                   textDecoration: 'none',
                   fontSize: '16px',
                   fontWeight: '400',
                   transition: 'color 0.2s ease',
-                  borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--primary)' : '2px solid transparent',
+                  borderBottom: isActive(item.path, item.isHome) ? '2px solid #000000' : '2px solid transparent',
                   paddingBottom: '2px'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive(item.path, item.isHome)) {
-                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.color = '#333333';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive(item.path, item.isHome)) {
-                    e.currentTarget.style.color = 'var(--text-muted)';
+                    e.currentTarget.style.color = '#666666';
                   }
                 }}
               >
