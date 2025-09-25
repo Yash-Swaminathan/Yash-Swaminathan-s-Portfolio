@@ -2,6 +2,7 @@ import React from 'react';
 import ClickButton from '../components/ClickButton';
 import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
+import AnimatedHeading from '../components/AnimatedHeading';
 
 const Me: React.FC = () => {
   return (
@@ -10,36 +11,8 @@ const Me: React.FC = () => {
       backgroundColor: 'var(--bg-primary)',
       paddingTop: '60px' // Account for header
     }}>
-      {/* About Me Heading */}
-      <div style={{ padding: '3rem 2rem 2rem 2rem' }}>
-        <h1 style={{
-          fontSize: '4rem',
-          fontWeight: '700',
-          color: 'var(--text-primary)',
-          textAlign: 'center',
-          marginBottom: '3rem',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif',
-          letterSpacing: '-0.02em',
-          background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          position: 'relative'
-        }}>
-          Me
-          {/* Subtle underline */}
-          <div style={{
-            position: 'absolute',
-            bottom: '-8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '60px',
-            height: '3px',
-            background: 'linear-gradient(90deg, transparent, var(--text-primary), transparent)',
-            borderRadius: '2px'
-          }}></div>
-        </h1>
-      </div>
+      {/* Animated Heading */}
+      <AnimatedHeading />
 
       {/* Main Content Area - Two Column Layout */}
       <div style={{
