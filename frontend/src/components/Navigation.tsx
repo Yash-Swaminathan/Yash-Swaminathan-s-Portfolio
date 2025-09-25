@@ -108,7 +108,7 @@ const Navigation: React.FC = () => {
               </Link>
             )
           ))}
-          <ThemeToggle compact={true} />
+          <ThemeToggle slider={true} />
         </div>
       </nav>
     </header>

@@ -4,9 +4,10 @@ import { useTheme, Theme } from '../contexts/ThemeContext';
 interface ThemeToggleProps {
   className?: string;
   compact?: boolean;
+  slider?: boolean;
 }
 
-const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = false }) => {
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = false, slider = false }) => {
   const { theme, setTheme, toggleTheme } = useTheme();
 
   const themeConfig = {
@@ -21,6 +22,65 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
       ariaLabel: 'Switch to dark theme'
     }
   };
+
+  if (slider) {
+    return (
+      <div
+        className={className}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 12px',
+          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#f5f3f0',
+          borderRadius: '24px',
+          fontSize: '12px',
+          fontWeight: '500',
+          transition: 'all 0.3s ease'
+        }}
+      >
+        <span style={{ color: theme === 'dark' ? '#888' : '#666' }}>DARK</span>
+        <button
+          onClick={toggleTheme}
+          style={{
+            position: 'relative',
+            width: '52px',
+            height: '28px',
+            backgroundColor: theme === 'dark' ? '#666' : '#ddd',
+            borderRadius: '14px',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            outline: 'none'
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.outline = '2px solid var(--ring)';
+            e.currentTarget.style.outlineOffset = '2px';
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.outline = 'none';
+          }}
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+          title={`Current: ${themeConfig[theme].label}. Click to toggle.`}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '2px',
+              left: theme === 'dark' ? '26px' : '2px',
+              width: '24px',
+              height: '24px',
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+            }}
+          />
+        </button>
+        <span style={{ color: theme === 'light' ? '#333' : '#888' }}>LIGHT</span>
+      </div>
+    );
+  }
 
   if (compact) {
     return (
