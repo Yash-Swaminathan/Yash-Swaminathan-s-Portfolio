@@ -4,6 +4,7 @@ import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import SocialIcons from '../components/SocialIcons';
+import Experience from '../components/Experience';
 
 const Me: React.FC = () => {
   return (
@@ -192,6 +193,14 @@ const Me: React.FC = () => {
             <SocialIcons />
           </div>
         </div>
+      </div>
+
+      {/* Experience Section */}
+      <div style={{
+        padding: '2rem',
+        backgroundColor: 'var(--bg-primary)'
+      }}>
+        <Experience />
       </div>
 
       {/* Spotify Widget */}

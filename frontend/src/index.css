@@ -43,10 +43,10 @@
 /* Dark Theme */
 [data-theme="dark"] {
   /* Backgrounds */
-  --bg: #293241;
-  --bg-primary: #293241;
-  --bg-secondary: #3d4b57;
-  --surface: #293241;
+  --bg: #3c3c3d;
+  --bg-primary: #3c3c3d;
+  --bg-secondary: #4a4a4b;
+  --surface: #3c3c3d;
   --surface-elevated: #f9f9f9;
   --surface-hover: #333333;
 
