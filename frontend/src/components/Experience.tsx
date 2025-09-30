@@ -6,7 +6,6 @@ interface ExperienceItem {
   location: string;
   period: string;
   website?: string;
-  highlights: string[];
 }
 
 interface ExperienceProps {
@@ -19,32 +18,19 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       title: "Software Engineer Intern — Backend & DevOps",
       company: "Micromart",
       location: "Toronto, ON",
-      period: "Aug 2025 → Present",
-      highlights: [
-        "Optimized application availability by managing REST APIs in TypeScript, improving uptime from 99.94% → 99.993%",
-        "Integrated New Relic observability tools for middleware, saving 40+ engineering hours per quarter ($8,000+ annually)"
-      ]
+      period: "Aug 2025 → Present"
     },
     {
       title: "Software Developer Intern — Backend & DevOps",
       company: "Turing",
       location: "Calgary, AB",
-      period: "Jan 2025 → Apr 2025",
-      highlights: [
-        "Designed and implemented Alembic Migration scripts for PostgreSQL test databases, reducing manual setup time by 200+ hours",
-        "Developed and approved 10+ RESTful API endpoints (FastAPI) and authored 60+ unit tests to achieve 95% coverage",
-        "Contributed to scaling a full-stack web app to support 5000+ users"
-      ]
+      period: "Jan 2025 → Apr 2025"
     },
     {
       title: "Data Science Intern",
       company: "Gradiant (Synauta)",
       location: "Calgary, AB",
-      period: "Sep 2023 → Jan 2024",
-      highlights: [
-        "Developed a Python-based analytics pipeline to process IoT sensor data, boosting system efficiency by 15–20%",
-        "Designed and deployed a Dockerized Python pipeline automating cartridge filter substitutions, eliminating 90% of manual processes"
-      ]
+      period: "Sep 2023 → Jan 2024"
     }
   ];
 
@@ -53,10 +39,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
     degree: "Systems Design Engineering",
     period: "Present → 2029",
     location: "Waterloo, ON",
-    website: "uwaterloo.ca",
-    achievements: [
-      "President's Scholarship of Distinction"
-    ]
+    website: "uwaterloo.ca"
   };
 
   return (
@@ -133,35 +116,10 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
                 <p style={{
                   fontSize: '0.95rem',
                   color: 'var(--text-muted)',
-                  marginBottom: '1rem'
+                  marginBottom: '0'
                 }}>
                   {exp.period}
                 </p>
-                <ul style={{
-                  listStyle: 'none',
-                  padding: '0',
-                  margin: '0'
-                }}>
-                  {exp.highlights.slice(0, 2).map((highlight, idx) => (
-                    <li key={idx} style={{
-                      fontSize: '0.95rem',
-                      color: 'var(--text)',
-                      marginBottom: '0.75rem',
-                      paddingLeft: '1.2rem',
-                      position: 'relative',
-                      lineHeight: '1.5'
-                    }}>
-                      <span style={{
-                        position: 'absolute',
-                        left: '0',
-                        color: '#4A90E2',
-                        fontWeight: 'bold',
-                        fontSize: '1.2rem'
-                      }}>•</span>
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           ))}
@@ -221,35 +179,10 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
             <p style={{
               fontSize: '0.95rem',
               color: 'var(--text-muted)',
-              marginBottom: '1rem'
+              marginBottom: '0'
             }}>
               {education.period}
             </p>
-            <ul style={{
-              listStyle: 'none',
-              padding: '0',
-              margin: '0'
-            }}>
-              {education.achievements.map((achievement, idx) => (
-                <li key={idx} style={{
-                  fontSize: '0.95rem',
-                  color: 'var(--text)',
-                  marginBottom: '0.75rem',
-                  paddingLeft: '1.2rem',
-                  position: 'relative',
-                  lineHeight: '1.5'
-                }}>
-                  <span style={{
-                    position: 'absolute',
-                    left: '0',
-                    color: '#4A90E2',
-                    fontWeight: 'bold',
-                    fontSize: '1.2rem'
-                  }}>•</span>
-                  {achievement}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
