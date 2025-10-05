@@ -84,12 +84,11 @@ const Me: React.FC = () => {
                   I'm currently based in <span style={{
                     textDecoration: 'underline',
                     textDecorationColor: 'var(--text-primary)',
-                    fontWeight: '500',
                     color: 'var(--text-primary)'
                   }}>Toronto</span>.
                 </p>
                 <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                  I've been alive for{' '}
+                  I am{' '}
                   <span
                     style={{
                       textDecoration: 'underline',
@@ -99,9 +98,9 @@ const Me: React.FC = () => {
                       cursor: 'help',
                       position: 'relative'
                     }}
-                    title={`${ageInYears} years old`}
+                    title={`${ageInDays.toLocaleString()} days old`}
                   >
-                    {ageInDays.toLocaleString()} days
+                    {ageInYears} years old
                   </span>.
                 </p>
               </div>
