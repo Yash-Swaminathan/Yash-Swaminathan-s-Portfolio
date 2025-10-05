@@ -76,7 +76,7 @@ const Me: React.FC = () => {
               color: 'var(--text-primary)',
               fontSize: '18px',
               lineHeight: '2',
-              fontFamily: '"Courier New", Courier, monospace',
+              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
               fontWeight: '400'
             }}>
               <div style={{ marginBottom: '2rem' }}>
@@ -149,20 +149,6 @@ const Me: React.FC = () => {
                   working out, listening to music, or watching basketball.
                 </p>
               </div>
-
-              <p style={{
-                margin: '0',
-                fontSize: '16px',
-                color: 'var(--text-muted)',
-                fontStyle: 'italic',
-                textAlign: 'center',
-                marginTop: '2rem',
-                paddingTop: '1.5rem',
-                borderTop: '1px solid var(--border-default)',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-              }}>
-                If you'd like to learn more about me, I'd love to chat. Feel free to reach out through email or LinkedIn.
-              </p>
             </div>
           </div>
         </div>
