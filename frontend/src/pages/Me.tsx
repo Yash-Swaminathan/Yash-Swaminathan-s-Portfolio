@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ClickButton from '../components/ClickButton';
 import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
@@ -7,6 +7,27 @@ import SocialIcons from '../components/SocialIcons';
 import Experience from '../components/Experience';
 
 const Me: React.FC = () => {
+  const [ageInDays, setAgeInDays] = useState(0);
+  const [ageInYears, setAgeInYears] = useState(0);
+
+  useEffect(() => {
+    const calculateAge = () => {
+      const birthDate = new Date('2006-04-21');
+      const today = new Date();
+      const diffTime = Math.abs(today.getTime() - birthDate.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+
+      setAgeInDays(diffDays);
+      setAgeInYears(parseFloat(diffYears.toFixed(1)));
+    };
+
+    calculateAge();
+    // Update daily
+    const interval = setInterval(calculateAge, 1000 * 60 * 60 * 24);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -16,20 +37,16 @@ const Me: React.FC = () => {
       {/* Animated Heading */}
       <AnimatedHeading />
 
-      {/* Main Content Area - Two Column Layout */}
+      {/* Main Content Area - Full Width */}
       <div style={{
         padding: '0 2rem 1rem 2rem',
-        display: 'flex',
-        gap: '2rem',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap'
+        maxWidth: '1200px',
+        margin: '0 auto'
       }}>
-        {/* Left Column - Personal Introduction */}
+        {/* Personal Introduction - Full Width */}
         <div style={{
-          flex: '1',
-          minWidth: '400px',
-          maxWidth: '700px',
-          marginLeft: '2rem'
+          marginLeft: '2rem',
+          marginBottom: '2rem'
         }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
@@ -58,45 +75,91 @@ const Me: React.FC = () => {
               zIndex: 1,
               color: 'var(--text-primary)',
               fontSize: '18px',
-              lineHeight: '1.8',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif',
+              lineHeight: '2',
+              fontFamily: '"Courier New", Courier, monospace',
               fontWeight: '400'
             }}>
-              <p style={{
-                marginBottom: '1.8rem',
-                fontSize: '20px',
-                fontWeight: '500',
-                color: 'var(--text-primary)'
-              }}>
-                Hi, I'm <span style={{ fontWeight: '600', color: 'var(--text-primary)' }}>Yash</span>, a Systems Design Engineering student and aspiring Software Engineer.
-              </p>
+              <div style={{ marginBottom: '2rem' }}>
+                <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                  I'm currently based in <span style={{
+                    textDecoration: 'underline',
+                    textDecorationColor: 'var(--text-primary)',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)'
+                  }}>Toronto</span>.
+                </p>
+                <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                  I've been alive for{' '}
+                  <span
+                    style={{
+                      textDecoration: 'underline',
+                      textDecorationColor: 'var(--text-primary)',
+                      fontWeight: '500',
+                      color: 'var(--text-primary)',
+                      cursor: 'help',
+                      position: 'relative'
+                    }}
+                    title={`${ageInYears} years old`}
+                  >
+                    {ageInDays.toLocaleString()} days
+                  </span>.
+                </p>
+              </div>
 
-              <p style={{
-                marginBottom: '1.8rem',
+              <div style={{
+                marginBottom: '2rem'
+              }}>
+                <p style={{
+                  margin: '0.3rem 0',
+                  fontSize: '17px',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span style={{ marginRight: '0.5rem' }}>›</span>
+                  studying Systems Design Engineering at{' '}
+                  <span style={{
+                    fontWeight: '500',
+                    color: 'var(--text-primary)'
+                  }}>University of Waterloo</span>
+                </p>
+                <p style={{
+                  margin: '0.3rem 0',
+                  fontSize: '17px',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span style={{ marginRight: '0.5rem' }}>›</span>
+                  interested in backend engineering, DevOps, and building scalable systems
+                </p>
+                <p style={{
+                  margin: '0.3rem 0',
+                  fontSize: '17px',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span style={{ marginRight: '0.5rem' }}>›</span>
+                  passionate about stocks and momentum trading
+                </p>
+              </div>
+
+              <div style={{
+                marginBottom: '1.5rem',
+                fontSize: '17px',
                 color: 'var(--text-secondary)'
               }}>
-                When I'm not coding, you'll probably find me gaming <em>(Call of Duty, Fortnite, and of course Clash Royale)</em>,
-                working out, listening to music, or watching basketball.
-              </p>
-
-              <p style={{
-                marginBottom: '1.8rem',
-                color: 'var(--text-secondary)'
-              }}>
-                Right now, I'm navigating adulthood in <span style={{ fontWeight: '500' }}>Toronto</span>, living on my own, learning how to cook, and working toward
-                becoming the best engineer I can be. My interests are in <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>backend and DevOps engineering</span>, where I love building
-                features and scaling systems so they can handle real-world usage at scale.
-              </p>
+                <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
+                  When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
+                  working out, listening to music, or watching basketball.
+                </p>
+              </div>
 
               <p style={{
                 margin: '0',
-                fontSize: '17px',
+                fontSize: '16px',
                 color: 'var(--text-muted)',
                 fontStyle: 'italic',
                 textAlign: 'center',
                 marginTop: '2rem',
                 paddingTop: '1.5rem',
-                borderTop: '1px solid var(--border-default)'
+                borderTop: '1px solid var(--border-default)',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
               }}>
                 If you'd like to learn more about me, I'd love to chat. Feel free to reach out through email or LinkedIn.
               </p>
@@ -104,12 +167,11 @@ const Me: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column - Map */}
+        {/* Map Section */}
         <div style={{
-          flex: '0 0 320px',
+          marginLeft: '2rem',
           display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
+          justifyContent: 'flex-start'
         }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
@@ -119,7 +181,8 @@ const Me: React.FC = () => {
             border: '1px solid var(--border-default)',
             textAlign: 'center',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            width: 'fit-content'
           }}>
             {/* Subtle glow effect */}
             <div style={{
