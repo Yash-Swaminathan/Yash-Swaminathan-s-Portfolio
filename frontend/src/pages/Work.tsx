@@ -12,7 +12,7 @@ const Work: React.FC = () => {
       {/* Main Content - Projects on left, Experience on right */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '2fr 1fr',
+        gridTemplateColumns: '1fr 350px',
         gap: '3rem',
         padding: '2rem',
         maxWidth: '1400px',

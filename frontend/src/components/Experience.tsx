@@ -55,7 +55,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
     <div className={className} style={{
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '2rem',
+      padding: '0',
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       {/* Experience Section */}
