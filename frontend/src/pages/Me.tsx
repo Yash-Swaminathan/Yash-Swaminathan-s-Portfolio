@@ -9,6 +9,12 @@ import Experience from '../components/Experience';
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
   const [ageInYears, setAgeInYears] = useState(0);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
+  const photos = [
+    '/photos/IMG_0827.JPG',
+    '/photos/IMG_9450.jpg'
+  ];
 
   useEffect(() => {
     const calculateAge = () => {
@@ -26,6 +32,14 @@ const Me: React.FC = () => {
     // Update daily
     const interval = setInterval(calculateAge, 1000 * 60 * 60 * 24);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Rotate photos every 3 seconds
+    const photoInterval = setInterval(() => {
+      setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    }, 3000);
+    return () => clearInterval(photoInterval);
   }, []);
 
   return (
@@ -73,80 +87,157 @@ const Me: React.FC = () => {
             <div style={{
               position: 'relative',
               zIndex: 1,
-              color: 'var(--text-primary)',
-              fontSize: '18px',
-              lineHeight: '2',
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              fontWeight: '400'
+              display: 'flex',
+              gap: '2rem',
+              alignItems: 'flex-start'
             }}>
-              <div style={{ marginBottom: '2rem' }}>
-                <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                  I'm currently based in <span style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: 'var(--text-primary)',
-                    color: 'var(--text-primary)'
-                  }}>Toronto</span>.
-                </p>
-                <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                  I am{' '}
-                  <span
+              {/* Photo Carousel */}
+              <div style={{
+                flexShrink: 0,
+                width: '200px',
+                height: '280px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                position: 'relative'
+              }}>
+                {photos.map((photo, index) => (
+                  <img
+                    key={photo}
+                    src={photo}
+                    alt={`Yash photo ${index + 1}`}
                     style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      opacity: currentPhotoIndex === index ? 1 : 0,
+                      transition: 'opacity 1s ease-in-out'
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Text Content */}
+              <div style={{
+                flex: 1,
+                color: 'var(--text-primary)',
+                fontSize: '18px',
+                lineHeight: '2',
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                fontWeight: '400'
+              }}>
+                <div style={{ marginBottom: '2rem' }}>
+                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                    I'm currently based in <span style={{
+                      textDecoration: 'underline',
+                      textDecorationColor: 'var(--text-primary)',
+                      color: 'var(--text-primary)'
+                    }}>Toronto</span>.
+                  </p>
+                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                    I am{' '}
+                    <span
+                      style={{
+                        textDecoration: 'underline',
+                        textDecorationColor: 'var(--text-primary)',
+                        fontWeight: '500',
+                        color: 'var(--text-primary)',
+                        cursor: 'help',
+                        position: 'relative'
+                      }}
+                      title={`${ageInDays.toLocaleString()} days old`}
+                    >
+                      {ageInYears} years old
+                    </span>.
+                  </p>
+                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                    I've visited{' '}
+                    <span style={{
                       textDecoration: 'underline',
                       textDecorationColor: 'var(--text-primary)',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      cursor: 'help',
-                      position: 'relative'
-                    }}
-                    title={`${ageInDays.toLocaleString()} days old`}
-                  >
-                    {ageInYears} years old
-                  </span>.
-                </p>
-              </div>
+                      color: 'var(--text-primary)'
+                    }}>25 countries</span>{' '}
+                    so far!
+                  </p>
+                </div>
 
-              <div style={{
-                marginBottom: '2rem'
-              }}>
-                <p style={{
-                  margin: '0.3rem 0',
-                  fontSize: '17px',
-                  color: 'var(--text-secondary)'
+                <div style={{
+                  marginBottom: '2rem'
                 }}>
-                  <span style={{ marginRight: '0.5rem' }}>›</span>
-                  studying Systems Design Engineering at{' '}
-                  <span style={{
-                    fontWeight: '500',
-                    color: 'var(--text-primary)'
-                  }}>University of Waterloo</span>
-                </p>
-                <p style={{
-                  margin: '0.3rem 0',
-                  fontSize: '17px',
-                  color: 'var(--text-secondary)'
-                }}>
-                  <span style={{ marginRight: '0.5rem' }}>›</span>
-                  interested in backend engineering, DevOps, and building scalable systems
-                </p>
-                <p style={{
-                  margin: '0.3rem 0',
-                  fontSize: '17px',
-                  color: 'var(--text-secondary)'
-                }}>
-                  <span style={{ marginRight: '0.5rem' }}>›</span>
-                  passionate about stocks and momentum trading
-                </p>
-              </div>
+                  <p style={{
+                    margin: '0.3rem 0',
+                    fontSize: '17px',
+                    color: 'var(--text-secondary)'
+                  }}>
+                    <span style={{ marginRight: '0.5rem' }}>›</span>
+                    2A student studying Systems Design Engineering at{' '}
+                    <span style={{
+                      fontWeight: '500',
+                      color: 'var(--text-primary)'
+                    }}>University of Waterloo</span>
+                  </p>
+                  <p style={{
+                    margin: '0.3rem 0',
+                    fontSize: '17px',
+                    color: 'var(--text-secondary)'
+                  }}>
+                    <span style={{ marginRight: '0.5rem' }}>›</span>
+                    working at{' '}
+                    <a
+                      href="https://www.micromart.com/smart-store"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontWeight: '500',
+                        color: 'var(--text-primary)',
+                        textDecoration: 'underline',
+                        textDecorationColor: 'var(--text-primary)'
+                      }}
+                    >
+                      Micromart
+                    </a>
+                    {' '}as a Software Engineer
+                  </p>
+                  <p style={{
+                    margin: '0.3rem 0',
+                    fontSize: '17px',
+                    color: 'var(--text-secondary)'
+                  }}>
+                    <span style={{ marginRight: '0.5rem' }}>›</span>
+                    focused on scalability and reliability using FastAPI
+                  </p>
+                  <p style={{
+                    margin: '0.3rem 0',
+                    fontSize: '17px',
+                    color: 'var(--text-secondary)'
+                  }}>
+                    <span style={{ marginRight: '0.5rem' }}>›</span>
+                    actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
+                  </p>
+                  <p style={{
+                    margin: '0.3rem 0',
+                    fontSize: '17px',
+                    color: 'var(--text-secondary)'
+                  }}>
+                    <span style={{ marginRight: '0.5rem' }}>›</span>
+                    aspiring to get my CFA and start my own company
+                  </p>
+                </div>
 
-              <div style={{
-                marginBottom: '1.5rem',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
-                  When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
-                  working out, listening to music, or watching basketball.
-                </p>
+                <div style={{
+                  marginBottom: '1.5rem',
+                  fontSize: '17px',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
+                    When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
+                    working out, listening to music, or watching basketball.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
