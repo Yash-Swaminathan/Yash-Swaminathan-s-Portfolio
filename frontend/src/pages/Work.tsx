@@ -7,23 +7,8 @@ const Work: React.FC = () => {
     <div style={{
       minHeight: '100vh',
       backgroundColor: 'var(--bg-primary)',
-      paddingTop: '60px'
+      paddingTop: '80px'
     }}>
-      {/* Work Heading */}
-      <div style={{ padding: '3rem 2rem 2rem 2rem' }}>
-        <h1 style={{
-          fontSize: '4rem',
-          fontWeight: '700',
-          color: 'var(--text-primary)',
-          textAlign: 'center',
-          marginBottom: '3rem',
-          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          letterSpacing: '-0.02em'
-        }}>
-          Work
-        </h1>
-      </div>
-
       {/* Experience Section */}
       <div style={{
         padding: '2rem',
