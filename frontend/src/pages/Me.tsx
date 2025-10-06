@@ -4,7 +4,7 @@ import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import SocialIcons from '../components/SocialIcons';
-import ProjectsSection from '../components/ProjectsSection';
+import Experience from '../components/Experience';
 
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
@@ -291,12 +291,12 @@ const Me: React.FC = () => {
         </div>
       </div>
 
-      {/* Projects Section */}
+      {/* Experience Section */}
       <div style={{
-        padding: '2rem',
+        padding: '2rem 2rem 2rem 4rem',
         backgroundColor: 'var(--bg-primary)'
       }}>
-        <ProjectsSection />
+        <Experience />
       </div>
 
       {/* Spotify Widget */}
