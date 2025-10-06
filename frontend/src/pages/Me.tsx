@@ -13,7 +13,16 @@ const Me: React.FC = () => {
 
   const photos = [
     '/photos/IMG_0827.JPG',
-    '/photos/IMG_9450.jpg'
+    '/photos/IMG_9450.jpg',
+    '/photos/IMG_0387.jpg',
+    '/photos/IMG_1900.jpg',
+    '/photos/IMG_2261.JPG',
+    '/photos/IMG_2314.jpg',
+    '/photos/IMG_2510.JPG',
+    '/photos/IMG_9764.JPG',
+    '/photos/IMG_9795.jpg',
+    '/photos/IMG_9799.jpg',
+    '/photos/IMG_9819.jpg'
   ];
 
   useEffect(() => {
@@ -57,189 +66,169 @@ const Me: React.FC = () => {
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
-        {/* Personal Introduction - Full Width */}
+        {/* Personal Introduction - No Box */}
         <div style={{
           marginLeft: '2rem',
           marginBottom: '2rem'
         }}>
           <div style={{
-            backgroundColor: 'var(--bg-secondary)',
-            padding: '3rem',
-            borderRadius: '20px',
-            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-            border: '1px solid var(--border-default)',
-            backdropFilter: 'blur(10px)',
-            position: 'relative',
-            overflow: 'hidden'
+            color: 'var(--text-primary)',
+            fontSize: '18px',
+            lineHeight: '2',
+            fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+            fontWeight: '400'
           }}>
-            {/* Subtle background pattern */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              opacity: 0.02,
-              backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%)',
-              pointerEvents: 'none'
-            }}></div>
-
-            <div style={{
-              position: 'relative',
-              zIndex: 1,
-              display: 'flex',
-              gap: '2rem',
-              alignItems: 'flex-start'
-            }}>
-              {/* Photo Carousel */}
-              <div style={{
-                flexShrink: 0,
-                width: '200px',
-                height: '280px',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
-                position: 'relative'
-              }}>
-                {photos.map((photo, index) => (
-                  <img
-                    key={photo}
-                    src={photo}
-                    alt={`Yash photo ${index + 1}`}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      opacity: currentPhotoIndex === index ? 1 : 0,
-                      transition: 'opacity 1s ease-in-out'
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Text Content */}
-              <div style={{
-                flex: 1,
-                color: 'var(--text-primary)',
-                fontSize: '18px',
-                lineHeight: '2',
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: '400'
-              }}>
-                <div style={{ marginBottom: '2rem' }}>
-                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                    I'm currently based in <span style={{
-                      textDecoration: 'underline',
-                      textDecorationColor: 'var(--text-primary)',
-                      color: 'var(--text-primary)'
-                    }}>Toronto</span>.
-                  </p>
-                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                    I am{' '}
-                    <span
-                      style={{
-                        textDecoration: 'underline',
-                        textDecorationColor: 'var(--text-primary)',
-                        fontWeight: '500',
-                        color: 'var(--text-primary)',
-                        cursor: 'help',
-                        position: 'relative'
-                      }}
-                      title={`${ageInDays.toLocaleString()} days old`}
-                    >
-                      {ageInYears} years old
-                    </span>.
-                  </p>
-                  <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                    I've visited{' '}
-                    <span style={{
-                      textDecoration: 'underline',
-                      textDecorationColor: 'var(--text-primary)',
-                      fontWeight: '500',
-                      color: 'var(--text-primary)'
-                    }}>25 countries</span>{' '}
-                    so far!
-                  </p>
-                </div>
-
-                <div style={{
-                  marginBottom: '2rem'
-                }}>
-                  <p style={{
-                    margin: '0.3rem 0',
-                    fontSize: '17px',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <span style={{ marginRight: '0.5rem' }}>›</span>
-                    2A student studying Systems Design Engineering at{' '}
-                    <span style={{
-                      fontWeight: '500',
-                      color: 'var(--text-primary)'
-                    }}>University of Waterloo</span>
-                  </p>
-                  <p style={{
-                    margin: '0.3rem 0',
-                    fontSize: '17px',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <span style={{ marginRight: '0.5rem' }}>›</span>
-                    working at{' '}
-                    <a
-                      href="https://www.micromart.com/smart-store"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontWeight: '500',
-                        color: 'var(--text-primary)',
-                        textDecoration: 'underline',
-                        textDecorationColor: 'var(--text-primary)'
-                      }}
-                    >
-                      Micromart
-                    </a>
-                    {' '}as a Software Engineer
-                  </p>
-                  <p style={{
-                    margin: '0.3rem 0',
-                    fontSize: '17px',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <span style={{ marginRight: '0.5rem' }}>›</span>
-                    focused on scalability and reliability using FastAPI
-                  </p>
-                  <p style={{
-                    margin: '0.3rem 0',
-                    fontSize: '17px',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <span style={{ marginRight: '0.5rem' }}>›</span>
-                    actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
-                  </p>
-                  <p style={{
-                    margin: '0.3rem 0',
-                    fontSize: '17px',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <span style={{ marginRight: '0.5rem' }}>›</span>
-                    aspiring to get my CFA and start my own company
-                  </p>
-                </div>
-
-                <div style={{
-                  marginBottom: '1.5rem',
-                  fontSize: '17px',
-                  color: 'var(--text-secondary)'
-                }}>
-                  <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
-                    When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
-                    working out, listening to music, or watching basketball.
-                  </p>
-                </div>
-              </div>
+            <div style={{ marginBottom: '2rem' }}>
+              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                I'm currently based in <span style={{
+                  textDecoration: 'underline',
+                  textDecorationColor: 'var(--text-primary)',
+                  color: 'var(--text-primary)'
+                }}>Toronto</span>.
+              </p>
+              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                I am{' '}
+                <span
+                  style={{
+                    textDecoration: 'underline',
+                    textDecorationColor: 'var(--text-primary)',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    cursor: 'help',
+                    position: 'relative'
+                  }}
+                  title={`${ageInDays.toLocaleString()} days old`}
+                >
+                  {ageInYears} years old
+                </span>.
+              </p>
+              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+                I've visited{' '}
+                <span style={{
+                  textDecoration: 'underline',
+                  textDecorationColor: 'var(--text-primary)',
+                  fontWeight: '500',
+                  color: 'var(--text-primary)'
+                }}>25 countries</span>{' '}
+                so far!
+              </p>
             </div>
+
+            <div style={{ marginBottom: '3rem' }}>
+              <h2 style={{
+                fontSize: '24px',
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '1.5rem',
+                letterSpacing: '0.5px'
+              }}>
+                I'm currently...
+              </h2>
+              <p style={{
+                margin: '0.3rem 0',
+                fontSize: '17px',
+                color: 'var(--text-secondary)'
+              }}>
+                <span style={{ marginRight: '0.5rem' }}>›</span>
+                2A student studying Systems Design Engineering at{' '}
+                <span style={{
+                  fontWeight: '500',
+                  color: 'var(--text-primary)'
+                }}>University of Waterloo</span>
+              </p>
+              <p style={{
+                margin: '0.3rem 0',
+                fontSize: '17px',
+                color: 'var(--text-secondary)'
+              }}>
+                <span style={{ marginRight: '0.5rem' }}>›</span>
+                working at{' '}
+                <a
+                  href="https://www.micromart.com/smart-store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    textDecoration: 'underline',
+                    textDecorationColor: 'var(--text-primary)'
+                  }}
+                >
+                  Micromart
+                </a>
+                {' '}as a Software Engineer
+              </p>
+              <p style={{
+                margin: '0.3rem 0',
+                fontSize: '17px',
+                color: 'var(--text-secondary)'
+              }}>
+                <span style={{ marginRight: '0.5rem' }}>›</span>
+                focused on scalability and reliability using FastAPI
+              </p>
+              <p style={{
+                margin: '0.3rem 0',
+                fontSize: '17px',
+                color: 'var(--text-secondary)'
+              }}>
+                <span style={{ marginRight: '0.5rem' }}>›</span>
+                actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
+              </p>
+              <p style={{
+                margin: '0.3rem 0',
+                fontSize: '17px',
+                color: 'var(--text-secondary)'
+              }}>
+                <span style={{ marginRight: '0.5rem' }}>›</span>
+                aspiring to get my CFA and start my own company
+              </p>
+            </div>
+
+            <div style={{
+              marginBottom: '3rem',
+              fontSize: '17px',
+              color: 'var(--text-secondary)'
+            }}>
+              <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
+                When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
+                working out, listening to music, or watching basketball.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Photo Carousel - Below text */}
+        <div style={{
+          marginLeft: '2rem',
+          marginBottom: '3rem',
+          display: 'flex',
+          justifyContent: 'flex-start'
+        }}>
+          <div style={{
+            width: '400px',
+            height: '500px',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+            position: 'relative'
+          }}>
+            {photos.map((photo, index) => (
+              <img
+                key={photo}
+                src={photo}
+                alt={`Yash ${index + 1}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  opacity: currentPhotoIndex === index ? 1 : 0,
+                  transition: 'opacity 1s ease-in-out'
+                }}
+              />
+            ))}
           </div>
         </div>
 
