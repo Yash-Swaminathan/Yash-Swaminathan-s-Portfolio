@@ -10,19 +10,19 @@ const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
   const [ageInYears, setAgeInYears] = useState(0);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [isManualScroll, setIsManualScroll] = useState(false);
 
   const photos = [
-    '/photos/IMG_0827.JPG',
-    '/photos/IMG_9450.jpg',
-    '/photos/IMG_0387.jpg',
-    '/photos/IMG_1900.jpg',
-    '/photos/IMG_2261.JPG',
-    '/photos/IMG_2314.jpg',
-    '/photos/IMG_2510.JPG',
-    '/photos/IMG_9764.JPG',
-    '/photos/IMG_9795.jpg',
-    '/photos/IMG_9799.jpg',
-    '/photos/IMG_9819.jpg'
+    { src: '/photos/IMG_0387.jpg', caption: 'High School Graduation with Friends' },
+    { src: '/photos/IMG_0827.JPG', caption: 'Vietnam' },
+    { src: '/photos/9A57B475-2A9D-42D8-A60E-4D850C06B0A0.JPG', caption: 'Vietnam' },
+    { src: '/photos/IMG_1900.jpg', caption: 'Me and My Girlfriend' },
+    { src: '/photos/IMG_2510.JPG', caption: 'Me and My Girlfriend' },
+    { src: '/photos/IMG_2261.JPG', caption: 'Grade 6 Me' },
+    { src: '/photos/IMG_2314.jpg', caption: 'Rafting with Classmates' },
+    { src: '/photos/IMG_9450.jpg', caption: 'Me Playing Basketball' },
+    { src: '/photos/IMG_9764.JPG', caption: 'Shibuya, Japan' },
+    { src: '/photos/IMG_9795.jpg', caption: 'Tokyo, Japan' }
   ];
 
   useEffect(() => {
@@ -158,35 +158,149 @@ const Me: React.FC = () => {
         {/* Photo Carousel - Below text */}
         <div style={{
           marginLeft: '2rem',
-          marginBottom: '3rem',
-          display: 'flex',
-          justifyContent: 'flex-start'
+          marginBottom: '3rem'
         }}>
           <div style={{
-            width: '400px',
-            height: '500px',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
-            position: 'relative'
+            position: 'relative',
+            width: '400px'
           }}>
-            {photos.map((photo, index) => (
-              <img
-                key={photo}
-                src={photo}
-                alt={`Yash ${index + 1}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  opacity: currentPhotoIndex === index ? 1 : 0,
-                  transition: 'opacity 1s ease-in-out'
-                }}
-              />
-            ))}
+            {/* Photo Container */}
+            <div
+              style={{
+                width: '400px',
+                height: '500px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                position: 'relative',
+                cursor: 'grab',
+                userSelect: 'none'
+              }}
+              onMouseDown={(e) => {
+                const startX = e.clientX;
+                const startIndex = currentPhotoIndex;
+                const containerElement = e.currentTarget as HTMLElement;
+                let isDragging = false;
+
+                const handleMouseMove = (moveEvent: MouseEvent) => {
+                  const diff = moveEvent.clientX - startX;
+                  if (Math.abs(diff) > 5) {
+                    isDragging = true;
+                    containerElement.style.cursor = 'grabbing';
+                  }
+                };
+
+                const handleMouseUp = (upEvent: MouseEvent) => {
+                  const diff = upEvent.clientX - startX;
+
+                  if (isDragging && Math.abs(diff) > 50) {
+                    setIsManualScroll(true);
+                    if (diff > 0 && startIndex > 0) {
+                      setCurrentPhotoIndex(startIndex - 1);
+                    } else if (diff < 0 && startIndex < photos.length - 1) {
+                      setCurrentPhotoIndex(startIndex + 1);
+                    }
+                    setTimeout(() => setIsManualScroll(false), 600);
+                  }
+
+                  containerElement.style.cursor = 'grab';
+                  document.removeEventListener('mousemove', handleMouseMove);
+                  document.removeEventListener('mouseup', handleMouseUp);
+                };
+
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', handleMouseUp);
+              }}
+              onTouchStart={(e) => {
+                const startX = e.touches[0].clientX;
+                const startIndex = currentPhotoIndex;
+
+                const handleTouchMove = (moveEvent: TouchEvent) => {
+                  // Track movement
+                };
+
+                const handleTouchEnd = (endEvent: TouchEvent) => {
+                  const diff = endEvent.changedTouches[0].clientX - startX;
+
+                  if (Math.abs(diff) > 50) {
+                    setIsManualScroll(true);
+                    if (diff > 0 && startIndex > 0) {
+                      setCurrentPhotoIndex(startIndex - 1);
+                    } else if (diff < 0 && startIndex < photos.length - 1) {
+                      setCurrentPhotoIndex(startIndex + 1);
+                    }
+                    setTimeout(() => setIsManualScroll(false), 600);
+                  }
+
+                  document.removeEventListener('touchmove', handleTouchMove);
+                  document.removeEventListener('touchend', handleTouchEnd);
+                };
+
+                document.addEventListener('touchmove', handleTouchMove);
+                document.addEventListener('touchend', handleTouchEnd);
+              }}
+            >
+              {photos.map((photo, index) => (
+                <div
+                  key={photo.src}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: isManualScroll ? `${(index - currentPhotoIndex) * 100}%` : 0,
+                    width: '100%',
+                    height: '100%',
+                    transition: isManualScroll ? 'left 0.5s ease-out' : 'opacity 1s ease-in-out',
+                    opacity: currentPhotoIndex === index ? 1 : 0,
+                    pointerEvents: currentPhotoIndex === index ? 'auto' : 'none'
+                  }}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.caption}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      userSelect: 'none'
+                    }}
+                    draggable={false}
+                  />
+                  {/* Caption Overlay with Dots */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                    padding: '2rem 1rem 1rem 1rem',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}>
+                    <div style={{ marginBottom: '0.5rem' }}>{photo.caption}</div>
+                    {/* Navigation Dots */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '8px'
+                    }}>
+                      {photos.map((_, dotIndex) => (
+                        <div
+                          key={dotIndex}
+                          style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            backgroundColor: currentPhotoIndex === dotIndex ? 'white' : 'rgba(255,255,255,0.4)',
+                            transition: 'background-color 0.3s ease'
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
