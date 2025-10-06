@@ -8,7 +8,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { path: '/', label: 'Me', pageIndicator: '/me', isHome: true, isExternal: false },
     { path: '/Yash_Swaminathan_Resume.pdf', label: 'Resume', pageIndicator: '/resume', isHome: false, isExternal: true },
-    { path: '/projects', label: 'Projects', pageIndicator: '/projects', isHome: false, isExternal: false },
+    { path: '/work', label: 'Work', pageIndicator: '/work', isHome: false, isExternal: false },
   ];
 
   const getCurrentPage = () => {

@@ -5,6 +5,7 @@ import { MapProvider } from './contexts/MapContext';
 import Navigation from './components/Navigation';
 // Map is now embedded in individual pages
 import Me from './pages/Me';
+import Work from './pages/Work';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 
@@ -17,6 +18,7 @@ function App() {
             <Navigation />
             <Routes>
               <Route path="/" element={<Me />} />
+              <Route path="/work" element={<Work />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:slug" element={<ProjectDetail />} />
             </Routes>

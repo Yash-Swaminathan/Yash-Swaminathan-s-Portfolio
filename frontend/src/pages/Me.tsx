@@ -4,7 +4,7 @@ import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import SocialIcons from '../components/SocialIcons';
-import Experience from '../components/Experience';
+import ProjectsSection from '../components/ProjectsSection';
 
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
@@ -78,122 +78,80 @@ const Me: React.FC = () => {
             fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             fontWeight: '400'
           }}>
-            <div style={{ marginBottom: '2rem' }}>
-              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                I'm currently based in <span style={{
-                  textDecoration: 'underline',
-                  textDecorationColor: 'var(--text-primary)',
-                  color: 'var(--text-primary)'
-                }}>Toronto</span>.
-              </p>
-              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                I am{' '}
-                <span
-                  style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: 'var(--text-primary)',
-                    fontWeight: '500',
-                    color: 'var(--text-primary)',
-                    cursor: 'help',
-                    position: 'relative'
-                  }}
-                  title={`${ageInDays.toLocaleString()} days old`}
-                >
-                  {ageInYears} years old
-                </span>.
-              </p>
-              <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-                I've visited{' '}
-                <span style={{
+            <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              I am{' '}
+              <span
+                style={{
                   textDecoration: 'underline',
                   textDecorationColor: 'var(--text-primary)',
                   fontWeight: '500',
-                  color: 'var(--text-primary)'
-                }}>25 countries</span>{' '}
-                so far!
-              </p>
-            </div>
+                  color: 'var(--text-primary)',
+                  cursor: 'help'
+                }}
+                title={`${ageInDays.toLocaleString()} days old`}
+              >
+                {ageInYears} years old
+              </span>.
+            </p>
+            <p style={{ margin: '0.5rem 0 2rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              I've visited{' '}
+              <span style={{
+                textDecoration: 'underline',
+                textDecorationColor: 'var(--text-primary)',
+                fontWeight: '500',
+                color: 'var(--text-primary)'
+              }}>25 countries</span>{' '}
+              so far!
+            </p>
 
-            <div style={{ marginBottom: '3rem' }}>
-              <h2 style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'var(--text-primary)',
-                marginBottom: '1.5rem',
-                letterSpacing: '0.5px'
-              }}>
-                I'm currently...
-              </h2>
-              <p style={{
-                margin: '0.3rem 0',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <span style={{ marginRight: '0.5rem' }}>›</span>
-                2A student studying Systems Design Engineering at{' '}
-                <span style={{
-                  fontWeight: '500',
-                  color: 'var(--text-primary)'
-                }}>University of Waterloo</span>
-              </p>
-              <p style={{
-                margin: '0.3rem 0',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <span style={{ marginRight: '0.5rem' }}>›</span>
-                working at{' '}
-                <a
-                  href="https://www.micromart.com/smart-store"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontWeight: '500',
-                    color: 'var(--text-primary)',
-                    textDecoration: 'underline',
-                    textDecorationColor: 'var(--text-primary)'
-                  }}
-                >
-                  Micromart
-                </a>
-                {' '}as a Software Engineer
-              </p>
-              <p style={{
-                margin: '0.3rem 0',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <span style={{ marginRight: '0.5rem' }}>›</span>
-                focused on scalability and reliability using FastAPI
-              </p>
-              <p style={{
-                margin: '0.3rem 0',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <span style={{ marginRight: '0.5rem' }}>›</span>
-                actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
-              </p>
-              <p style={{
-                margin: '0.3rem 0',
-                fontSize: '17px',
-                color: 'var(--text-secondary)'
-              }}>
-                <span style={{ marginRight: '0.5rem' }}>›</span>
-                aspiring to get my CFA and start my own company
-              </p>
-            </div>
-
-            <div style={{
-              marginBottom: '3rem',
-              fontSize: '17px',
-              color: 'var(--text-secondary)'
+            <h2 style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              color: 'var(--text-primary)',
+              marginBottom: '1.5rem',
+              letterSpacing: '0.5px'
             }}>
-              <p style={{ margin: '0.5rem 0', lineHeight: '1.8' }}>
-                When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>,
-                working out, listening to music, or watching basketball.
-              </p>
-            </div>
+              I'm currently...
+            </h2>
+
+            <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              2A student studying Systems Design Engineering at{' '}
+              <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>University of Waterloo</span>
+            </p>
+            <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              working at{' '}
+              <a
+                href="https://www.micromart.com/smart-store"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontWeight: '500',
+                  color: 'var(--text-primary)',
+                  textDecoration: 'underline'
+                }}
+              >
+                Micromart
+              </a>
+              {' '}as a Software Engineer
+            </p>
+            <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              focused on scalability and reliability using FastAPI
+            </p>
+            <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
+            </p>
+            <p style={{ margin: '0.3rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              aspiring to be a 10x engineer, get my CFA, and start my own company
+            </p>
+
+            <p style={{ margin: '0.5rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+              When I'm not coding, you'll find me gaming <em>(Call of Duty, Fortnite, Clash Royale)</em>, working out, listening to music, or watching basketball.
+            </p>
           </div>
         </div>
 
@@ -262,15 +220,25 @@ const Me: React.FC = () => {
 
             <h3 style={{
               color: 'var(--text-primary)',
-              marginBottom: '1rem',
+              marginBottom: '0.5rem',
               fontSize: '20px',
               fontWeight: '600',
               position: 'relative',
               zIndex: 1,
               letterSpacing: '0.5px'
             }}>
-              Currently in
+              Currently based in
             </h3>
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: '14px',
+              marginBottom: '1rem',
+              position: 'relative',
+              zIndex: 1,
+              fontStyle: 'italic'
+            }}>
+              Drag around to explore the map
+            </p>
             <div style={{ position: 'relative', zIndex: 1 }}>
               <CurrentCityMap width={290} height={220} />
             </div>
@@ -323,12 +291,12 @@ const Me: React.FC = () => {
         </div>
       </div>
 
-      {/* Experience Section */}
+      {/* Projects Section */}
       <div style={{
         padding: '2rem',
         backgroundColor: 'var(--bg-primary)'
       }}>
-        <Experience />
+        <ProjectsSection />
       </div>
 
       {/* Spotify Widget */}

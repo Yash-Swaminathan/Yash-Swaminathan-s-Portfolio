@@ -46,23 +46,16 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
     <div className={className} style={{
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '3rem 2rem',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      backgroundColor: 'var(--bg-secondary)',
-      borderRadius: '20px',
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-      border: '1px solid var(--border-default)'
+      padding: '2rem',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-
       {/* Experience Section */}
-      <div style={{ marginBottom: '4rem' }}>
+      <div style={{ marginBottom: '3rem' }}>
         <h2 style={{
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           fontWeight: '600',
-          color: '#D2691E',
-          marginBottom: '2rem',
-          borderBottom: 'none',
-          fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+          color: 'var(--text-primary)',
+          marginBottom: '1.5rem'
         }}>
           Experience
         </h2>
@@ -70,57 +63,41 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '2.5rem'
+          gap: '1rem'
         }}>
           {experiences.map((exp, index) => (
             <div key={index} style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 2fr',
-              gap: '3rem',
-              alignItems: 'start',
-              paddingBottom: index < experiences.length - 1 ? '2rem' : '0',
+              paddingBottom: '1rem',
               borderBottom: index < experiences.length - 1 ? '1px solid var(--border-default)' : 'none'
             }}>
-              {/* Company Info */}
-              <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                marginBottom: '0.25rem'
+              }}>
                 <h3 style={{
-                  fontSize: '1.15rem',
+                  fontSize: '1rem',
                   fontWeight: '600',
-                  color: '#4A90E2',
-                  marginBottom: '0.5rem',
-                  lineHeight: '1.3'
-                }}>
-                  {exp.company}
-                </h3>
-                <p style={{
-                  fontSize: '0.9rem',
-                  color: 'var(--text-muted)',
-                  margin: '0',
-                  fontStyle: 'italic'
-                }}>
-                  {exp.location}
-                </p>
-              </div>
-
-              {/* Position Info */}
-              <div>
-                <h4 style={{
-                  fontSize: '1.15rem',
-                  fontWeight: '600',
-                  color: '#4A90E2',
-                  marginBottom: '0.5rem',
-                  lineHeight: '1.3'
+                  color: 'var(--text-primary)',
+                  margin: 0
                 }}>
                   {exp.title}
-                </h4>
-                <p style={{
-                  fontSize: '0.95rem',
-                  color: 'var(--text-muted)',
-                  marginBottom: '0'
+                </h3>
+                <span style={{
+                  fontSize: '0.85rem',
+                  color: 'var(--text-muted)'
                 }}>
                   {exp.period}
-                </p>
+                </span>
               </div>
+              <p style={{
+                fontSize: '0.9rem',
+                color: 'var(--text-secondary)',
+                margin: 0
+              }}>
+                {exp.company} · {exp.location}
+              </p>
             </div>
           ))}
         </div>
@@ -129,61 +106,43 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       {/* Education Section */}
       <div>
         <h2 style={{
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           fontWeight: '600',
-          color: '#D2691E',
-          marginBottom: '2rem',
-          fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+          color: 'var(--text-primary)',
+          marginBottom: '1.5rem'
         }}>
           Education
         </h2>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 2fr',
-          gap: '3rem',
-          alignItems: 'start'
-        }}>
-          {/* School Info */}
-          <div>
+        <div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            marginBottom: '0.25rem'
+          }}>
             <h3 style={{
-              fontSize: '1.15rem',
+              fontSize: '1rem',
               fontWeight: '600',
-              color: '#4A90E2',
-              marginBottom: '0.5rem',
-              lineHeight: '1.3'
-            }}>
-              {education.school}
-            </h3>
-            <p style={{
-              fontSize: '0.9rem',
-              color: 'var(--text-muted)',
-              margin: '0',
-              fontStyle: 'italic'
-            }}>
-              {education.website}
-            </p>
-          </div>
-
-          {/* Degree Info */}
-          <div>
-            <h4 style={{
-              fontSize: '1.15rem',
-              fontWeight: '600',
-              color: '#4A90E2',
-              marginBottom: '0.5rem',
-              lineHeight: '1.3'
+              color: 'var(--text-primary)',
+              margin: 0
             }}>
               {education.degree}
-            </h4>
-            <p style={{
-              fontSize: '0.95rem',
-              color: 'var(--text-muted)',
-              marginBottom: '0'
+            </h3>
+            <span style={{
+              fontSize: '0.85rem',
+              color: 'var(--text-muted)'
             }}>
               {education.period}
-            </p>
+            </span>
           </div>
+          <p style={{
+            fontSize: '0.9rem',
+            color: 'var(--text-secondary)',
+            margin: 0
+          }}>
+            {education.school}
+          </p>
         </div>
       </div>
     </div>
