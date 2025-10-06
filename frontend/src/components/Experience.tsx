@@ -50,99 +50,73 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       {/* Experience Section */}
-      <div style={{ marginBottom: '3rem' }}>
+      <div>
         <h2 style={{
-          fontSize: '1.5rem',
+          fontSize: '1.2rem',
           fontWeight: '600',
           color: 'var(--text-primary)',
           marginBottom: '1.5rem'
         }}>
-          Experience
+          NOW
         </h2>
 
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
+          marginBottom: '2rem'
         }}>
-          {experiences.map((exp, index) => (
-            <div key={index} style={{
-              paddingBottom: '1rem',
-              borderBottom: index < experiences.length - 1 ? '1px solid var(--border-default)' : 'none'
-            }}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'baseline',
-                marginBottom: '0.25rem'
+          {experiences.slice(0, 1).map((exp, index) => (
+            <div key={index}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                margin: '0 0 0.25rem 0'
               }}>
-                <h3 style={{
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  margin: 0
-                }}>
-                  {exp.title}
-                </h3>
-                <span style={{
-                  fontSize: '0.85rem',
-                  color: 'var(--text-muted)'
-                }}>
-                  {exp.period}
-                </span>
-              </div>
+                {exp.company}
+              </h3>
               <p style={{
                 fontSize: '0.9rem',
                 color: 'var(--text-secondary)',
                 margin: 0
               }}>
-                {exp.company} · {exp.location}
+                {exp.title}
               </p>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Education Section */}
-      <div>
         <h2 style={{
-          fontSize: '1.5rem',
+          fontSize: '1.2rem',
           fontWeight: '600',
           color: 'var(--text-primary)',
           marginBottom: '1.5rem'
         }}>
-          Education
+          PREVIOUS
         </h2>
 
-        <div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
-            marginBottom: '0.25rem'
-          }}>
-            <h3 style={{
-              fontSize: '1rem',
-              fontWeight: '600',
-              color: 'var(--text-primary)',
-              margin: 0
-            }}>
-              {education.degree}
-            </h3>
-            <span style={{
-              fontSize: '0.85rem',
-              color: 'var(--text-muted)'
-            }}>
-              {education.period}
-            </span>
-          </div>
-          <p style={{
-            fontSize: '0.9rem',
-            color: 'var(--text-secondary)',
-            margin: 0
-          }}>
-            {education.school}
-          </p>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem'
+        }}>
+          {experiences.slice(1).map((exp, index) => (
+            <div key={index}>
+              <h3 style={{
+                fontSize: '0.95rem',
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                margin: '0 0 0.25rem 0'
+              }}>
+                {exp.company}
+              </h3>
+              <p style={{
+                fontSize: '0.85rem',
+                color: 'var(--text-secondary)',
+                margin: 0
+              }}>
+                {exp.title}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

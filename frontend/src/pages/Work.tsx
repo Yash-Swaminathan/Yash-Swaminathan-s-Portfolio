@@ -9,20 +9,24 @@ const Work: React.FC = () => {
       backgroundColor: 'var(--bg-primary)',
       paddingTop: '80px'
     }}>
-      {/* Experience Section */}
+      {/* Main Content - Projects on left, Experience on right */}
       <div style={{
+        display: 'grid',
+        gridTemplateColumns: '2fr 1fr',
+        gap: '3rem',
         padding: '2rem',
-        backgroundColor: 'var(--bg-primary)'
+        maxWidth: '1400px',
+        margin: '0 auto'
       }}>
-        <Experience />
-      </div>
+        {/* Left - Projects Section */}
+        <div>
+          <ProjectsSection />
+        </div>
 
-      {/* Projects Section */}
-      <div style={{
-        padding: '2rem',
-        backgroundColor: 'var(--bg-primary)'
-      }}>
-        <ProjectsSection />
+        {/* Right - Experience Section */}
+        <div>
+          <Experience />
+        </div>
       </div>
 
       {/* Additional spacing */}
