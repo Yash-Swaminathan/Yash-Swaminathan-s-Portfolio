@@ -44,12 +44,14 @@ const Me: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Rotate photos every 3 seconds
+    // Rotate photos every 3 seconds, but pause for 5 seconds after manual scroll
     const photoInterval = setInterval(() => {
-      setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+      if (!isManualScroll) {
+        setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+      }
     }, 3000);
     return () => clearInterval(photoInterval);
-  }, []);
+  }, [isManualScroll, photos.length]);
 
   return (
     <div style={{
@@ -195,12 +197,14 @@ const Me: React.FC = () => {
 
                   if (isDragging && Math.abs(diff) > 50) {
                     setIsManualScroll(true);
-                    if (diff > 0 && startIndex > 0) {
-                      setCurrentPhotoIndex(startIndex - 1);
-                    } else if (diff < 0 && startIndex < photos.length - 1) {
-                      setCurrentPhotoIndex(startIndex + 1);
+                    if (diff > 0) {
+                      // Swipe right - go to previous (or wrap to last)
+                      setCurrentPhotoIndex(startIndex === 0 ? photos.length - 1 : startIndex - 1);
+                    } else if (diff < 0) {
+                      // Swipe left - go to next (or wrap to first)
+                      setCurrentPhotoIndex(startIndex === photos.length - 1 ? 0 : startIndex + 1);
                     }
-                    setTimeout(() => setIsManualScroll(false), 600);
+                    setTimeout(() => setIsManualScroll(false), 10000);
                   }
 
                   containerElement.style.cursor = 'grab';
@@ -224,12 +228,14 @@ const Me: React.FC = () => {
 
                   if (Math.abs(diff) > 50) {
                     setIsManualScroll(true);
-                    if (diff > 0 && startIndex > 0) {
-                      setCurrentPhotoIndex(startIndex - 1);
-                    } else if (diff < 0 && startIndex < photos.length - 1) {
-                      setCurrentPhotoIndex(startIndex + 1);
+                    if (diff > 0) {
+                      // Swipe right - go to previous (or wrap to last)
+                      setCurrentPhotoIndex(startIndex === 0 ? photos.length - 1 : startIndex - 1);
+                    } else if (diff < 0) {
+                      // Swipe left - go to next (or wrap to first)
+                      setCurrentPhotoIndex(startIndex === photos.length - 1 ? 0 : startIndex + 1);
                     }
-                    setTimeout(() => setIsManualScroll(false), 600);
+                    setTimeout(() => setIsManualScroll(false), 10000);
                   }
 
                   document.removeEventListener('touchmove', handleTouchMove);
@@ -240,20 +246,25 @@ const Me: React.FC = () => {
                 document.addEventListener('touchend', handleTouchEnd);
               }}
             >
-              {photos.map((photo, index) => (
-                <div
-                  key={photo.src}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: isManualScroll ? `${(index - currentPhotoIndex) * 100}%` : 0,
-                    width: '100%',
-                    height: '100%',
-                    transition: isManualScroll ? 'left 0.5s ease-out' : 'opacity 1s ease-in-out',
-                    opacity: currentPhotoIndex === index ? 1 : 0,
-                    pointerEvents: currentPhotoIndex === index ? 'auto' : 'none'
-                  }}
-                >
+              {photos.map((photo, index) => {
+                const isAdjacent = Math.abs(index - currentPhotoIndex) <= 1 ||
+                                   (currentPhotoIndex === 0 && index === photos.length - 1) ||
+                                   (currentPhotoIndex === photos.length - 1 && index === 0);
+
+                return (
+                  <div
+                    key={photo.src}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: isManualScroll ? `${(index - currentPhotoIndex) * 100}%` : 0,
+                      width: '100%',
+                      height: '100%',
+                      transition: isManualScroll ? 'left 0.5s ease-out' : 'opacity 1s ease-in-out',
+                      opacity: isManualScroll ? (isAdjacent || currentPhotoIndex === index ? 1 : 0) : (currentPhotoIndex === index ? 1 : 0),
+                      pointerEvents: currentPhotoIndex === index ? 'auto' : 'none'
+                    }}
+                  >
                   <img
                     src={photo.src}
                     alt={photo.caption}
@@ -299,7 +310,8 @@ const Me: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
