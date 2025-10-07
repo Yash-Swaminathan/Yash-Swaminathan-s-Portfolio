@@ -80,32 +80,6 @@ const Me: React.FC = () => {
             fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             fontWeight: '400'
           }}>
-            <p style={{ margin: '0.5rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-              I am{' '}
-              <span
-                style={{
-                  textDecoration: 'underline',
-                  textDecorationColor: 'var(--text-primary)',
-                  fontWeight: '500',
-                  color: 'var(--text-primary)',
-                  cursor: 'help'
-                }}
-                title={`${ageInDays.toLocaleString()} days old`}
-              >
-                {ageInYears} years old
-              </span>.
-            </p>
-            <p style={{ margin: '0.5rem 0 2rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
-              I've visited{' '}
-              <span style={{
-                textDecoration: 'underline',
-                textDecorationColor: 'var(--text-primary)',
-                fontWeight: '500',
-                color: 'var(--text-primary)'
-              }}>25 countries</span>{' '}
-              so far!
-            </p>
-
             <h2 style={{
               fontSize: '24px',
               fontWeight: '600',
@@ -116,9 +90,25 @@ const Me: React.FC = () => {
               I'm currently...
             </h2>
 
+            <p style={{ margin: '0.3rem 0', fontSize: '20px', color: 'var(--text-secondary)' }}>
+              <span style={{ marginRight: '0.5rem' }}>›</span>
+              <span
+                style={{
+                  textDecoration: 'underline',
+                  textDecorationColor: 'var(--text-primary)',
+                  fontWeight: '500',
+                  color: 'var(--text-primary)',
+                  cursor: 'help',
+                  fontSize: '20px'
+                }}
+                title={`${ageInDays.toLocaleString()} days old`}
+              >
+                {ageInYears} years old
+              </span>
+            </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              2A student studying Systems Design Engineering at{' '}
+              A 2A student studying Systems Design Engineering at{' '}
               <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>University of Waterloo</span>
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
@@ -140,11 +130,23 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              focused on scalability and reliability using FastAPI
+              focused on backend scalability and reliability engineering. Developing in typescript and python based applications
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              actively trading leveraged ETFs (TQQQ, SQQQ, SOXL)
+              I like Trading! Currently focused on swing trading leveraged ETFs (TQQQ, SQQQ, SOXL). I talk about it on {' '}
+              <a
+                href="https://x.com/YashSwaminathan"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontWeight: '500',
+                  color: 'var(--text-primary)',
+                  textDecoration: 'underline'
+                }}
+              >
+                X(Twitter)
+              </a>
             </p>
             <p style={{ margin: '0.3rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
