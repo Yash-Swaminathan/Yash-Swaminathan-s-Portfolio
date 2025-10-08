@@ -96,28 +96,29 @@ const SpotifyWidget: React.FC = () => {
   if (loading) {
     return (
       <div style={{
-        padding: '2rem',
+        padding: '1.5rem',
         backgroundColor: 'var(--bg-secondary)',
         borderRadius: '16px',
         border: '1px solid var(--border-default)',
-        margin: '2rem',
-        boxShadow: 'var(--shadow-lg)'
+        boxShadow: 'var(--shadow-lg)',
+        width: '100%',
+        maxWidth: '320px'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--text-secondary)',
-          fontSize: '16px'
+          fontSize: '13px'
         }}>
           <div style={{
-            width: '20px',
-            height: '20px',
+            width: '16px',
+            height: '16px',
             border: '2px solid var(--text-secondary)',
             borderTop: '2px solid transparent',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
-            marginRight: '10px'
+            marginRight: '8px'
           }} />
           Loading music data...
         </div>
@@ -128,16 +129,17 @@ const SpotifyWidget: React.FC = () => {
   if (error) {
     return (
       <div style={{
-        padding: '2rem',
+        padding: '1.5rem',
         backgroundColor: 'var(--bg-secondary)',
         borderRadius: '16px',
         border: '1px solid var(--border-default)',
-        margin: '2rem',
-        boxShadow: 'var(--shadow-lg)'
+        boxShadow: 'var(--shadow-lg)',
+        width: '100%',
+        maxWidth: '320px'
       }}>
         <div style={{
           color: 'var(--text-secondary)',
-          fontSize: '16px',
+          fontSize: '13px',
           textAlign: 'center'
         }}>
           🎵 Music data temporarily unavailable
@@ -150,21 +152,22 @@ const SpotifyWidget: React.FC = () => {
 
   return (
     <div style={{
-      padding: '2rem',
+      padding: '1.5rem',
       backgroundColor: 'var(--bg-secondary)',
       borderRadius: '16px',
       border: '1px solid var(--border-default)',
-      margin: '2rem',
-      boxShadow: 'var(--shadow-lg)'
+      boxShadow: 'var(--shadow-lg)',
+      width: '100%',
+      maxWidth: '320px'
     }}>
       {/* Header */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '1.5rem'
+        marginBottom: '1rem'
       }}>
         <h3 style={{
-          fontSize: '1.5rem',
+          fontSize: '1.1rem',
           fontWeight: 'bold',
           color: 'var(--text-primary)',
           margin: '0',
@@ -178,21 +181,21 @@ const SpotifyWidget: React.FC = () => {
       {/* Currently Playing or Last Played */}
       {spotifyData.currentlyPlaying && spotifyData.currentlyPlaying.track && (
         <div style={{
-          marginBottom: '2rem',
-          padding: '1rem',
+          marginBottom: '1.5rem',
+          padding: '0.75rem',
           backgroundColor: 'var(--bg-primary)',
-          borderRadius: '12px',
+          borderRadius: '8px',
           border: '1px solid var(--border-default)'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '1rem'
+            gap: '0.75rem'
           }}>
             <div style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '8px',
+              width: '48px',
+              height: '48px',
+              borderRadius: '6px',
               overflow: 'hidden',
               flexShrink: 0
             }}>
@@ -206,25 +209,31 @@ const SpotifyWidget: React.FC = () => {
                 }}
               />
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{
-                fontSize: '14px',
+                fontSize: '11px',
                 color: 'var(--text-secondary)',
-                marginBottom: '4px'
+                marginBottom: '2px'
               }}>
                 {(spotifyData.currentlyPlaying.is_playing) ? '🟢 Now Playing' : '⏸️ Last Played'}
               </div>
               <div style={{
-                fontSize: '16px',
+                fontSize: '13px',
                 fontWeight: '600',
                 color: 'var(--text-primary)',
-                marginBottom: '2px'
+                marginBottom: '2px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
               }}>
                 {spotifyData.currentlyPlaying.track.name}
               </div>
               <div style={{
-                fontSize: '14px',
-                color: 'var(--text-secondary)'
+                fontSize: '12px',
+                color: 'var(--text-secondary)',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
               }}>
                 {spotifyData.currentlyPlaying.track.artists.join(', ')}
               </div>
@@ -234,19 +243,19 @@ const SpotifyWidget: React.FC = () => {
       )}
 
       {/* Top Artists */}
-      <div style={{ marginBottom: '2rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
         <h4 style={{
-          fontSize: '1.1rem',
+          fontSize: '0.9rem',
           fontWeight: '600',
           color: 'var(--text-primary)',
-          marginBottom: '1rem'
+          marginBottom: '0.75rem'
         }}>
           Top Artists This Month
         </h4>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '1rem'
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem'
         }}>
           {spotifyData.topArtists.items.slice(0, 8).map((artist) => (
             <a
@@ -258,10 +267,10 @@ const SpotifyWidget: React.FC = () => {
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                padding: '0.75rem',
-                borderRadius: '8px',
+                gap: '0.75rem',
+                padding: '0.5rem',
+                borderRadius: '6px',
                 transition: 'background-color 0.2s',
                 cursor: 'pointer'
               }}
@@ -273,11 +282,11 @@ const SpotifyWidget: React.FC = () => {
               }}
             >
               <div style={{
-                width: '80px',
-                height: '80px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 overflow: 'hidden',
-                marginBottom: '0.5rem'
+                flexShrink: 0
               }}>
                 <img
                   src={getImageUrl(artist.images)}
@@ -290,11 +299,13 @@ const SpotifyWidget: React.FC = () => {
                 />
               </div>
               <div style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 fontWeight: '500',
                 color: 'var(--text-primary)',
-                textAlign: 'center',
-                lineHeight: '1.2'
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                flex: 1
               }}>
                 {artist.name}
               </div>
@@ -306,16 +317,17 @@ const SpotifyWidget: React.FC = () => {
       {/* Top Tracks */}
       <div>
         <h4 style={{
-          fontSize: '1.1rem',
+          fontSize: '0.9rem',
           fontWeight: '600',
           color: 'var(--text-primary)',
-          marginBottom: '1rem'
+          marginBottom: '0.75rem'
         }}>
           Top Tracks This Month
         </h4>
         <div style={{
-          display: 'grid',
-          gap: '0.75rem'
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem'
         }}>
           {spotifyData.topTracks.items.slice(0, 5).map((track, index) => (
             <a
@@ -328,9 +340,9 @@ const SpotifyWidget: React.FC = () => {
                 color: 'inherit',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem',
-                padding: '0.75rem',
-                borderRadius: '8px',
+                gap: '0.5rem',
+                padding: '0.5rem',
+                borderRadius: '6px',
                 transition: 'background-color 0.2s',
                 cursor: 'pointer'
               }}
@@ -342,19 +354,19 @@ const SpotifyWidget: React.FC = () => {
               }}
             >
               <div style={{
-                fontSize: '16px',
+                fontSize: '12px',
                 fontWeight: '600',
                 color: 'var(--text-secondary)',
-                width: '20px',
+                width: '16px',
                 textAlign: 'center',
                 flexShrink: 0
               }}>
                 {index + 1}
               </div>
               <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '6px',
+                width: '40px',
+                height: '40px',
+                borderRadius: '4px',
                 overflow: 'hidden',
                 flexShrink: 0
               }}>
@@ -370,7 +382,7 @@ const SpotifyWidget: React.FC = () => {
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{
-                  fontSize: '15px',
+                  fontSize: '12px',
                   fontWeight: '500',
                   color: 'var(--text-primary)',
                   marginBottom: '2px',
@@ -381,7 +393,7 @@ const SpotifyWidget: React.FC = () => {
                   {track.name}
                 </div>
                 <div style={{
-                  fontSize: '13px',
+                  fontSize: '11px',
                   color: 'var(--text-secondary)',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -397,10 +409,10 @@ const SpotifyWidget: React.FC = () => {
 
       {/* Footer */}
       <div style={{
-        marginTop: '1.5rem',
-        paddingTop: '1rem',
+        marginTop: '1rem',
+        paddingTop: '0.75rem',
         borderTop: '1px solid var(--border-default)',
-        fontSize: '12px',
+        fontSize: '10px',
         color: 'var(--text-secondary)',
         textAlign: 'center'
       }}>

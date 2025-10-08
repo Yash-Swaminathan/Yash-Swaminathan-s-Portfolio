@@ -127,7 +127,7 @@ const Navigation: React.FC = () => {
               </svg>
             </a>
             <a
-              href="https://github.com/yashswaminathan"
+              href="https://github.com/Yash-Swaminathan"
               target="_blank"
               rel="noopener noreferrer"
               style={{

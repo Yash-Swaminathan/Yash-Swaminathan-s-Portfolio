@@ -90,7 +90,7 @@ const Me: React.FC = () => {
               I'm currently...
             </h2>
 
-            <p style={{ margin: '0.3rem 0', fontSize: '20px', color: 'var(--text-secondary)' }}>
+            <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
               <span
                 style={{
@@ -99,9 +99,36 @@ const Me: React.FC = () => {
                   fontWeight: '500',
                   color: 'var(--text-primary)',
                   cursor: 'help',
-                  fontSize: '20px'
+                  fontSize: '17px',
+                  position: 'relative'
                 }}
                 title={`${ageInDays.toLocaleString()} days old`}
+                onMouseEnter={(e) => {
+                  const tooltip = document.createElement('div');
+                  tooltip.id = 'age-tooltip';
+                  tooltip.textContent = `${ageInDays.toLocaleString()} days old`;
+                  tooltip.style.cssText = `
+                    position: absolute;
+                    top: -40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: var(--bg-secondary);
+                    color: var(--text-primary);
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    border: 1px solid var(--border-default);
+                    z-index: 1000;
+                  `;
+                  e.currentTarget.appendChild(tooltip);
+                }}
+                onMouseLeave={(e) => {
+                  const tooltip = document.getElementById('age-tooltip');
+                  if (tooltip) tooltip.remove();
+                }}
               >
                 {ageInYears} years old
               </span>
