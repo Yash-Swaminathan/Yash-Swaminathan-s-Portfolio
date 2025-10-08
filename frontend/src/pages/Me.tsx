@@ -159,11 +159,17 @@ const Me: React.FC = () => {
           </div>
         </div>
 
-        {/* Photo Carousel - Below text */}
+        {/* Interactive Section Grid - Photo, Map, and Spotify */}
         <div style={{
           marginLeft: '2rem',
-          marginBottom: '3rem'
+          marginBottom: '3rem',
+          display: 'grid',
+          gridTemplateColumns: 'auto auto',
+          gap: '2rem',
+          alignItems: 'start',
+          width: 'fit-content'
         }}>
+          {/* Photo Carousel */}
           <div style={{
             position: 'relative',
             width: '400px'
@@ -316,134 +322,130 @@ const Me: React.FC = () => {
               })}
             </div>
           </div>
-        </div>
 
-        {/* Map Section */}
+          {/* Right Side - Map and Spotify Stacked */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '2rem'
+          }}>
+            {/* Map Section */}
+            <div style={{
+              backgroundColor: 'var(--bg-secondary)',
+              padding: '1.5rem',
+              borderRadius: '20px',
+              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
+              border: '1px solid var(--border-default)',
+              textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              width: 'fit-content'
+            }}>
+              {/* Subtle glow effect */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                left: '-50%',
+                width: '200%',
+                height: '200%',
+                background: 'radial-gradient(circle, rgba(41, 50, 65, 0.1) 0%, transparent 70%)',
+                pointerEvents: 'none'
+              }}></div>
+
+              <h3 style={{
+                color: 'var(--text-primary)',
+                marginBottom: '0.5rem',
+                fontSize: '20px',
+                fontWeight: '600',
+                position: 'relative',
+                zIndex: 1,
+                letterSpacing: '0.5px'
+              }}>
+                Currently based in
+              </h3>
+              <p style={{
+                color: 'var(--text-muted)',
+                fontSize: '14px',
+                marginBottom: '1rem',
+                position: 'relative',
+                zIndex: 1,
+                fontStyle: 'italic'
+              }}>
+                Drag around to explore the map
+              </p>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <CurrentCityMap width={290} height={220} />
+              </div>
+            </div>
+
+            {/* Spotify Widget */}
+            <div style={{ width: '320px' }}>
+              <SpotifyWidget />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Social Media Icons and Experience Section */}
+      <div style={{
+        padding: '2rem',
+        paddingLeft: '4rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem'
+      }}>
+        {/* Social Media Icons */}
         <div style={{
-          marginLeft: '2rem',
           display: 'flex',
           justifyContent: 'flex-start'
         }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            padding: '1.5rem',
+            padding: '2rem',
             borderRadius: '20px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
             border: '1px solid var(--border-default)',
-            textAlign: 'center',
             position: 'relative',
-            overflow: 'hidden',
-            width: 'fit-content'
+            overflow: 'hidden'
           }}>
-            {/* Subtle glow effect */}
+            {/* Subtle background effect */}
             <div style={{
               position: 'absolute',
               top: '-50%',
               left: '-50%',
               width: '200%',
               height: '200%',
-              background: 'radial-gradient(circle, rgba(41, 50, 65, 0.1) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(41, 50, 65, 0.05) 0%, transparent 70%)',
               pointerEvents: 'none'
             }}></div>
 
-            <h3 style={{
-              color: 'var(--text-primary)',
-              marginBottom: '0.5rem',
-              fontSize: '20px',
-              fontWeight: '600',
-              position: 'relative',
-              zIndex: 1,
-              letterSpacing: '0.5px'
-            }}>
-              Currently based in
-            </h3>
-            <p style={{
-              color: 'var(--text-muted)',
-              fontSize: '14px',
-              marginBottom: '1rem',
-              position: 'relative',
-              zIndex: 1,
-              fontStyle: 'italic'
-            }}>
-              Drag around to explore the map
-            </p>
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <CurrentCityMap width={290} height={220} />
+              <h3 style={{
+                color: 'var(--text-primary)',
+                textAlign: 'center',
+                marginBottom: '1.5rem',
+                fontSize: '20px',
+                fontWeight: '600',
+                letterSpacing: '0.5px'
+              }}>
+                Let's Connect
+              </h3>
+              <SocialIcons />
             </div>
           </div>
+        </div>
+
+        {/* Experience Section */}
+        <div>
+          <Experience />
         </div>
       </div>
 
       {/* Click Me Button */}
       <ClickButton />
 
-      {/* Social Media Icons */}
-      <div style={{
-        padding: '2rem',
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
-        <div style={{
-          backgroundColor: 'var(--bg-secondary)',
-          padding: '2rem',
-          borderRadius: '20px',
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
-          border: '1px solid var(--border-default)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Subtle background effect */}
-          <div style={{
-            position: 'absolute',
-            top: '-50%',
-            left: '-50%',
-            width: '200%',
-            height: '200%',
-            background: 'radial-gradient(circle, rgba(41, 50, 65, 0.05) 0%, transparent 70%)',
-            pointerEvents: 'none'
-          }}></div>
-
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <h3 style={{
-              color: 'var(--text-primary)',
-              textAlign: 'center',
-              marginBottom: '1.5rem',
-              fontSize: '20px',
-              fontWeight: '600',
-              letterSpacing: '0.5px'
-            }}>
-              Let's Connect
-            </h3>
-            <SocialIcons />
-          </div>
-        </div>
-      </div>
-
-      {/* Experience Section */}
-      <div style={{
-        padding: '2rem 2rem 2rem 4rem',
-        backgroundColor: 'var(--bg-primary)'
-      }}>
-        <Experience />
-      </div>
-
-      {/* Spotify Widget */}
-      <div style={{ padding: '0 2rem' }}>
-        <div style={{
-          maxWidth: '600px',
-          margin: '0',
-          marginLeft: '2rem'
-        }}>
-          <SpotifyWidget />
-        </div>
-      </div>
-
-      {/* Additional spacing */}
-      <div style={{ padding: '2rem' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          {/* Empty space for clean look */}
-        </div>
-      </div>
+      {/* Bottom spacing */}
+      <div style={{ padding: '2rem' }}></div>
     </div>
   );
 };
