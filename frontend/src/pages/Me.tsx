@@ -161,7 +161,7 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              I like Trading! Currently focused on swing trading leveraged ETFs (TQQQ, SQQQ, SOXL). I talk about it on {' '}
+              I like Trading! Currently focused on swing trading leveraged Stocks and ETFs. I talk about it on {' '}
               <a
                 href="https://x.com/YashSwaminathan"
                 target="_blank"

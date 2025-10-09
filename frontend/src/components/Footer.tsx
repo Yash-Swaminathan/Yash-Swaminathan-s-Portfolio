@@ -1,11 +1,19 @@
 import React from 'react';
 
 const Footer: React.FC = () => {
+  const socialLinks = [
+    { text: '✉️', href: 'mailto:yswamina@uwaterloo.ca', label: 'Email' },
+    { text: '𝕏', href: 'https://twitter.com/yashswaminathan', label: 'Twitter' },
+    { text: 'in', href: 'https://linkedin.com/in/yash-swaminathan', label: 'LinkedIn' },
+    { text: 'GH', href: 'https://github.com/yash-swaminathan', label: 'GitHub' },
+    { text: 'IG', href: 'https://instagram.com/yashswaminathan', label: 'Instagram' }
+  ];
+
   return (
     <footer style={{
       backgroundColor: '#000000',
       color: '#ffffff',
-      padding: '3rem 2rem',
+      padding: '1.5rem 2rem',
       marginTop: 'auto'
     }}>
       <div style={{
@@ -13,103 +21,72 @@ const Footer: React.FC = () => {
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
-        gap: '2rem'
+        gap: '1rem',
+        alignItems: 'center'
       }}>
-        {/* Witty Comment */}
+        {/* Built With */}
         <div style={{
-          textAlign: 'center',
-          fontSize: '16px',
-          color: '#cccccc',
-          fontStyle: 'italic',
-          paddingBottom: '1rem',
-          borderBottom: '1px solid #333333'
+          textAlign: 'center'
         }}>
-          Since you scrolled down here, maybe you'd like to hear more from me?
-          <br />
-          <a
-            href="mailto:yswamina@uwaterloo.ca"
-            style={{
-              color: '#ffffff',
-              textDecoration: 'underline',
-              fontWeight: '500',
-              marginTop: '0.5rem',
-              display: 'inline-block'
-            }}
-          >
-            yswamina@uwaterloo.ca
-          </a>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            justifyContent: 'center'
+          }}>
+            {['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Spotify API'].map((tech) => (
+              <span
+                key={tech}
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#cccccc',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '12px',
+                  fontSize: '12px',
+                  border: '1px solid #333333'
+                }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Main Footer Content */}
+        {/* Social Links */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '2rem'
+          display: 'flex',
+          gap: '1.5rem',
+          alignItems: 'center'
         }}>
-          {/* Made By */}
-          <div>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              marginBottom: '0.75rem',
-              color: '#ffffff'
-            }}>
-              Made by Yash Swaminathan
-            </h3>
-            <p style={{
-              fontSize: '14px',
-              color: '#999999',
-              lineHeight: '1.6'
-            }}>
-              Systems Design Engineering @ University of Waterloo
-              <br />
-              Software Engineer passionate about building scalable systems
-            </p>
-          </div>
-
-          {/* Built With */}
-          <div>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              marginBottom: '0.75rem',
-              color: '#ffffff'
-            }}>
-              Built With
-            </h3>
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.5rem'
-            }}>
-              {['React', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Docker', 'Leaflet', 'Spotify API'].map((tech) => (
-                <span
-                  key={tech}
-                  style={{
-                    backgroundColor: '#1a1a1a',
-                    color: '#cccccc',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '12px',
-                    fontSize: '13px',
-                    border: '1px solid #333333'
-                  }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
+          {socialLinks.map(({ text, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              style={{
+                color: '#999999',
+                fontSize: '20px',
+                transition: 'color 0.2s ease',
+                textDecoration: 'none',
+                fontWeight: 'bold'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#999999'}
+            >
+              {text}
+            </a>
+          ))}
         </div>
 
         {/* Copyright */}
         <div style={{
           textAlign: 'center',
-          paddingTop: '1.5rem',
-          borderTop: '1px solid #333333',
-          fontSize: '13px',
+          fontSize: '12px',
           color: '#666666'
         }}>
-          © {new Date().getFullYear()} Yash Swaminathan. All rights reserved.
+          © {new Date().getFullYear()} Yash Swaminathan
         </div>
       </div>
     </footer>
