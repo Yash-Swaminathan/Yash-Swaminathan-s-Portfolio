@@ -1,6 +1,11 @@
 import React from 'react';
+import { motion, Transition } from "framer-motion";
 
 const Footer: React.FC = () => {
+  const transition: Transition = {
+    duration: 3,
+    ease: "easeInOut",
+  };
   const socialLinks = [
     {
       name: 'Email',
@@ -59,15 +64,65 @@ const Footer: React.FC = () => {
       backgroundColor: '#000000',
       color: '#ffffff',
       padding: '1.5rem 2rem',
-      marginTop: 'auto'
+      marginTop: 'auto',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      {/* Left Side Animation - "YASH" */}
+      <div style={{
+        position: 'absolute',
+        left: '20px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        opacity: 0.15
+      }}>
+        <svg width="150" height="80" viewBox="0 0 150 80">
+          <motion.path
+            d="M 10 10 L 30 50 M 30 50 L 50 10 M 60 10 L 60 50 L 90 50 L 90 30 L 60 30 M 100 50 L 100 20 Q 100 10 110 10 L 120 10 Q 130 10 130 20 L 130 30 Q 130 40 120 40 L 100 40 M 140 10 L 140 50 L 150 50"
+            fill="transparent"
+            strokeWidth="3"
+            stroke="#ffffff"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.15 }}
+            transition={transition}
+          />
+        </svg>
+      </div>
+
+      {/* Right Side Animation - "SWAMINATHAN" */}
+      <div style={{
+        position: 'absolute',
+        right: '20px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        opacity: 0.15
+      }}>
+        <svg width="300" height="80" viewBox="0 0 300 80">
+          <motion.path
+            d="M 10 10 Q 10 50 30 50 Q 50 50 50 30 M 60 10 L 60 50 M 80 10 L 80 50 M 60 30 L 80 30 M 90 50 L 90 20 Q 90 10 100 10 L 110 10 Q 120 10 120 20 L 120 30 Q 120 40 110 40 L 90 40 M 130 10 L 130 50 L 140 50 L 150 30 L 160 50 L 170 50 L 170 10 M 180 10 L 180 50 M 190 10 L 190 50 M 200 10 L 200 50 M 210 10 L 210 50 L 230 10 L 230 50 M 240 10 L 240 50 L 270 50 L 270 30 L 240 30 M 280 10 L 280 50 L 290 50"
+            fill="transparent"
+            strokeWidth="3"
+            stroke="#ffffff"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.15 }}
+            transition={transition}
+          />
+        </svg>
+      </div>
+
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: 1
       }}>
         {/* Logo/Brand */}
         <div style={{
