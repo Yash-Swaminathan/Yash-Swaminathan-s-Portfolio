@@ -78,32 +78,14 @@ const Footer: React.FC = () => {
           Yash Swaminathan
         </div>
 
-        {/* Built With */}
+        {/* Witty Line */}
         <div style={{
+          color: '#999999',
+          fontSize: '14px',
+          fontStyle: 'italic',
           textAlign: 'center'
         }}>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            justifyContent: 'center'
-          }}>
-            {['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Spotify API'].map((tech) => (
-              <span
-                key={tech}
-                style={{
-                  backgroundColor: '#1a1a1a',
-                  color: '#cccccc',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  border: '1px solid #333333'
-                }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          Since you scrolled this far down, might as well connect with me!
         </div>
 
         {/* Social Links */}
