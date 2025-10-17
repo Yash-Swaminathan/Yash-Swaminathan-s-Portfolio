@@ -110,7 +110,7 @@ const ClickButton: React.FC = () => {
             </div>
           </div>
 
-          {/* Circular button */}
+          {/* Circular button - inverted theme colors */}
           <button
             onClick={handleClick}
             onKeyDown={handleKeyDown}
@@ -118,16 +118,14 @@ const ClickButton: React.FC = () => {
             aria-live="polite"
             aria-pressed={animationState === 'playing'}
             tabIndex={0}
+            className="theme-inverted-button"
             style={{
               position: 'relative',
-              background: '#000000',
               border: '3px solid transparent',
-              color: 'white',
               fontWeight: 'bold',
               width: '180px',
               height: '180px',
               borderRadius: '50%',
-              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               fontSize: '16px',
@@ -143,26 +141,21 @@ const ClickButton: React.FC = () => {
             }}
             onMouseEnter={(e) => {
               if (animationState === 'idle') {
-                e.currentTarget.style.background = '#333333';
                 e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.4)';
               }
             }}
             onMouseLeave={(e) => {
               if (animationState === 'idle') {
-                e.currentTarget.style.background = '#000000';
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
               }
             }}
             onFocus={(e) => {
               // Visible focus ring for keyboard navigation
-              e.currentTarget.style.borderColor = '#ffffff';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3), 0 0 0 2px #ffffff';
+              e.currentTarget.style.borderColor = 'var(--primary)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--primary)';
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = 'transparent';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
             }}
           >
             <span style={{

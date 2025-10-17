@@ -159,6 +159,35 @@ body {
 .space-y-1 > * + * { margin-top: 0.25rem; }
 .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
 
+/* Inverted theme button - light background in dark mode, dark background in light mode */
+:root,
+[data-theme="light"] {
+  --button-inverted-bg: #14120b;
+  --button-inverted-hover: #1c1a13;
+  --button-inverted-text: #f7f7f4;
+  --button-inverted-shadow: 0 8px 25px rgba(20, 18, 11, 0.3);
+  --button-inverted-shadow-hover: 0 12px 30px rgba(20, 18, 11, 0.4);
+}
+
+[data-theme="dark"] {
+  --button-inverted-bg: #ffffff;
+  --button-inverted-hover: #f8f9fa;
+  --button-inverted-text: #14120b;
+  --button-inverted-shadow: none;
+  --button-inverted-shadow-hover: none;
+}
+
+.theme-inverted-button {
+  background: var(--button-inverted-bg) !important;
+  color: var(--button-inverted-text) !important;
+  box-shadow: var(--button-inverted-shadow) !important;
+}
+
+.theme-inverted-button:hover {
+  background: var(--button-inverted-hover) !important;
+  box-shadow: var(--button-inverted-shadow-hover) !important;
+}
+
 /* Animations */
 @keyframes pulse {
   0% { opacity: 0.2; transform: scale(1); }
