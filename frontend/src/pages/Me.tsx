@@ -13,14 +13,14 @@ const Me: React.FC = () => {
   const [isManualScroll, setIsManualScroll] = useState(false);
 
   const photos = [
-    { src: '/photos/IMG_0387.jpg', caption: 'High School Graduation with Friends' },
+    { src: '/photos/IMG_0387.jpg', caption: 'High School Graduation' },
     { src: '/photos/IMG_0827.JPG', caption: 'Vietnam' },
     { src: '/photos/9A57B475-2A9D-42D8-A60E-4D850C06B0A0.JPG', caption: 'Vietnam' },
     { src: '/photos/IMG_1900.jpg', caption: 'Me and My Girlfriend' },
     { src: '/photos/IMG_2510.JPG', caption: 'Me and My Girlfriend' },
     { src: '/photos/IMG_2261.JPG', caption: 'Grade 6 Me' },
     { src: '/photos/IMG_2314.jpg', caption: 'Rafting with Classmates' },
-    { src: '/photos/IMG_9450.jpg', caption: 'Me Playing Basketball' },
+    { src: '/photos/IMG_9450.jpg', caption: 'Basketball' },
     { src: '/photos/IMG_9764.JPG', caption: 'Shibuya, Japan' },
     { src: '/photos/IMG_9795.jpg', caption: 'Tokyo, Japan' }
   ];
@@ -350,122 +350,67 @@ const Me: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Side - Map and Spotify Stacked */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2rem'
-          }}>
-            {/* Map Section */}
-            <div style={{
-              backgroundColor: 'var(--bg-secondary)',
-              padding: '1.5rem',
-              borderRadius: '20px',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
-              border: '1px solid var(--border-default)',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              width: 'fit-content'
-            }}>
-              {/* Subtle glow effect */}
-              <div style={{
-                position: 'absolute',
-                top: '-50%',
-                left: '-50%',
-                width: '200%',
-                height: '200%',
-                background: 'radial-gradient(circle, rgba(41, 50, 65, 0.1) 0%, transparent 70%)',
-                pointerEvents: 'none'
-              }}></div>
-
-              <h3 style={{
-                color: 'var(--text-primary)',
-                marginBottom: '0.5rem',
-                fontSize: '20px',
-                fontWeight: '600',
-                position: 'relative',
-                zIndex: 1,
-                letterSpacing: '0.5px'
-              }}>
-                Currently based in
-              </h3>
-              <p style={{
-                color: 'var(--text-muted)',
-                fontSize: '14px',
-                marginBottom: '1rem',
-                position: 'relative',
-                zIndex: 1,
-                fontStyle: 'italic'
-              }}>
-                Drag around to explore the map
-              </p>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <CurrentCityMap width={290} height={220} />
-              </div>
-            </div>
-
-            {/* Spotify Widget */}
-            <div style={{ width: '320px' }}>
-              <SpotifyWidget />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Social Media Icons and Experience Section */}
-      <div style={{
-        padding: '2rem',
-        paddingLeft: '4rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '2rem'
-      }}>
-        {/* Social Media Icons */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'flex-start'
-        }}>
+          {/* Map Section */}
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            padding: '2rem',
+            padding: '1.5rem',
             borderRadius: '20px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
             border: '1px solid var(--border-default)',
+            textAlign: 'center',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            width: 'fit-content'
           }}>
-            {/* Subtle background effect */}
+            {/* Subtle glow effect */}
             <div style={{
               position: 'absolute',
               top: '-50%',
               left: '-50%',
               width: '200%',
               height: '200%',
-              background: 'radial-gradient(circle, rgba(41, 50, 65, 0.05) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(41, 50, 65, 0.1) 0%, transparent 70%)',
               pointerEvents: 'none'
             }}></div>
 
+            <h3 style={{
+              color: 'var(--text-primary)',
+              marginBottom: '0.5rem',
+              fontSize: '20px',
+              fontWeight: '600',
+              position: 'relative',
+              zIndex: 1,
+              letterSpacing: '0.5px'
+            }}>
+              Currently based in
+            </h3>
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: '14px',
+              marginBottom: '1rem',
+              position: 'relative',
+              zIndex: 1,
+              fontStyle: 'italic'
+            }}>
+              Drag around to explore the map
+            </p>
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <h3 style={{
-                color: 'var(--text-primary)',
-                textAlign: 'center',
-                marginBottom: '1.5rem',
-                fontSize: '20px',
-                fontWeight: '600',
-                letterSpacing: '0.5px'
-              }}>
-                Let's Connect
-              </h3>
-              <SocialIcons />
+              <CurrentCityMap width={290} height={220} />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Experience Section */}
-        <div>
-          <Experience />
-        </div>
+      {/* Spotify Widget - Full Width */}
+      <SpotifyWidget />
+
+      {/* Experience Section */}
+      <div style={{
+        padding: '2rem',
+        paddingLeft: '4rem',
+        marginTop: '2rem'
+      }}>
+        <Experience />
       </div>
 
       {/* Click Me Button */}
