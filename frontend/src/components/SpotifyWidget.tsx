@@ -153,103 +153,96 @@ const SpotifyWidget: React.FC = () => {
 
   return (
     <section style={{
-      padding: '2.5rem 1rem',
+      padding: '4rem 1.5rem',
       position: 'relative',
-      maxWidth: '1400px',
+      maxWidth: '1200px',
       margin: '0 auto'
     }}>
-      {/* Background glow */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        zIndex: -1,
-        background: 'linear-gradient(to bottom, rgba(16, 185, 129, 0.1), transparent)',
-        pointerEvents: 'none'
-      }} />
-
       {/* Header */}
       <div style={{
-        marginBottom: '1.5rem',
+        marginBottom: '2.5rem',
         display: 'flex',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '1rem',
+        gap: '1.5rem',
         flexWrap: 'wrap'
       }}>
-        <div>
-          <h2 style={{
-            fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
-            fontWeight: '600',
-            color: 'var(--text-primary)',
-            margin: '0 0 0.25rem 0',
-            letterSpacing: '-0.025em'
-          }}>
-            What I listen to
-          </h2>
-          <p style={{
-            fontSize: '0.875rem',
-            color: 'var(--text-secondary)',
-            margin: 0,
-            opacity: 0.8
-          }}>
-            Updated {spotifyData.cached ? 'recently' : 'just now'}
-          </p>
-        </div>
+        <h2 style={{
+          fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+          fontWeight: '700',
+          color: 'var(--text-primary)',
+          margin: 0,
+          letterSpacing: '-0.03em',
+          fontFamily: 'system-ui, -apple-system, sans-serif'
+        }}>
+          What I listen to
+        </h2>
         <a
           href="https://open.spotify.com/user/yeq062vvc2vmx1sq0rwew7gz9"
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            padding: '0.5rem 1rem',
-            borderRadius: '9999px',
+            padding: '0.625rem 1.25rem',
+            borderRadius: '8px',
             border: '1px solid var(--border-default)',
-            fontSize: '0.875rem',
+            fontSize: '0.9375rem',
             fontWeight: '500',
             textDecoration: 'none',
             color: 'var(--text-primary)',
-            transition: 'all 0.2s',
-            backgroundColor: 'transparent'
+            transition: 'all 0.15s ease',
+            backgroundColor: 'var(--bg-secondary)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = 'var(--text-primary)';
             e.currentTarget.style.color = 'var(--bg-primary)';
+            e.currentTarget.style.borderColor = 'var(--text-primary)';
+            e.currentTarget.style.transform = 'translateY(-1px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
             e.currentTarget.style.color = 'var(--text-primary)';
+            e.currentTarget.style.borderColor = 'var(--border-default)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
-          Add me on Spotify!
+          <span>Add me on Spotify</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
         </a>
       </div>
 
       {/* Currently Playing (Full Width) */}
       {spotifyData.currentlyPlaying && spotifyData.currentlyPlaying.track && (
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
           style={{
-            marginBottom: '1.5rem',
-            padding: '1rem',
-            backgroundColor: 'rgba(var(--card-rgb, 255, 255, 255), 0.6)',
-            backdropFilter: 'blur(8px)',
-            borderRadius: '1rem',
-            border: '1px solid var(--border-default)'
+            marginBottom: '2rem',
+            padding: '1.5rem 1.75rem',
+            backgroundColor: 'var(--bg-secondary)',
+            borderRadius: '12px',
+            border: '1px solid var(--border-default)',
+            boxShadow: '0 0 0 1px var(--border-default), 0 4px 12px rgba(0, 0, 0, 0.05)'
           }}
         >
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '1rem'
+            gap: '1.25rem'
           }}>
             <div style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '8px',
+              width: '72px',
+              height: '72px',
+              borderRadius: '10px',
               overflow: 'hidden',
               flexShrink: 0,
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              border: '1px solid var(--border-default)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
             }}>
               <img
                 src={getImageUrl(spotifyData.currentlyPlaying.track.album.images)}
@@ -263,26 +256,53 @@ const SpotifyWidget: React.FC = () => {
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{
-                fontSize: '0.75rem',
+                fontSize: '0.8125rem',
                 color: 'var(--text-secondary)',
-                marginBottom: '0.25rem',
-                fontWeight: '500'
+                marginBottom: '0.5rem',
+                fontWeight: '500',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
               }}>
-                {spotifyData.currentlyPlaying.is_playing ? '🟢 Now Playing' : '⏸️ Last Played'}
+                {spotifyData.currentlyPlaying.is_playing ? (
+                  <>
+                    <span style={{
+                      display: 'inline-block',
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: '#1DB954',
+                      borderRadius: '50%',
+                      marginRight: '0.5rem'
+                    }}></span>
+                    Now Playing
+                  </>
+                ) : (
+                  <>
+                    <span style={{
+                      display: 'inline-block',
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: 'var(--text-secondary)',
+                      borderRadius: '50%',
+                      marginRight: '0.5rem'
+                    }}></span>
+                    Last Played
+                  </>
+                )}
               </div>
               <div style={{
-                fontSize: '1rem',
+                fontSize: '1.125rem',
                 fontWeight: '600',
                 color: 'var(--text-primary)',
-                marginBottom: '0.25rem',
+                marginBottom: '0.375rem',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                letterSpacing: '-0.01em'
               }}>
                 {spotifyData.currentlyPlaying.track.name}
               </div>
               <div style={{
-                fontSize: '0.875rem',
+                fontSize: '0.9375rem',
                 color: 'var(--text-secondary)',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -298,41 +318,51 @@ const SpotifyWidget: React.FC = () => {
       {/* Two Column Grid */}
       <div style={{
         display: 'grid',
-        gap: '1.5rem',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
+        gap: '2rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))'
       }}>
         {/* Top Artists Card */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
           style={{
-            borderRadius: '1rem',
+            borderRadius: '12px',
             border: '1px solid var(--border-default)',
-            backgroundColor: 'rgba(var(--card-rgb, 255, 255, 255), 0.6)',
-            backdropFilter: 'blur(8px)',
+            backgroundColor: 'var(--bg-secondary)',
+            boxShadow: '0 0 0 1px var(--border-default), 0 4px 12px rgba(0, 0, 0, 0.05)',
             overflow: 'hidden'
           }}
         >
           <div style={{
-            padding: '1.25rem 1.25rem 0.75rem',
-            borderBottom: '1px solid var(--border-default)'
+            padding: '1.5rem 1.75rem',
+            borderBottom: '1px solid var(--border-default)',
+            backgroundColor: 'var(--bg-primary)'
           }}>
             <h3 style={{
-              fontSize: '1.25rem',
+              fontSize: '1.125rem',
               fontWeight: '600',
               color: 'var(--text-primary)',
-              margin: 0
+              margin: 0,
+              letterSpacing: '-0.01em'
             }}>
-              Top Artists (this month)
+              Top Artists
             </h3>
+            <p style={{
+              fontSize: '0.875rem',
+              color: 'var(--text-secondary)',
+              margin: '0.25rem 0 0',
+              fontWeight: '400'
+            }}>
+              This month
+            </p>
           </div>
 
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '1rem',
-            padding: '1.25rem'
+            gap: '1.5rem',
+            padding: '2rem 1.75rem'
           }}>
             {spotifyData.topArtists.items.slice(0, 4).map((artist) => (
               <a
@@ -343,25 +373,27 @@ const SpotifyWidget: React.FC = () => {
                 style={{
                   textDecoration: 'none',
                   color: 'inherit',
-                  display: 'block',
-                  textAlign: 'center',
-                  transition: 'transform 0.2s'
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  transition: 'transform 0.15s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.03)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 <div style={{
-                  width: '80px',
-                  height: '80px',
-                  margin: '0 auto',
+                  width: '96px',
+                  height: '96px',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: '1px solid var(--border-default)',
-                  boxShadow: 'inset 0 0 16px rgba(0,0,0,0.25)'
+                  border: '2px solid var(--border-default)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                  flexShrink: 0
                 }}>
                   <img
                     src={getImageUrl(artist.images)}
@@ -375,14 +407,16 @@ const SpotifyWidget: React.FC = () => {
                   />
                 </div>
                 <p style={{
-                  marginTop: '0.5rem',
-                  fontSize: '0.875rem',
+                  margin: 0,
+                  fontSize: '0.9375rem',
                   fontWeight: '500',
                   color: 'var(--text-primary)',
+                  textAlign: 'center',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  padding: '0 0.25rem'
+                  width: '100%',
+                  padding: '0 0.5rem'
                 }}>
                   {artist.name}
                 </p>
@@ -393,29 +427,39 @@ const SpotifyWidget: React.FC = () => {
 
         {/* Top Tracks Card */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: 0.05 }}
+          transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
           style={{
-            borderRadius: '1rem',
+            borderRadius: '12px',
             border: '1px solid var(--border-default)',
-            backgroundColor: 'rgba(var(--card-rgb, 255, 255, 255), 0.6)',
-            backdropFilter: 'blur(8px)',
+            backgroundColor: 'var(--bg-secondary)',
+            boxShadow: '0 0 0 1px var(--border-default), 0 4px 12px rgba(0, 0, 0, 0.05)',
             overflow: 'hidden'
           }}
         >
           <div style={{
-            padding: '1.25rem 1.25rem 0.75rem',
-            borderBottom: '1px solid var(--border-default)'
+            padding: '1.5rem 1.75rem',
+            borderBottom: '1px solid var(--border-default)',
+            backgroundColor: 'var(--bg-primary)'
           }}>
             <h3 style={{
-              fontSize: '1.25rem',
+              fontSize: '1.125rem',
               fontWeight: '600',
               color: 'var(--text-primary)',
-              margin: 0
+              margin: 0,
+              letterSpacing: '-0.01em'
             }}>
-              Top Tracks (this month)
+              Top Tracks
             </h3>
+            <p style={{
+              fontSize: '0.875rem',
+              color: 'var(--text-secondary)',
+              margin: '0.25rem 0 0',
+              fontWeight: '400'
+            }}>
+              This month
+            </p>
           </div>
 
           <ol style={{
@@ -437,11 +481,11 @@ const SpotifyWidget: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '1rem',
-                    padding: '1rem',
-                    transition: 'background-color 0.2s'
+                    padding: '1.25rem 1.75rem',
+                    transition: 'background-color 0.15s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
+                    e.currentTarget.style.backgroundColor = 'var(--bg-primary)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
@@ -449,21 +493,23 @@ const SpotifyWidget: React.FC = () => {
                 >
                   <div style={{
                     width: '1.5rem',
-                    textAlign: 'right',
+                    textAlign: 'center',
                     fontSize: '0.875rem',
-                    fontWeight: '500',
+                    fontWeight: '600',
                     color: 'var(--text-secondary)',
-                    fontVariantNumeric: 'tabular-nums'
+                    fontVariantNumeric: 'tabular-nums',
+                    flexShrink: 0
                   }}>
                     {index + 1}
                   </div>
                   <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '6px',
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '8px',
                     overflow: 'hidden',
                     flexShrink: 0,
-                    border: '1px solid var(--border-default)'
+                    border: '1px solid var(--border-default)',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.06)'
                   }}>
                     <img
                       src={getImageUrl(track.album.images)}
@@ -479,19 +525,20 @@ const SpotifyWidget: React.FC = () => {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{
                       margin: 0,
-                      fontSize: '0.875rem',
+                      fontSize: '0.9375rem',
                       fontWeight: '500',
                       color: 'var(--text-primary)',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
-                      lineHeight: '1.3'
+                      lineHeight: '1.4',
+                      marginBottom: '0.25rem'
                     }}>
                       {track.name}
                     </p>
                     <p style={{
-                      margin: '0.125rem 0 0',
-                      fontSize: '0.8125rem',
+                      margin: 0,
+                      fontSize: '0.875rem',
                       color: 'var(--text-secondary)',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',

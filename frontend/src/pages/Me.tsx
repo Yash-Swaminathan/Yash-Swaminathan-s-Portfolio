@@ -401,9 +401,6 @@ const Me: React.FC = () => {
         </div>
       </div>
 
-      {/* Spotify Widget - Full Width */}
-      <SpotifyWidget />
-
       {/* Experience Section */}
       <div style={{
         padding: '2rem',
@@ -415,6 +412,9 @@ const Me: React.FC = () => {
 
       {/* Click Me Button */}
       <ClickButton />
+
+      {/* Spotify Widget - Full Width at Bottom */}
+      <SpotifyWidget />
 
       {/* Bottom spacing */}
       <div style={{ padding: '2rem' }}></div>
