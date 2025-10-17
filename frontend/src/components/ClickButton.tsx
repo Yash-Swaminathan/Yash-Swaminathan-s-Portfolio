@@ -18,8 +18,8 @@ const ClickButton: React.FC = () => {
   const handleClick = async () => {
     const now = Date.now();
 
-    // Debounce while animation is playing (3000ms max animation time for geese)
-    if (animationState === 'playing' && now - lastClickTime < 3000) {
+    // Debounce while animation is playing (6000ms max animation time for 8 geese)
+    if (animationState === 'playing' && now - lastClickTime < 6000) {
       return;
     }
 
@@ -39,11 +39,11 @@ const ClickButton: React.FC = () => {
       setClickCount(prev => prev + 1);
     }
 
-    // Complete animation and return to idle
+    // Complete animation and return to idle (2100ms last goose delay + 3500ms animation = 5600ms total)
     setTimeout(() => {
       setAnimationState('done');
       setTimeout(() => setAnimationState('idle'), 100);
-    }, 2500); // 2.5s for slower geese flock animation
+    }, 5600); // 5.6s for all 8 geese to fly off screen
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {

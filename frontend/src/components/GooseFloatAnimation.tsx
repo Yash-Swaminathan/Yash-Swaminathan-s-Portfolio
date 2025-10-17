@@ -18,12 +18,12 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
 
   useEffect(() => {
     if (!prefersReducedMotion && animationEnabled) {
-      // Show bubble at 70% of geese path (around 1750ms into 2500ms animation)
+      // Show bubble at 70% of geese path (around 2450ms into 3500ms animation)
       const bubbleTimer = setTimeout(() => {
         setShowBubble(true);
         // Hide bubble after 400ms for better visibility with slower animation
         setTimeout(() => setShowBubble(false), 400);
-      }, 1750);
+      }, 2450);
 
       return () => clearTimeout(bubbleTimer);
     }
@@ -72,7 +72,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '80px',
             height: '80px',
             zIndex: 1001,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards'
+            animation: 'gooseFloatScreen 3500ms ease-out forwards'
           }}
         >
           <img
@@ -82,7 +82,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '80px',
               height: '80px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               filter: 'drop-shadow(5px 5px 10px rgba(0,0,0,0.3))'
             }}
           />
@@ -98,7 +98,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '70px',
             height: '70px',
             zIndex: 1000,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '300ms'
           }}
         >
@@ -109,7 +109,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '70px',
               height: '70px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '300ms',
               filter: 'drop-shadow(4px 4px 8px rgba(0,0,0,0.25))'
             }}
@@ -126,7 +126,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '65px',
             height: '65px',
             zIndex: 999,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '600ms'
           }}
         >
@@ -137,7 +137,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '65px',
               height: '65px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '600ms',
               filter: 'drop-shadow(3px 3px 6px rgba(0,0,0,0.2))'
             }}
@@ -154,7 +154,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '60px',
             height: '60px',
             zIndex: 998,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '900ms'
           }}
         >
@@ -165,7 +165,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '60px',
               height: '60px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '900ms',
               filter: 'drop-shadow(2px 2px 5px rgba(0,0,0,0.2))'
             }}
@@ -182,7 +182,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '55px',
             height: '55px',
             zIndex: 997,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '1200ms'
           }}
         >
@@ -193,7 +193,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '55px',
               height: '55px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '1200ms',
               filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.15))'
             }}
@@ -210,7 +210,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '58px',
             height: '58px',
             zIndex: 996,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '1500ms'
           }}
         >
@@ -221,7 +221,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '58px',
               height: '58px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '1500ms',
               filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.15))'
             }}
@@ -238,7 +238,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '52px',
             height: '52px',
             zIndex: 995,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '1800ms'
           }}
         >
@@ -249,7 +249,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '52px',
               height: '52px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '1800ms',
               filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.1))'
             }}
@@ -266,7 +266,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             width: '50px',
             height: '50px',
             zIndex: 994,
-            animation: 'gooseFloatScreen 2500ms ease-out forwards',
+            animation: 'gooseFloatScreen 3500ms ease-out forwards',
             animationDelay: '2100ms'
           }}
         >
@@ -277,7 +277,7 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
               width: '50px',
               height: '50px',
               objectFit: 'contain',
-              animation: 'gooseBob 2500ms ease-in-out',
+              animation: 'gooseBob 3500ms ease-in-out',
               animationDelay: '2100ms',
               filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.1))'
             }}
