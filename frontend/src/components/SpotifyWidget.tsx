@@ -196,7 +196,7 @@ const SpotifyWidget: React.FC = () => {
           </p>
         </div>
         <a
-          href="https://open.spotify.com"
+          href="https://open.spotify.com/user/yeq062vvc2vmx1sq0rwew7gz9"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -219,7 +219,7 @@ const SpotifyWidget: React.FC = () => {
             e.currentTarget.style.color = 'var(--text-primary)';
           }}
         >
-          Open in Spotify
+          Add me on Spotify!
         </a>
       </div>
 
