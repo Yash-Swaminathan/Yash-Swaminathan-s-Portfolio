@@ -75,15 +75,17 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             animation: 'gooseFloatScreen 2500ms ease-out forwards'
           }}
         >
-          <div style={{
-            fontSize: '80px',
-            display: 'block',
-            animation: 'gooseBob 2500ms ease-in-out',
-            filter: 'drop-shadow(5px 5px 10px rgba(0,0,0,0.5))',
-            color: '#4a4037'
-          }}>
-            🪿
-          </div>
+          <img
+            src="/photos/canada_goose-removebg-preview.png"
+            alt="Canada Goose"
+            style={{
+              width: '80px',
+              height: '80px',
+              objectFit: 'contain',
+              animation: 'gooseBob 2500ms ease-in-out',
+              filter: 'drop-shadow(5px 5px 10px rgba(0,0,0,0.3))'
+            }}
+          />
         </div>
 
         {/* Goose 2 - Following behind and higher */}
@@ -100,16 +102,18 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             animationDelay: '300ms'
           }}
         >
-          <div style={{
-            fontSize: '70px',
-            display: 'block',
-            animation: 'gooseBob 2500ms ease-in-out',
-            animationDelay: '300ms',
-            filter: 'drop-shadow(4px 4px 8px rgba(0,0,0,0.4))',
-            color: '#3d362a'
-          }}>
-            🪿
-          </div>
+          <img
+            src="/photos/canada_goose-removebg-preview.png"
+            alt="Canada Goose"
+            style={{
+              width: '70px',
+              height: '70px',
+              objectFit: 'contain',
+              animation: 'gooseBob 2500ms ease-in-out',
+              animationDelay: '300ms',
+              filter: 'drop-shadow(4px 4px 8px rgba(0,0,0,0.25))'
+            }}
+          />
         </div>
 
         {/* Goose 3 - Following behind and lower */}
@@ -126,16 +130,18 @@ const GooseFloatAnimation: React.FC<GooseFloatAnimationProps> = ({
             animationDelay: '600ms'
           }}
         >
-          <div style={{
-            fontSize: '65px',
-            display: 'block',
-            animation: 'gooseBob 2500ms ease-in-out',
-            animationDelay: '600ms',
-            filter: 'drop-shadow(3px 3px 6px rgba(0,0,0,0.35))',
-            color: '#5a4f42'
-          }}>
-            🪿
-          </div>
+          <img
+            src="/photos/canada_goose-removebg-preview.png"
+            alt="Canada Goose"
+            style={{
+              width: '65px',
+              height: '65px',
+              objectFit: 'contain',
+              animation: 'gooseBob 2500ms ease-in-out',
+              animationDelay: '600ms',
+              filter: 'drop-shadow(3px 3px 6px rgba(0,0,0,0.2))'
+            }}
+          />
         </div>
 
         {/* Success bubble - positioned to follow duck */}
