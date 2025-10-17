@@ -75,18 +75,19 @@ const ClickButton: React.FC = () => {
         marginTop: '2rem',
         width: 'fit-content'
       }}>
-        {/* Container box with border and lighter blackish-grey background */}
+        {/* Container box - Cursor.com inspired styling */}
         <div style={{
           backgroundColor: 'var(--bg-secondary)',
           padding: '3rem',
-          borderRadius: '20px',
-          boxShadow: 'var(--shadow-xl)',
-          border: '2px solid var(--accent-blue)',
+          borderRadius: '16px',
+          boxShadow: '0 0 0 1px var(--border-default), 0 8px 24px rgba(0, 0, 0, 0.12)',
+          border: '1px solid var(--border-default)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '1.5rem'
+          gap: '1.5rem',
+          transition: 'all 0.3s ease'
         }}>
           {/* Text above button */}
           <div style={{ textAlign: 'center' }}>
@@ -119,14 +120,14 @@ const ClickButton: React.FC = () => {
             tabIndex={0}
             style={{
               position: 'relative',
-              background: '#1e40af',
+              background: '#000000',
               border: '3px solid transparent',
               color: 'white',
               fontWeight: 'bold',
               width: '180px',
               height: '180px',
               borderRadius: '50%',
-              boxShadow: '0 6px 20px rgba(30, 64, 175, 0.4)',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               fontSize: '16px',
@@ -142,26 +143,26 @@ const ClickButton: React.FC = () => {
             }}
             onMouseEnter={(e) => {
               if (animationState === 'idle') {
-                e.currentTarget.style.background = '#1d4ed8';
+                e.currentTarget.style.background = '#333333';
                 e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(30, 64, 175, 0.5)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.4)';
               }
             }}
             onMouseLeave={(e) => {
               if (animationState === 'idle') {
-                e.currentTarget.style.background = '#1e40af';
+                e.currentTarget.style.background = '#000000';
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
               }
             }}
             onFocus={(e) => {
               // Visible focus ring for keyboard navigation
-              e.currentTarget.style.borderColor = '#fbbf24';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4), 0 0 0 2px #fbbf24';
+              e.currentTarget.style.borderColor = '#ffffff';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3), 0 0 0 2px #ffffff';
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = 'transparent';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(30, 64, 175, 0.4)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
             }}
           >
             <span style={{

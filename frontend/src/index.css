@@ -40,44 +40,45 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark Theme */
+/* Dark Theme - Cursor.com inspired */
 [data-theme="dark"] {
   /* Backgrounds */
-  --bg: #3c3c3d;
-  --bg-primary: #3c3c3d;
-  --bg-secondary: #4a4a4b;
-  --surface: #3c3c3d;
-  --surface-elevated: #f9f9f9;
-  --surface-hover: #333333;
+  --bg: #14120b;
+  --bg-primary: #14120b;
+  --bg-secondary: #1c1a13;
+  --surface: #14120b;
+  --surface-elevated: #1c1a13;
+  --surface-hover: #252218;
 
   /* Text */
-  --text: #ffffff;
-  --text-primary: #ffffff;
-  --text-muted: #cccccc;
-  --text-secondary: #e0e0e0;
+  --text: #f7f7f4;
+  --text-primary: #f7f7f4;
+  --text-muted: #9d9a92;
+  --text-secondary: #d4d2cc;
 
   /* Primary & Accent */
-  --primary: #ffffff;
-  --primary-hover: #cccccc;
-  --accent: #ffffff;
-  --accent-hover: #cccccc;
+  --primary: #f7f7f4;
+  --primary-hover: #d4d2cc;
+  --accent: #f7f7f4;
+  --accent-hover: #d4d2cc;
 
   /* Semantic colors */
-  --success: #ffffff;
-  --warning: #ffffff;
-  --error: #ffffff;
+  --success: #f7f7f4;
+  --warning: #f7f7f4;
+  --error: #f7f7f4;
 
   /* Borders & Focus */
-  --border: #333333;
-  --border-default: #4a5568;
-  --border-strong: #666666;
-  --ring: #ffffff;
-  --focus: #ffffff;
+  --border: #2a271f;
+  --border-default: #2a271f;
+  --border-strong: #3d3930;
+  --ring: #f7f7f4;
+  --focus: #f7f7f4;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(255, 255, 255, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
 }
 
 
