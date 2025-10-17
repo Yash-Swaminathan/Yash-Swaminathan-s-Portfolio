@@ -155,7 +155,7 @@ const SpotifyWidget: React.FC = () => {
     <section style={{
       padding: '2.5rem 1rem',
       position: 'relative',
-      maxWidth: '1200px',
+      maxWidth: '1400px',
       margin: '0 auto'
     }}>
       {/* Background glow */}
@@ -330,11 +330,11 @@ const SpotifyWidget: React.FC = () => {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '1rem',
             padding: '1.25rem'
           }}>
-            {spotifyData.topArtists.items.slice(0, 12).map((artist) => (
+            {spotifyData.topArtists.items.slice(0, 4).map((artist) => (
               <a
                 key={artist.id}
                 href={artist.external_urls.spotify}
@@ -423,9 +423,9 @@ const SpotifyWidget: React.FC = () => {
             margin: 0,
             padding: 0
           }}>
-            {spotifyData.topTracks.items.slice(0, 10).map((track, index) => (
+            {spotifyData.topTracks.items.slice(0, 4).map((track, index) => (
               <li key={track.id} style={{
-                borderBottom: index < 9 ? '1px solid var(--border-default)' : 'none'
+                borderBottom: index < 3 ? '1px solid var(--border-default)' : 'none'
               }}>
                 <a
                   href={track.external_urls.spotify}
@@ -506,17 +506,6 @@ const SpotifyWidget: React.FC = () => {
           </ol>
         </motion.div>
       </div>
-
-      {/* Footer */}
-      <p style={{
-        marginTop: '1.5rem',
-        fontSize: '0.75rem',
-        color: 'var(--text-secondary)',
-        textAlign: 'center',
-        opacity: 0.8
-      }}>
-        Data via Spotify • Private listening respected • Cached for performance
-      </p>
 
       <style>
         {`
