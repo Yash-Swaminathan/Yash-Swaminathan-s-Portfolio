@@ -32,21 +32,21 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
           alignItems: 'center',
           gap: '8px',
           padding: '6px 12px',
-          backgroundColor: theme === 'dark' ? '#293241' : '#f5f3f0',
+          backgroundColor: 'var(--surface-elevated)',
           borderRadius: '24px',
           fontSize: '12px',
           fontWeight: '500',
           transition: 'all 0.3s ease'
         }}
       >
-        <span style={{ color: theme === 'dark' ? '#888' : '#666' }}>DARK</span>
+        <span style={{ color: 'var(--text-muted)' }}>DARK</span>
         <button
           onClick={toggleTheme}
           style={{
             position: 'relative',
             width: '52px',
             height: '28px',
-            backgroundColor: theme === 'dark' ? '#666' : '#ddd',
+            backgroundColor: theme === 'dark' ? 'var(--surface-hover)' : 'var(--border)',
             borderRadius: '14px',
             border: 'none',
             cursor: 'pointer',
@@ -70,14 +70,14 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
               left: theme === 'dark' ? '26px' : '2px',
               width: '24px',
               height: '24px',
-              backgroundColor: 'white',
+              backgroundColor: 'var(--text-primary)',
               borderRadius: '50%',
               transition: 'all 0.3s ease',
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
             }}
           />
         </button>
-        <span style={{ color: theme === 'light' ? '#333' : '#888' }}>LIGHT</span>
+        <span style={{ color: 'var(--text-muted)' }}>LIGHT</span>
       </div>
     );
   }
