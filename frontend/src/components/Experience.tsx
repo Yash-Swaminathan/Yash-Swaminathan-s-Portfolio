@@ -58,8 +58,15 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       padding: '0',
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-      {/* Experience Section */}
-      <div>
+      {/* Experience Section - Clean Box Container */}
+      <div style={{
+        backgroundColor: 'var(--surface-elevated)',
+        borderRadius: '16px',
+        padding: '2rem',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
+        border: '1px solid var(--border)',
+        transition: 'all 0.3s ease'
+      }}>
         <h2 style={{
           fontSize: '0.9rem',
           fontWeight: '600',
@@ -72,7 +79,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
         </h2>
 
         <div style={{
-          marginBottom: '3rem'
+          marginBottom: '2rem'
         }}>
           {experiences.slice(0, 1).map((exp, index) => (
             <a
@@ -85,7 +92,19 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
                 alignItems: 'center',
                 gap: '1rem',
                 textDecoration: 'none',
-                color: 'inherit'
+                color: 'inherit',
+                padding: '1rem',
+                borderRadius: '12px',
+                transition: 'all 0.2s ease',
+                backgroundColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--surface-hover)';
+                e.currentTarget.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.transform = 'translateX(0)';
               }}
             >
               <img
@@ -122,6 +141,13 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
           ))}
         </div>
 
+        {/* Divider */}
+        <div style={{
+          height: '1px',
+          backgroundColor: 'var(--border)',
+          marginBottom: '2rem'
+        }}></div>
+
         <h2 style={{
           fontSize: '0.9rem',
           fontWeight: '600',
@@ -136,7 +162,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '1.25rem'
+          gap: '0.5rem'
         }}>
           {experiences.slice(1).map((exp, index) => (
             <a
@@ -149,7 +175,19 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
                 alignItems: 'center',
                 gap: '0.75rem',
                 textDecoration: 'none',
-                color: 'inherit'
+                color: 'inherit',
+                padding: '0.75rem',
+                borderRadius: '12px',
+                transition: 'all 0.2s ease',
+                backgroundColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--surface-hover)';
+                e.currentTarget.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.transform = 'translateX(0)';
               }}
             >
               <img
