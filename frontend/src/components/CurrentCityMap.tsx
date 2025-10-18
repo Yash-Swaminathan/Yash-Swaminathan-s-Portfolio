@@ -30,11 +30,11 @@ const CurrentCityMap: React.FC<CurrentCityMapProps> = ({
   const containerStyle: React.CSSProperties = {
     width: `${width}px`,
     height: `${height}px`,
-    borderRadius: '12px',
+    borderRadius: '8px',
     overflow: 'hidden',
-    border: '2px solid var(--border)',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-    backgroundColor: 'var(--bg-secondary)'
+    border: 'none',
+    boxShadow: 'none',
+    backgroundColor: 'transparent'
   };
 
   return (
@@ -94,11 +94,7 @@ const CurrentCityMap: React.FC<CurrentCityMapProps> = ({
 
       <style>{`
         .current-city-map {
-          transition: box-shadow 0.2s ease;
-        }
-
-        .current-city-map:hover {
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+          transition: all 0.2s ease;
         }
       `}</style>
     </div>

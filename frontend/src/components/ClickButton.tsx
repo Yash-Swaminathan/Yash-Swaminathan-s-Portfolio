@@ -67,10 +67,6 @@ const ClickButton: React.FC = () => {
   return (
     <>
       <div style={{
-        position: 'relative',
-        marginLeft: 'auto',
-        marginRight: '10%',
-        marginTop: '2rem',
         width: 'fit-content'
       }}>
         {/* Container box - Cursor.com inspired styling */}

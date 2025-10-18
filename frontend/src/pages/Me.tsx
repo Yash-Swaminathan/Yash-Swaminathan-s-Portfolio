@@ -355,63 +355,72 @@ const Me: React.FC = () => {
           </div>
         </div>
 
-        {/* Map Section */}
+        {/* Map and Button Section - Side by Side */}
         <div style={{
           marginLeft: '2rem',
-          marginBottom: '3rem'
+          marginBottom: '3rem',
+          display: 'grid',
+          gridTemplateColumns: 'auto auto',
+          gap: '2rem',
+          alignItems: 'start',
+          width: 'fit-content'
         }}>
+          {/* Map Section */}
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            padding: '1.5rem',
-            borderRadius: '20px',
-            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
+            padding: '3rem',
+            borderRadius: '16px',
+            boxShadow: '0 0 0 1px var(--border-default), 0 8px 24px rgba(0, 0, 0, 0.12)',
             border: '1px solid var(--border-default)',
-            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '1.5rem',
+            transition: 'all 0.3s ease',
             position: 'relative',
             overflow: 'hidden',
-            width: 'fit-content'
+            minWidth: '300px'
           }}>
-            {/* Subtle glow effect */}
-            <div style={{
-              position: 'absolute',
-              top: '-50%',
-              left: '-50%',
-              width: '200%',
-              height: '200%',
-              background: 'radial-gradient(circle, rgba(41, 50, 65, 0.1) 0%, transparent 70%)',
-              pointerEvents: 'none'
-            }}></div>
+            {/* Text above map */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                color: 'var(--text-primary)',
+                fontSize: '32px',
+                fontWeight: 'bold',
+                marginBottom: '0.5rem',
+                fontFamily: 'Georgia, serif'
+              }}>
+                Currently based in
+              </div>
+              <div style={{
+                color: 'var(--text-muted)',
+                fontSize: '20px',
+                fontWeight: 'normal',
+                fontFamily: 'Georgia, serif'
+              }}>
+                Drag to explore
+              </div>
+            </div>
 
-            <h3 style={{
-              color: 'var(--text-primary)',
-              marginBottom: '0.5rem',
-              fontSize: '20px',
-              fontWeight: '600',
-              position: 'relative',
-              zIndex: 1,
-              letterSpacing: '0.5px'
+            {/* Map */}
+            <div style={{
+              width: '180px',
+              height: '180px',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              Currently based in
-            </h3>
-            <p style={{
-              color: 'var(--text-muted)',
-              fontSize: '14px',
-              marginBottom: '1rem',
-              position: 'relative',
-              zIndex: 1,
-              fontStyle: 'italic'
-            }}>
-              Drag around to explore the map
-            </p>
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <CurrentCityMap width={290} height={220} />
+              <CurrentCityMap width={180} height={180} />
             </div>
           </div>
+
+          {/* Click Me Button */}
+          <ClickButton />
         </div>
       </div>
-
-      {/* Click Me Button */}
-      <ClickButton />
 
       {/* Spotify Widget - Full Width at Bottom */}
       <SpotifyWidget />
