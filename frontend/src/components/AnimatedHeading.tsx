@@ -133,7 +133,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
         color: 'var(--text-primary)',
         textAlign: 'center',
         marginBottom: '3rem',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif',
+        fontFamily: 'Inter, sans-serif',
         letterSpacing: '-0.02em',
         background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%)',
         WebkitBackgroundClip: 'text',

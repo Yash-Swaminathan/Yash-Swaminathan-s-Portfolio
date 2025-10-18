@@ -368,7 +368,7 @@ const Me: React.FC = () => {
           {/* Map Section */}
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            padding: '3rem',
+            padding: '1.5rem',
             borderRadius: '16px',
             boxShadow: '0 0 0 1px var(--border-default), 0 8px 24px rgba(0, 0, 0, 0.12)',
             border: '1px solid var(--border-default)',
@@ -376,28 +376,28 @@ const Me: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '1.5rem',
+            gap: '0.75rem',
             transition: 'all 0.3s ease',
             position: 'relative',
             overflow: 'hidden',
-            minWidth: '300px'
+            width: 'fit-content'
           }}>
             {/* Text above map */}
             <div style={{ textAlign: 'center' }}>
               <div style={{
                 color: 'var(--text-primary)',
-                fontSize: '32px',
+                fontSize: '30px',
                 fontWeight: 'bold',
                 marginBottom: '0.5rem',
-                fontFamily: 'Georgia, serif'
+                fontFamily: 'Inter, sans-serif'
               }}>
-                Currently based in
+                Currently Based In
               </div>
               <div style={{
                 color: 'var(--text-muted)',
                 fontSize: '20px',
                 fontWeight: 'normal',
-                fontFamily: 'Georgia, serif'
+                fontFamily: 'Inter, sans-serif'
               }}>
                 Drag to explore
               </div>

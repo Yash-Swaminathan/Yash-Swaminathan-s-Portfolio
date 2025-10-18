@@ -173,7 +173,7 @@ const SpotifyWidget: React.FC = () => {
           color: 'var(--text-primary)',
           margin: 0,
           letterSpacing: '-0.03em',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
+          fontFamily: 'Inter, sans-serif'
         }}>
           What I listen to
         </h2>

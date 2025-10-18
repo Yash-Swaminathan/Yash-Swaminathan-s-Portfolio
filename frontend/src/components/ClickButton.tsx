@@ -72,7 +72,7 @@ const ClickButton: React.FC = () => {
         {/* Container box - Cursor.com inspired styling */}
         <div style={{
           backgroundColor: 'var(--bg-secondary)',
-          padding: '3rem',
+          padding: '1.5rem',
           borderRadius: '16px',
           boxShadow: '0 0 0 1px var(--border-default), 0 8px 24px rgba(0, 0, 0, 0.12)',
           border: '1px solid var(--border-default)',
@@ -80,8 +80,9 @@ const ClickButton: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '1.5rem',
-          transition: 'all 0.3s ease'
+          gap: '0.75rem',
+          transition: 'all 0.3s ease',
+          width: 'fit-content'
         }}>
           {/* Text above button */}
           <div style={{ textAlign: 'center' }}>
@@ -90,7 +91,7 @@ const ClickButton: React.FC = () => {
               fontSize: '32px',
               fontWeight: 'bold',
               marginBottom: '0.5rem',
-              fontFamily: 'Georgia, serif'
+              fontFamily: 'Inter, sans-serif'
             }}>
               Press The Button
             </div>
@@ -98,7 +99,7 @@ const ClickButton: React.FC = () => {
               color: 'var(--text-muted)',
               fontSize: '20px',
               fontWeight: 'normal',
-              fontFamily: 'Georgia, serif'
+              fontFamily: 'Inter, sans-serif'
             }}>
             or not
             </div>
@@ -123,7 +124,7 @@ const ClickButton: React.FC = () => {
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               fontSize: '16px',
-              fontFamily: 'Georgia, serif',
+              fontFamily: 'Inter, sans-serif',
               lineHeight: '1.2',
               display: 'flex',
               alignItems: 'center',
