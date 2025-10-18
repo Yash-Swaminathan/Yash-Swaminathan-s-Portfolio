@@ -56,11 +56,9 @@ const ClickButton: React.FC = () => {
 
   const getButtonText = () => {
     if (animationState === 'playing') {
-      return 'You startled\nthe Waterloo\ngeese!';
+      return 'You scared\nthe geese!';
     } else if (clickCount === 0) {
       return 'Click\nMe!';
-    } else if (clickCount === 1) {
-      return "The Waterloo geese\nhave been startled\n1 time";
     } else {
       return `The Waterloo geese\nhave been startled\n${clickCount} times`;
     }

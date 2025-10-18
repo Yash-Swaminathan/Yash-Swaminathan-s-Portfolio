@@ -203,13 +203,13 @@ const Me: React.FC = () => {
           {/* Photo Carousel */}
           <div style={{
             position: 'relative',
-            width: '400px'
+            width: '500px'
           }}>
             {/* Photo Container */}
             <div
               style={{
-                width: '400px',
-                height: '500px',
+                width: '500px',
+                height: '600px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
