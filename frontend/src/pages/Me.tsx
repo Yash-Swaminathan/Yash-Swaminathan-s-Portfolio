@@ -3,7 +3,6 @@ import ClickButton from '../components/ClickButton';
 import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
-import SocialIcons from '../components/SocialIcons';
 import Experience from '../components/Experience';
 
 const Me: React.FC = () => {
@@ -186,7 +185,7 @@ const Me: React.FC = () => {
           </div>
         </div>
 
-        {/* Interactive Section Grid - Photo, Map, and Spotify */}
+        {/* Interactive Section Grid - Experience and Photo */}
         <div style={{
           marginLeft: '2rem',
           marginBottom: '3rem',
@@ -196,6 +195,11 @@ const Me: React.FC = () => {
           alignItems: 'start',
           width: 'fit-content'
         }}>
+          {/* Experience Section */}
+          <div>
+            <Experience />
+          </div>
+
           {/* Photo Carousel */}
           <div style={{
             position: 'relative',
@@ -349,8 +353,13 @@ const Me: React.FC = () => {
               })}
             </div>
           </div>
+        </div>
 
-          {/* Map Section */}
+        {/* Map Section */}
+        <div style={{
+          marginLeft: '2rem',
+          marginBottom: '3rem'
+        }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
             padding: '1.5rem',
@@ -399,15 +408,6 @@ const Me: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Experience Section */}
-      <div style={{
-        padding: '2rem',
-        paddingLeft: '4rem',
-        marginTop: '2rem'
-      }}>
-        <Experience />
       </div>
 
       {/* Click Me Button */}
