@@ -4,6 +4,7 @@ import SpotifyWidget from '../components/SpotifyWidget';
 import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import Experience from '../components/Experience';
+import CodeQuote from '../components/CodeQuote';
 
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
@@ -355,12 +356,12 @@ const Me: React.FC = () => {
           </div>
         </div>
 
-        {/* Map and Button Section - Side by Side */}
+        {/* Map, Button, and Daily Code Quote - Side by Side */}
         <div style={{
           marginLeft: '2rem',
           marginBottom: '3rem',
           display: 'grid',
-          gridTemplateColumns: 'auto auto',
+          gridTemplateColumns: 'auto auto auto',
           gap: '2rem',
           alignItems: 'start',
           width: 'fit-content'
@@ -419,6 +420,11 @@ const Me: React.FC = () => {
 
           {/* Click Me Button */}
           <ClickButton />
+
+          {/* Daily Code Quote */}
+          <div>
+            <CodeQuote />
+          </div>
         </div>
       </div>
 
