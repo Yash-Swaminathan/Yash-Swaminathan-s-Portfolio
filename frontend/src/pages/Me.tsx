@@ -139,7 +139,7 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              working at{' '}
+              Working at{' '}
               <a
                 href="https://www.micromart.com/smart-store"
                 target="_blank"
@@ -156,7 +156,7 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              focused on backend scalability and reliability engineering. Developing in typescript and python based applications
+              Focused on backend scalability and reliability engineering. Developing in typescript and python based applications
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
@@ -176,7 +176,7 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              aspiring to be a 10x engineer, get my CFA, and start my own company
+              Aspiring to be a 10x engineer, get my CFA, and start my own company!
             </p>
 
             <p style={{ margin: '0.5rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
