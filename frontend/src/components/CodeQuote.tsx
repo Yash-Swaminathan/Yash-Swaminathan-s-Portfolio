@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 type Quote = {
   text: string;
@@ -234,6 +234,13 @@ const CodeQuote: React.FC = () => {
   const snippet = useMemo(() => renderSnippet(quote, lang), [quote, lang]);
   const highlightedCode = useMemo(() => highlightSyntax(snippet.body, lang), [snippet.body, lang]);
   const dailyPerson = useMemo(() => pickDaily(INSPIRATIONAL_PEOPLE), []);
+  const [showOutput, setShowOutput] = useState(false);
+
+  // Generate the actual output that the code would produce
+  const codeOutput = useMemo(() => {
+    const author = quote.author ? ` - ${quote.author}` : '';
+    return `${quote.text}${author}`;
+  }, [quote]);
 
   return (
     <div
@@ -286,30 +293,93 @@ const CodeQuote: React.FC = () => {
       {/* Window header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
         <div style={{ display: 'flex', gap: 6 }}>
-          <span style={{ width: 10, height: 10, borderRadius: 10, background: '#ff5f57', display: 'inline-block' }} />
+          <button
+            onClick={() => setShowOutput(!showOutput)}
+            style={{ 
+              width: 10, 
+              height: 10, 
+              borderRadius: 10, 
+              background: '#ff5f57', 
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'transform 0.1s ease',
+              display: 'inline-block'
+            }}
+            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
+            onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            title={showOutput ? "Show code" : "Show output"}
+          />
           <span style={{ width: 10, height: 10, borderRadius: 10, background: '#ffbd2e', display: 'inline-block' }} />
           <span style={{ width: 10, height: 10, borderRadius: 10, background: '#28c840', display: 'inline-block' }} />
         </div>
         <div style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontFamily: 'Inter, sans-serif', fontSize: 12 }}>
-          {snippet.header}
+          {showOutput ? 'Output' : snippet.header}
         </div>
       </div>
 
-      {/* Code area with syntax highlighting */}
-      <div
-        style={{
-          margin: 0,
-          padding: '0.75rem 1rem',
-          background: 'var(--bg-primary)',
-          borderRadius: 12,
-          fontFamily: 'SFMono-Regular, Consolas, Monaco, Menlo, ui-monospace, monospace',
-          fontSize: 13.5,
-          lineHeight: 1.6,
-          border: '1px solid var(--border-default)'
-        }}
-      >
-        {highlightedCode}
-      </div>
+      {/* Code area with syntax highlighting or output */}
+      {showOutput ? (
+        <div
+          style={{
+            margin: 0,
+            padding: '0.75rem 1rem',
+            background: 'var(--bg-primary)',
+            borderRadius: 12,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: 14,
+            lineHeight: 1.6,
+            border: '1px solid var(--border-default)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <div style={{
+            textAlign: 'center',
+            color: 'var(--text-primary)',
+            padding: '1rem 0'
+          }}>
+            <div style={{
+              fontSize: 16,
+              fontWeight: 500,
+              marginBottom: '0.5rem',
+              color: 'var(--text-primary)'
+            }}>
+              {quote.text}
+            </div>
+            {quote.author && (
+              <div style={{
+                fontSize: 14,
+                color: 'var(--text-muted)',
+                fontStyle: 'italic'
+              }}>
+                — {quote.author}
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <pre
+          style={{
+            margin: 0,
+            padding: '0.75rem 1rem',
+            background: 'var(--bg-primary)',
+            borderRadius: 12,
+            fontFamily: 'SFMono-Regular, Consolas, Monaco, Menlo, ui-monospace, monospace',
+            fontSize: 13.5,
+            lineHeight: 1.6,
+            border: '1px solid var(--border-default)',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            overflow: 'auto'
+          }}
+        >
+          <code style={{ display: 'block' }}>
+            {highlightedCode}
+          </code>
+        </pre>
+      )}
     </div>
   );
 };
