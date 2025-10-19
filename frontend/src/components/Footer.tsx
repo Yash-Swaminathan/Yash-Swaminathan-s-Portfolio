@@ -128,7 +128,8 @@ const Footer: React.FC = () => {
         <div style={{
           color: '#ffffff',
           fontSize: '18px',
-          fontWeight: '500'
+          fontWeight: '500',
+          fontFamily: 'Inter, sans-serif'
         }}>
           Yash Swaminathan
         </div>
@@ -138,7 +139,8 @@ const Footer: React.FC = () => {
           color: '#999999',
           fontSize: '14px',
           fontStyle: 'italic',
-          textAlign: 'center'
+          textAlign: 'center',
+          fontFamily: 'Inter, sans-serif'
         }}>
           Since you scrolled this far down, might as well connect with me!
         </div>

@@ -47,7 +47,8 @@ const Navigation: React.FC = () => {
       <div style={{
         color: 'var(--text-primary)',
         fontSize: '18px',
-        fontWeight: '500'
+        fontWeight: '500',
+        fontFamily: 'Inter, sans-serif'
       }}>
         Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
       </div>
@@ -67,6 +68,7 @@ const Navigation: React.FC = () => {
                   textDecoration: 'none',
                   fontSize: '16px',
                   fontWeight: '400',
+                  fontFamily: 'Inter, sans-serif',
                   transition: 'color 0.2s ease',
                   borderBottom: '2px solid transparent',
                   paddingBottom: '2px'
@@ -89,6 +91,7 @@ const Navigation: React.FC = () => {
                   textDecoration: 'none',
                   fontSize: '16px',
                   fontWeight: '400',
+                  fontFamily: 'Inter, sans-serif',
                   transition: 'color 0.2s ease',
                   borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--text-primary)' : '2px solid transparent',
                   paddingBottom: '2px'
