@@ -60,7 +60,7 @@ const ClickButton: React.FC = () => {
     } else if (clickCount === 0) {
       return 'Click\nMe!';
     } else {
-      return `The Waterloo geese\nhave been startled\n${clickCount} times`;
+      return `The Waterloo geese\nhave been scared\n${clickCount} times`;
     }
   };
 
