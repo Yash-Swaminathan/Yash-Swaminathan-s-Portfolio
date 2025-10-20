@@ -35,8 +35,7 @@ function dayKey(): number {
   const oneDay = 1000 * 60 * 60 * 24;
   const dayOfYear = Math.floor(diff / oneDay);
   
-  // TEMPORARY: Add 1 to see next day's content (remove this line when done testing)
-  return now.getUTCFullYear() * 1000 + dayOfYear + 1; // stable per day
+  return now.getUTCFullYear() * 1000 + dayOfYear; // stable per day
 }
 
 function pickDaily<T>(items: T[]): T {
