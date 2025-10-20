@@ -22,7 +22,6 @@ const QUOTES: Quote[] = [
   { text: 'Make it work, make it right, make it fast.', author: 'Kent Beck' },
   { text: 'Premature optimization is the root of all evil.', author: 'Donald Knuth' },
   { text: 'The only way to go fast, is to go well.', author: 'Robert C. Martin' },
-  { text: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
   { text: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
   { text: 'Simplicity is prerequisite for reliability.', author: 'Edsger W. Dijkstra' },
   { text: 'Good code is its own best documentation.', author: 'Steve McConnell' },
@@ -200,7 +199,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
 
 function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string } {
   const text = quote.text.replace(/"/g, '\\"');
-  const author = quote.author ? ` - ${quote.author}` : '';
+  const author = quote.author ? quote.author : '';
 
   if (lang === 'ts') {
     // TypeScript-style snippet
@@ -209,8 +208,8 @@ function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string
       '/* quote_of_the_day.ts */',
       'export const quoteOfTheDay: string = (() => {',
       `  const quote: string = "${text}";`,
-      `  const author: string = "${author.trim()}";`,
-      '  return author ? `${quote} ${author}` : quote;',
+      `  const author: string = "${author}";`,
+      '  return author ? `${quote} - ${author}` : quote;',
       '})();',
     ].join('\n');
     return { header, body };
@@ -222,8 +221,8 @@ function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string
     '# thought_of_the_day.py',
     'from typing import Final',
     `QUOTE: Final[str] = "${text}"`,
-    `AUTHOR: Final[str] = "${author.trim()}"`,
-    'thought_of_the_day: Final[str] = f"{QUOTE} {AUTHOR}".strip()',
+    `AUTHOR: Final[str] = "${author}"`,
+    'thought_of_the_day: Final[str] = f"{QUOTE} - {AUTHOR}".strip() if AUTHOR else QUOTE',
   ].join('\n');
   return { header, body };
 }
