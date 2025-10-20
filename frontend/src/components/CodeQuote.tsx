@@ -7,9 +7,9 @@ type Quote = {
 
 // People who inspire me and why
 const INSPIRATIONAL_PEOPLE = [
-  { name: 'Dad', reason: 'His unwavering work ethic and dedication to family' },
-  { name: 'Mom', reason: 'Her endless compassion and strength through challenges' },
-  { name: 'LeBron James', reason: 'His commitment to excellence and giving back to community' },
+  { name: 'Swaminathan Tanjore (My Dad)', reason: 'Immigrated to Canada from India and built a successful company ' },
+  { name: 'Madhavi Swaminathan (My Mom)', reason: 'Turned me into the person I am today' },
+  { name: 'LeBron James', reason: 'He\'s Lebron... ' },
   { name: 'Kobe Bryant', reason: 'The Mamba Mentality - relentless pursuit of greatness' },
   { name: 'Steve Jobs', reason: 'His vision to think different and change the world' },
 ];
