@@ -7,11 +7,11 @@ type Quote = {
 
 // People who inspire me and why
 const INSPIRATIONAL_PEOPLE = [
-  { name: 'Swaminathan Tanjore (My Dad)', reason: 'Immigrated to Canada from India and built a successful company ' },
-  { name: 'Madhavi Swaminathan (My Mom)', reason: 'Turned me into the person I am today' },
-  { name: 'LeBron James', reason: 'He\'s Lebron... ' },
-  { name: 'Kobe Bryant', reason: 'The Mamba Mentality - relentless pursuit of greatness' },
-  { name: 'Steve Jobs', reason: 'His vision to think different and change the world' },
+  { name: 'Swaminathan Tanjore (My Dad)', reason: 'Immigrated to Canada from India and built a successful company through resilience and vision.' },
+  { name: 'Madhavi Swaminathan (My Mom)', reason: 'Her values, support, and patience shaped who I am today.' },
+  { name: 'LeBron James', reason: "It's LeBron..." },
+  { name: 'Linus Torvalds', reason: 'Created Linux and Git — motivated by a passion for improvement rather than profit, proving that open-source collaboration can transform the world.' },
+  { name: 'Steve Jobs', reason: 'His ability to blend design, innovation, and purpose changed how the world interacts with technology.' },  
 ];
 
 // Small, developer-friendly quotes. Rotates daily and renders as code.
