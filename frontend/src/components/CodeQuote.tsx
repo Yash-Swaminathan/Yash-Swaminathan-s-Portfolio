@@ -344,7 +344,7 @@ const CodeQuote: React.FC = () => {
             marginLeft: 4,
             userSelect: 'none'
           }}>
-            {showOutput ? '← code' : '→ run'}
+            {showOutput ? '← code (red button)' : '→ run (red button)'}
           </span>
         </div>
         <div style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontFamily: 'Inter, sans-serif', fontSize: 12 }}>
