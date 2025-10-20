@@ -12,9 +12,9 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
   const isMountedRef = useRef(true);
 
   const greetings = [
-    "Hey, I'm Yash! Nice to meet you!",          // English
-    "नमस्ते, मैं यश हूं! आपसे मिलकर खुशी हुई",      // Hindi
-    "你好，我是雅什！很高兴见到你！",                    // Mandarin
+    "Hey, I'm Yash! Nice to meet you!",          
+    "This is My Portfolio!",
+    "I'm a software engineer and a builder!",
   ];
 
   // Clear all timeouts when component unmounts
