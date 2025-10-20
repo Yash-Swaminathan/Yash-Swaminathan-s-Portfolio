@@ -5,7 +5,6 @@ import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import Experience from '../components/Experience';
 import CodeQuote from '../components/CodeQuote';
-import InspirationalPerson from '../components/InspirationalPerson';
 
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
@@ -421,11 +420,6 @@ const Me: React.FC = () => {
 
           {/* Click Me Button */}
           <ClickButton />
-
-          {/* Someone who inspires me */}
-          <div>
-            <InspirationalPerson />
-          </div>
 
           {/* Daily Code Quote */}
           <div>

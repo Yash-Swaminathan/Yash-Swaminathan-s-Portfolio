@@ -5,6 +5,15 @@ type Quote = {
   author?: string;
 };
 
+// People who inspire me and why
+const INSPIRATIONAL_PEOPLE = [
+  { name: 'Swaminathan Tanjore (My Dad)', reason: 'Immigrated to Canada from India and built a successful company through resilience and vision.' },
+  { name: 'Madhavi Swaminathan (My Mom)', reason: 'Her values, support, and patience shaped who I am today.' },
+  { name: 'LeBron James', reason: "It's LeBron..." },
+  { name: 'Linus Torvalds', reason: 'Created Linux and Git — motivated by a passion for improvement rather than profit, proving that open-source collaboration can transform the world.' },
+  { name: 'Steve Jobs', reason: 'His ability to blend design, innovation, and purpose changed how the world interacts with technology.' },  
+];
+
 // Small, developer-friendly quotes. Rotates daily and renders as code.
 const QUOTES: Quote[] = [
   { text: 'Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.', author: 'Master Oogway' },
@@ -223,6 +232,7 @@ const CodeQuote: React.FC = () => {
   const lang = useMemo(dailyLang, []);
   const snippet = useMemo(() => renderSnippet(quote, lang), [quote, lang]);
   const highlightedCode = useMemo(() => highlightSyntax(snippet.body, lang), [snippet.body, lang]);
+  const dailyPerson = useMemo(() => pickDaily(INSPIRATIONAL_PEOPLE), []);
   const [showOutput, setShowOutput] = useState(false);
 
   // Generate the actual output that the code would produce
@@ -243,6 +253,42 @@ const CodeQuote: React.FC = () => {
       }}
       aria-label="Daily Thought (as code)"
     >
+      {/* Inspirational Person Section */}
+      <div style={{ 
+        marginBottom: '1rem', 
+        padding: '0.75rem', 
+        backgroundColor: 'var(--bg-primary)', 
+        borderRadius: 8,
+        border: '1px solid var(--border-default)'
+      }}>
+        <div style={{ 
+          fontSize: 12, 
+          fontWeight: 600, 
+          color: 'var(--text-muted)', 
+          marginBottom: '0.5rem',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          Someone who inspires me
+        </div>
+        <div style={{ 
+          fontSize: 14, 
+          fontWeight: 600, 
+          color: 'var(--text-primary)', 
+          marginBottom: '0.25rem',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          {dailyPerson.name}
+        </div>
+        <div style={{ 
+          fontSize: 12, 
+          color: 'var(--text-muted)', 
+          fontStyle: 'italic',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          {dailyPerson.reason}
+        </div>
+      </div>
+
       {/* Window header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
         <div style={{ display: 'flex', gap: 6 }}>
