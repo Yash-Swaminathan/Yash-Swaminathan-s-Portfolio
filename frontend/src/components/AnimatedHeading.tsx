@@ -14,7 +14,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
   const greetings = [
     "Hey, I'm Yash! Nice to meet you!",          
     "This is My Portfolio!",
-    "I'm a software engineer and a builder!",
+    "I'm a software engineer and builder!",
   ];
 
   // Clear all timeouts when component unmounts
