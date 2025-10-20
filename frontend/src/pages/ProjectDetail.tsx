@@ -59,7 +59,7 @@ const ProjectDetail: React.FC = () => {
         }}
       >
         <motion.button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/projects')}
           whileHover={{ scale: 1.02, x: -4 }}
           whileTap={{ scale: 0.98 }}
           style={{
@@ -74,6 +74,7 @@ const ProjectDetail: React.FC = () => {
             cursor: 'pointer',
             fontSize: '16px',
             fontWeight: '500',
+            fontFamily: 'Inter, sans-serif',
             marginBottom: '2rem',
           }}
         >
@@ -90,20 +91,12 @@ const ProjectDetail: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 400px',
-          gap: '4rem',
-          alignItems: 'start',
-        }}>
+        <div>
           {/* Content */}
-          <div>
+          <div style={{ maxWidth: '800px' }}>
             <motion.div
               variants={itemVariants}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
                 marginBottom: '1rem',
               }}
             >
@@ -113,32 +106,11 @@ const ProjectDetail: React.FC = () => {
                 color: 'var(--text-primary)',
                 margin: 0,
                 lineHeight: '1.1',
+                fontFamily: 'Inter, sans-serif',
               }}>
                 {project.title}
               </h1>
-              <span style={{
-                fontSize: '1.2rem',
-                color: 'var(--text-secondary)',
-                fontWeight: '500',
-                padding: '4px 12px',
-                backgroundColor: 'var(--bg-tertiary, #f0f0f0)',
-                borderRadius: '20px',
-              }}>
-                {project.year}
-              </span>
             </motion.div>
-
-            <motion.p
-              variants={itemVariants}
-              style={{
-                fontSize: '1.5rem',
-                color: 'var(--text-accent, #007acc)',
-                margin: '0 0 2rem 0',
-                fontWeight: '500',
-              }}
-            >
-              {project.subtitle}
-            </motion.p>
 
             <motion.p
               variants={itemVariants}
@@ -147,50 +119,12 @@ const ProjectDetail: React.FC = () => {
                 color: 'var(--text-primary)',
                 lineHeight: '1.7',
                 marginBottom: '2rem',
+                fontFamily: 'Inter, sans-serif',
               }}
             >
               {project.description}
             </motion.p>
 
-            {/* Metrics */}
-            <motion.div
-              variants={itemVariants}
-              style={{
-                marginBottom: '2rem',
-              }}
-            >
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '600',
-                color: 'var(--text-primary)',
-                marginBottom: '1rem',
-              }}>
-                Key Features
-              </h3>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '12px',
-              }}>
-                {project.metrics.map((metric, index) => (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    style={{
-                      padding: '12px 16px',
-                      backgroundColor: 'var(--bg-secondary)',
-                      border: '1px solid var(--border-default)',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    {metric}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
 
             {/* Technologies */}
             <motion.div
@@ -204,8 +138,9 @@ const ProjectDetail: React.FC = () => {
                 fontWeight: '600',
                 color: 'var(--text-primary)',
                 marginBottom: '1rem',
+                fontFamily: 'Inter, sans-serif',
               }}>
-                Technologies Used
+                Technologies
               </h3>
               <div style={{
                 display: 'flex',
@@ -225,6 +160,7 @@ const ProjectDetail: React.FC = () => {
                       fontWeight: '500',
                       borderRadius: '20px',
                       border: '1px solid var(--border-default)',
+                      fontFamily: 'Inter, sans-serif',
                     }}
                   >
                     {tech}
@@ -257,6 +193,7 @@ const ProjectDetail: React.FC = () => {
                     borderRadius: '8px',
                     fontWeight: '600',
                     fontSize: '16px',
+                    fontFamily: 'Inter, sans-serif',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
@@ -281,6 +218,7 @@ const ProjectDetail: React.FC = () => {
                     borderRadius: '8px',
                     fontWeight: '600',
                     fontSize: '16px',
+                    fontFamily: 'Inter, sans-serif',
                     border: '1px solid var(--border-default)',
                     display: 'flex',
                     alignItems: 'center',
@@ -292,25 +230,6 @@ const ProjectDetail: React.FC = () => {
               )}
             </motion.div>
           </div>
-
-          {/* Project Image/Mockup */}
-          <motion.div
-            variants={itemVariants}
-            style={{
-              height: '500px',
-              background: `linear-gradient(135deg, var(--bg-tertiary, #f5f5f5) 0%, var(--bg-secondary) 100%)`,
-              borderRadius: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text-secondary)',
-              fontSize: '72px',
-              fontWeight: 'bold',
-              border: '1px solid var(--border-default)',
-            }}
-          >
-            {project.title.slice(0, 2).toUpperCase()}
-          </motion.div>
         </div>
       </motion.div>
 
@@ -330,19 +249,12 @@ const ProjectDetail: React.FC = () => {
             borderRadius: '16px',
             border: '1px solid var(--border-default)',
           }}>
-            <h2 style={{
-              fontSize: '2rem',
-              fontWeight: '600',
-              color: 'var(--text-primary)',
-              marginBottom: '1.5rem',
-            }}>
-              Project Details
-            </h2>
             <div style={{
               fontSize: '1.1rem',
               color: 'var(--text-primary)',
               lineHeight: '1.7',
               whiteSpace: 'pre-line',
+              fontFamily: 'Inter, sans-serif',
             }}>
               {project.longDescription}
             </div>
@@ -350,48 +262,6 @@ const ProjectDetail: React.FC = () => {
         </motion.div>
       )}
 
-      {/* Project Tags */}
-      <motion.div
-        variants={itemVariants}
-        style={{
-          padding: '0 2rem 4rem 2rem',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}
-      >
-        <h3 style={{
-          fontSize: '1.5rem',
-          fontWeight: '600',
-          color: 'var(--text-primary)',
-          marginBottom: '1rem',
-        }}>
-          Project Categories
-        </h3>
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          flexWrap: 'wrap',
-        }}>
-          {project.tags.map((tag, index) => (
-            <motion.span
-              key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: 'var(--bg-primary)',
-                color: 'var(--text-secondary)',
-                fontSize: '14px',
-                fontWeight: '500',
-                borderRadius: '20px',
-                border: '2px solid var(--border-default)',
-              }}
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </div>
-      </motion.div>
     </motion.div>
   );
 };
