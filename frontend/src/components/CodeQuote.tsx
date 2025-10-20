@@ -335,6 +335,8 @@ const CodeQuote: React.FC = () => {
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             title={showOutput ? "Show code" : "Show output"}
           />
+          <span style={{ width: 10, height: 10, borderRadius: 10, background: '#ffbd2e', display: 'inline-block' }} />
+          <span style={{ width: 10, height: 10, borderRadius: 10, background: '#28c840', display: 'inline-block' }} />
           <span style={{ 
             fontSize: 10, 
             color: 'var(--text-muted)', 
@@ -344,8 +346,6 @@ const CodeQuote: React.FC = () => {
           }}>
             {showOutput ? '← code' : '→ run'}
           </span>
-          <span style={{ width: 10, height: 10, borderRadius: 10, background: '#ffbd2e', display: 'inline-block' }} />
-          <span style={{ width: 10, height: 10, borderRadius: 10, background: '#28c840', display: 'inline-block' }} />
         </div>
         <div style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontFamily: 'Inter, sans-serif', fontSize: 12 }}>
           {showOutput ? 'Output' : snippet.header}
