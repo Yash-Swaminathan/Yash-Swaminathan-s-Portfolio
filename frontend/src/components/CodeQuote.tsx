@@ -129,28 +129,40 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
       }
 
     } else {
-      // Python syntax highlighting patterns
+      // Python syntax highlighting patterns (order matters - first match wins)
       const patterns = [
         { regex: /(#.*$)/g, color: SYNTAX_COLORS.comment },
+        { regex: /(f"[^"]*"|f'[^']*')/g, color: SYNTAX_COLORS.string }, // f-strings first
+        { regex: /(".*?"|'.*?')/g, color: SYNTAX_COLORS.string }, // regular strings
         { regex: /(from|import|def|class|if|else|elif|for|while|return|try|except|finally|with|as|in|is|not|and|or|lambda|yield|async|await)\b/g, color: SYNTAX_COLORS.keyword },
         { regex: /(str|int|float|bool|list|dict|tuple|set|None|True|False|Final)\b/g, color: SYNTAX_COLORS.type },
-        { regex: /(f?".*?"|f?'.*?')/g, color: SYNTAX_COLORS.string },
         { regex: /\b([A-Z_][A-Z0-9_]*)\b/g, color: SYNTAX_COLORS.variable },
-        { regex: /(\{[^}]*\})/g, color: SYNTAX_COLORS.variable },
       ];
 
-      let workingLine = line;
       const matches: Array<{ start: number; end: number; color: string; text: string }> = [];
 
       patterns.forEach(pattern => {
-        let match;
-        while ((match = pattern.regex.exec(line)) !== null) {
-          matches.push({
-            start: match.index,
-            end: match.index + match[0].length,
-            color: pattern.color,
-            text: match[0]
-          });
+        let match: RegExpExecArray | null;
+        const regex = new RegExp(pattern.regex.source, pattern.regex.flags);
+        while ((match = regex.exec(line)) !== null) {
+          const matchIndex = match.index;
+          const matchLength = match[0].length;
+          
+          // Check if this position is already covered by a previous match
+          const overlaps = matches.some(m => 
+            (matchIndex >= m.start && matchIndex < m.end) ||
+            (matchIndex + matchLength > m.start && matchIndex + matchLength <= m.end) ||
+            (matchIndex <= m.start && matchIndex + matchLength >= m.end)
+          );
+          
+          if (!overlaps) {
+            matches.push({
+              start: matchIndex,
+              end: matchIndex + matchLength,
+              color: pattern.color,
+              text: match[0]
+            });
+          }
         }
       });
 
@@ -169,14 +181,15 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
           );
         }
         
-        // Add highlighted match
-        tokens.push(
-          <span key={`${lineIndex}-${index}-match`} style={{ color: match.color }}>
-            {match.text}
-          </span>
-        );
-        
-        lastEnd = match.end;
+        // Add highlighted match (skip if it would overlap with previous)
+        if (match.start >= lastEnd) {
+          tokens.push(
+            <span key={`${lineIndex}-${index}-match`} style={{ color: match.color }}>
+              {match.text}
+            </span>
+          );
+          lastEnd = match.end;
+        }
       });
 
       // Add remaining unhighlighted text
