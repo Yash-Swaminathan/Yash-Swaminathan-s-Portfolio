@@ -316,7 +316,7 @@ const CodeQuote: React.FC = () => {
 
       {/* Window header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <button
             onClick={() => setShowOutput(!showOutput)}
             style={{ 
@@ -327,13 +327,23 @@ const CodeQuote: React.FC = () => {
               border: 'none',
               cursor: 'pointer',
               transition: 'transform 0.1s ease',
-              display: 'inline-block'
+              display: 'inline-block',
+              position: 'relative'
             }}
             onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
             onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             title={showOutput ? "Show code" : "Show output"}
           />
+          <span style={{ 
+            fontSize: 10, 
+            color: 'var(--text-muted)', 
+            fontFamily: 'Inter, sans-serif',
+            marginLeft: 4,
+            userSelect: 'none'
+          }}>
+            {showOutput ? '← code' : '→ run'}
+          </span>
           <span style={{ width: 10, height: 10, borderRadius: 10, background: '#ffbd2e', display: 'inline-block' }} />
           <span style={{ width: 10, height: 10, borderRadius: 10, background: '#28c840', display: 'inline-block' }} />
         </div>
