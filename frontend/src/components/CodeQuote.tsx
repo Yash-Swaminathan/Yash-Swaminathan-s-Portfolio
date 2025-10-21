@@ -11,7 +11,8 @@ const INSPIRATIONAL_PEOPLE = [
   { name: 'Madhavi Swaminathan (My Mom)', reason: 'Her values, support, and patience shaped who I am today.' },
   { name: 'LeBron James', reason: "It's LeBron..." },
   { name: 'Linus Torvalds', reason: 'Created Linux and Git — motivated by a passion for improvement rather than profit, proving that open-source collaboration can transform the world.' },
-  { name: 'Steve Jobs', reason: 'His ability to blend design, innovation, and purpose changed how the world interacts with technology.' },  
+  { name: 'Alan Turing', reason: 'Father of computer science and AI, who laid the foundation for modern computing and artificial intelligence.' },
+  { name: 'Steve Jobs', reason: 'His ability to blend design, innovation, and purpose, changing how the world interacts with technology.' },  
 ];
 
 // Small, developer-friendly quotes. Rotates daily and renders as code.
