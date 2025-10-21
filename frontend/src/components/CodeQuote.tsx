@@ -26,7 +26,6 @@ const QUOTES: Quote[] = [
   { text: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
   { text: 'Simplicity is prerequisite for reliability.', author: 'Edsger W. Dijkstra' },
   { text: 'Good code is its own best documentation.', author: 'Steve McConnell' },
-  { text: 'Code never lies, comments sometimes do.', author: 'Ron Jeffries' },
 ];
 
 function dayKey(): number {
