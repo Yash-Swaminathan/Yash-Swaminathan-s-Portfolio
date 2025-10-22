@@ -199,3 +199,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ==================== MOBILE RESPONSIVE STYLES ==================== */
+
+/* Tablet and Mobile Breakpoints */
+@media (max-width: 1024px) {
+  /* Reduce padding on tablets */
+  .max-w-4xl {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile-specific styles */
+  body {
+    font-size: 14px;
+  }
+
+  /* Adjust utility classes for mobile */
+  .px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .px-4 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .p-8 {
+    padding: 1rem;
+  }
+
+  .text-5xl {
+    font-size: 2rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+
+  .text-xl {
+    font-size: 1.1rem;
+  }
+
+  .mb-16 {
+    margin-bottom: 2rem;
+  }
+
+  .mb-8 {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 480px) {
+  .text-5xl {
+    font-size: 1.5rem;
+  }
+
+  .text-2xl {
+    font-size: 1.1rem;
+  }
+
+  .text-xl {
+    font-size: 1rem;
+  }
+}
