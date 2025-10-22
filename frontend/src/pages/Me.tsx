@@ -5,12 +5,14 @@ import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import Experience from '../components/Experience';
 import CodeQuote from '../components/CodeQuote';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const Me: React.FC = () => {
   const [ageInDays, setAgeInDays] = useState(0);
   const [ageInYears, setAgeInYears] = useState(0);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isManualScroll, setIsManualScroll] = useState(false);
+  const { isMobile, width } = useWindowSize();
 
   const photos = [
     { src: '/photos/IMG_0387.jpg', caption: 'High School Graduation' },
@@ -64,13 +66,13 @@ const Me: React.FC = () => {
 
       {/* Main Content Area - Full Width */}
       <div style={{
-        padding: '0 2rem 1rem 2rem',
+        padding: '0 clamp(1rem, 4vw, 2rem) 1rem',
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
         {/* Personal Introduction - No Box */}
         <div style={{
-          marginLeft: '2rem',
+          marginLeft: 'clamp(0rem, 3vw, 2rem)',
           marginBottom: '2rem'
         }}>
           <div style={{
@@ -188,13 +190,13 @@ const Me: React.FC = () => {
 
         {/* Interactive Section Grid - Experience and Photo */}
         <div style={{
-          marginLeft: '2rem',
+          marginLeft: 'clamp(0rem, 3vw, 2rem)',
           marginBottom: '3rem',
           display: 'grid',
-          gridTemplateColumns: 'auto auto',
+          gridTemplateColumns: isMobile ? '1fr' : 'auto auto',
           gap: '2rem',
           alignItems: 'start',
-          width: 'fit-content'
+          width: isMobile ? '100%' : 'fit-content'
         }}>
           {/* Experience Section */}
           <div>
@@ -204,13 +206,14 @@ const Me: React.FC = () => {
           {/* Photo Carousel */}
           <div style={{
             position: 'relative',
-            width: '500px'
+            width: isMobile ? '100%' : '500px',
+            maxWidth: '100%'
           }}>
             {/* Photo Container */}
             <div
               style={{
-                width: '500px',
-                height: '600px',
+                width: isMobile ? '100%' : '500px',
+                height: isMobile ? '400px' : '600px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
@@ -358,13 +361,13 @@ const Me: React.FC = () => {
 
         {/* Map, Button, and Daily Code Quote - Side by Side */}
         <div style={{
-          marginLeft: '2rem',
+          marginLeft: 'clamp(0rem, 3vw, 2rem)',
           marginBottom: '3rem',
           display: 'grid',
-          gridTemplateColumns: 'auto auto auto',
+          gridTemplateColumns: isMobile ? '1fr' : 'auto auto auto',
           gap: '2rem',
           alignItems: 'start',
-          width: 'fit-content'
+          width: isMobile ? '100%' : 'fit-content'
         }}>
           {/* Map Section */}
           <div style={{
@@ -381,13 +384,13 @@ const Me: React.FC = () => {
             transition: 'all 0.3s ease',
             position: 'relative',
             overflow: 'hidden',
-            width: 'fit-content'
+            width: isMobile ? '100%' : 'fit-content'
           }}>
             {/* Text above map */}
             <div style={{ textAlign: 'center' }}>
               <div style={{
                 color: 'var(--text-primary)',
-                fontSize: '30px',
+                fontSize: isMobile ? '24px' : '30px',
                 fontWeight: 'bold',
                 marginBottom: '0.5rem',
                 fontFamily: 'Inter, sans-serif'
@@ -396,7 +399,7 @@ const Me: React.FC = () => {
               </div>
               <div style={{
                 color: 'var(--text-muted)',
-                fontSize: '20px',
+                fontSize: isMobile ? '16px' : '20px',
                 fontWeight: 'normal',
                 fontFamily: 'Inter, sans-serif'
               }}>
@@ -406,15 +409,19 @@ const Me: React.FC = () => {
 
             {/* Map */}
             <div style={{
-              width: '180px',
-              height: '180px',
+              width: isMobile ? '100%' : '180px',
+              height: isMobile ? 'auto' : '180px',
+              aspectRatio: '1 / 1',
               borderRadius: '8px',
               overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <CurrentCityMap width={180} height={180} />
+              <CurrentCityMap
+                width={isMobile ? Math.min(width - 100, 300) : 180}
+                height={isMobile ? Math.min(width - 100, 300) : 180}
+              />
             </div>
           </div>
 
