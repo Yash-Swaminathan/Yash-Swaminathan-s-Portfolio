@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isMobile } = useWindowSize();
 
   const navItems = [
     { path: '/', label: 'Me', pageIndicator: '/me', isHome: true, isExternal: false },
@@ -29,103 +32,237 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <header style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: '60px',
-      backgroundColor: 'var(--surface-elevated)',
-      borderBottom: '1px solid var(--border)',
-      zIndex: 1000,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '0 2rem'
-    }}>
-      {/* Left side - Name and current page */}
-      <div style={{
-        color: 'var(--text-primary)',
-        fontSize: '18px',
-        fontWeight: '500',
-        fontFamily: 'Inter, sans-serif'
+    <>
+      <header style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '60px',
+        backgroundColor: 'var(--surface-elevated)',
+        borderBottom: '1px solid var(--border)',
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 clamp(1rem, 4vw, 2rem)'
       }}>
-        Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
-      </div>
+        {/* Left side - Name and current page */}
+        <div style={{
+          color: 'var(--text-primary)',
+          fontSize: 'clamp(14px, 3vw, 18px)',
+          fontWeight: '500',
+          fontFamily: 'Inter, sans-serif',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }}>
+          Yash Swaminathan <span style={{ color: 'var(--text-muted)' }}>{getCurrentPage()}</span>
+        </div>
 
-      {/* Right side - Navigation links, social icons, and theme toggle */}
-      <nav>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          {navItems.map((item) => (
-            item.isExternal ? (
+        {/* Desktop Navigation - Hidden on mobile */}
+        <nav style={{ display: isMobile ? 'none' : 'block' }}>
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+            {navItems.map((item) => (
+              item.isExternal ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: 'var(--text-muted)',
+                    textDecoration: 'none',
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    fontFamily: 'Inter, sans-serif',
+                    transition: 'color 0.2s ease',
+                    borderBottom: '2px solid transparent',
+                    paddingBottom: '2px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-muted)';
+                  }}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{
+                    color: isActive(item.path, item.isHome) ? 'var(--text-primary)' : 'var(--text-muted)',
+                    textDecoration: 'none',
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    fontFamily: 'Inter, sans-serif',
+                    transition: 'color 0.2s ease',
+                    borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--text-primary)' : '2px solid transparent',
+                    paddingBottom: '2px'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive(item.path, item.isHome)) {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive(item.path, item.isHome)) {
+                      e.currentTarget.style.color = 'var(--text-muted)';
+                    }
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )
+            ))}
+
+            {/* Social Icons */}
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
               <a
-                key={item.path}
-                href={item.path}
+                href="https://www.linkedin.com/in/yash-swaminathan"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
                   color: 'var(--text-muted)',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '400',
-                  fontFamily: 'Inter, sans-serif',
-                  transition: 'color 0.2s ease',
-                  borderBottom: '2px solid transparent',
-                  paddingBottom: '2px'
+                  transition: 'color 0.2s ease'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--text-muted)';
-                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#0077B5'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
               >
-                {item.label}
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
               </a>
-            ) : (
-              <Link
-                key={item.path}
-                to={item.path}
+              <a
+                href="https://github.com/Yash-Swaminathan"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  color: isActive(item.path, item.isHome) ? 'var(--text-primary)' : 'var(--text-muted)',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '400',
-                  fontFamily: 'Inter, sans-serif',
-                  transition: 'color 0.2s ease',
-                  borderBottom: isActive(item.path, item.isHome) ? '2px solid var(--text-primary)' : '2px solid transparent',
-                  paddingBottom: '2px'
+                  color: 'var(--text-muted)',
+                  transition: 'color 0.2s ease'
                 }}
-                onMouseEnter={(e) => {
-                  if (!isActive(item.path, item.isHome)) {
-                    e.currentTarget.style.color = 'var(--text-secondary)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive(item.path, item.isHome)) {
-                    e.currentTarget.style.color = 'var(--text-muted)';
-                  }
-                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
               >
-                {item.label}
-              </Link>
-            )
-          ))}
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a
+                href="https://x.com/YashSwaminathan"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: 'var(--text-muted)',
+                  transition: 'color 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+              >
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+            </div>
+
+            <ThemeToggle slider={true} />
+          </div>
+        </nav>
+
+        {/* Mobile Hamburger Menu Button */}
+        <div style={{ display: isMobile ? 'flex' : 'none', gap: '1rem', alignItems: 'center' }}>
+          <ThemeToggle slider={true} />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-primary)',
+              fontSize: '24px',
+              cursor: 'pointer',
+              padding: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div style={{
+          position: 'fixed',
+          top: '60px',
+          left: 0,
+          right: 0,
+          backgroundColor: 'var(--surface-elevated)',
+          borderBottom: '1px solid var(--border)',
+          zIndex: 999,
+          padding: '1rem',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}>
+          {/* Navigation Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1rem' }}>
+            {navItems.map((item) => (
+              item.isExternal ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    color: 'var(--text-primary)',
+                    textDecoration: 'none',
+                    fontSize: '18px',
+                    fontWeight: '500',
+                    fontFamily: 'Inter, sans-serif',
+                    padding: '0.5rem'
+                  }}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    color: isActive(item.path, item.isHome) ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    textDecoration: 'none',
+                    fontSize: '18px',
+                    fontWeight: isActive(item.path, item.isHome) ? '600' : '500',
+                    fontFamily: 'Inter, sans-serif',
+                    padding: '0.5rem'
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )
+            ))}
+          </div>
 
           {/* Social Icons */}
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div style={{
+            display: 'flex',
+            gap: '1.5rem',
+            padding: '1rem 0.5rem',
+            borderTop: '1px solid var(--border)'
+          }}>
             <a
               href="https://www.linkedin.com/in/yash-swaminathan"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'var(--text-muted)',
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#0077B5'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+              style={{ color: 'var(--text-muted)' }}
             >
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
@@ -133,14 +270,9 @@ const Navigation: React.FC = () => {
               href="https://github.com/Yash-Swaminathan"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'var(--text-muted)',
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+              style={{ color: 'var(--text-muted)' }}
             >
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
             </a>
@@ -148,23 +280,16 @@ const Navigation: React.FC = () => {
               href="https://x.com/YashSwaminathan"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'var(--text-muted)',
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+              style={{ color: 'var(--text-muted)' }}
             >
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
           </div>
-
-          <ThemeToggle slider={true} />
         </div>
-      </nav>
-    </header>
+      )}
+    </>
   );
 };
 
