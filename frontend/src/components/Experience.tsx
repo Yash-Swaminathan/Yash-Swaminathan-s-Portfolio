@@ -15,14 +15,14 @@ interface ExperienceProps {
 const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
   const experiences: ExperienceItem[] = [
     {
-      title: "Software Engineer Intern — Backend & DevOps",
+      title: "Software Engineer Intern",
       company: "Micromart",
       location: "Toronto, ON",
       period: "Aug 2025 → Present",
       website: "https://www.micromart.com"
     },
     {
-      title: "Software Developer Intern — Backend & DevOps",
+      title: "Software Developer Intern",
       company: "Turing",
       location: "Calgary, AB",
       period: "Jan 2025 → Apr 2025",
