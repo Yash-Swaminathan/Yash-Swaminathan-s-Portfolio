@@ -5,6 +5,7 @@ interface ExperienceItem {
   company: string;
   location: string;
   period: string;
+  description?: string;
   website?: string;
 }
 
@@ -19,6 +20,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       company: "Micromart",
       location: "Toronto, ON",
       period: "Aug 2025 → Present",
+      description: "DevOps and Backend Engineer focused on reliability and scalability",
       website: "https://www.micromart.com"
     },
     {
@@ -26,6 +28,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       company: "Turing",
       location: "Calgary, AB",
       period: "Jan 2025 → Apr 2025",
+      description: "Backend & DevOps focused on building scalable APIs and automation",
       website: "https://theturingcompany.com"
     },
     {
@@ -33,6 +36,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       company: "Gradiant (Synauta)",
       location: "Calgary, AB",
       period: "Sep 2023 → Jan 2024",
+      description: "Data analytics and automation for IoT systems",
       website: "https://www.gradiant.com"
     }
   ];
@@ -132,10 +136,20 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
                 <p style={{
                   fontSize: '0.95rem',
                   color: 'var(--text-secondary)',
-                  margin: 0
+                  margin: '0 0 0.25rem 0'
                 }}>
                   {exp.title}
                 </p>
+                {exp.description && (
+                  <p style={{
+                    fontSize: '0.85rem',
+                    color: 'var(--text-muted)',
+                    margin: 0,
+                    fontStyle: 'italic'
+                  }}>
+                    {exp.description}
+                  </p>
+                )}
               </div>
             </a>
           ))}
@@ -215,10 +229,20 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
                 <p style={{
                   fontSize: '0.8rem',
                   color: 'var(--text-secondary)',
-                  margin: 0
+                  margin: '0 0 0.15rem 0'
                 }}>
                   {exp.title}
                 </p>
+                {exp.description && (
+                  <p style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--text-muted)',
+                    margin: 0,
+                    fontStyle: 'italic'
+                  }}>
+                    {exp.description}
+                  </p>
+                )}
               </div>
             </a>
           ))}
