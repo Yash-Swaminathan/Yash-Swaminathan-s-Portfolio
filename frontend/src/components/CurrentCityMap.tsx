@@ -28,7 +28,8 @@ const CurrentCityMap: React.FC<CurrentCityMapProps> = ({
   }, []);
 
   const containerStyle: React.CSSProperties = {
-    width: `${width}px`,
+    width: '100%',
+    maxWidth: `${width}px`,
     height: `${height}px`,
     borderRadius: '8px',
     overflow: 'hidden',
