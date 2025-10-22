@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 interface AnimatedHeadingProps {
   className?: string;
@@ -10,6 +11,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
   const isRunningRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isMountedRef = useRef(true);
+  const { isMobile } = useWindowSize();
 
   const greetings = [
     "Hey, I'm Yash! Nice to meet you!",          
@@ -126,13 +128,19 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
   };
 
   return (
-    <div style={{ padding: '3rem 2rem 2rem 2rem' }}>
+    <div style={{
+      padding: isMobile ? '2rem 1rem 1rem 1rem' : '3rem 2rem 2rem 2rem',
+      minHeight: isMobile ? '120px' : '180px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
       <h1 style={{
-        fontSize: '4rem',
+        fontSize: isMobile ? '1.75rem' : '4rem',
         fontWeight: '700',
         color: 'var(--text-primary)',
         textAlign: 'center',
-        marginBottom: '3rem',
+        margin: 0,
         fontFamily: 'Inter, sans-serif',
         letterSpacing: '-0.02em',
         background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%)',
@@ -140,10 +148,11 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
         position: 'relative',
-        minHeight: '5rem',
+        height: isMobile ? '3rem' : '5rem',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        overflow: 'hidden'
       }}>
         <span>
           {displayText}
