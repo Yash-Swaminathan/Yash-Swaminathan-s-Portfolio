@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 type Quote = {
   text: string;
@@ -51,8 +52,20 @@ function dailyLang(): Lang {
   return dayKey() % 2 === 0 ? 'ts' : 'py';
 }
 
-// Syntax highlighting colors (IDE-style)
-const SYNTAX_COLORS = {
+// Syntax highlighting colors for light mode (darker colors for contrast)
+const SYNTAX_COLORS_LIGHT = {
+  keyword: '#AF00DB',      // Darker purple for keywords
+  string: '#A31515',       // Dark red for strings
+  variable: '#001080',     // Dark blue for variables
+  type: '#267F99',         // Darker teal for types
+  comment: '#008000',      // Dark green for comments
+  function: '#795E26',     // Dark gold for functions
+  operator: '#000000',     // Black for operators
+  punctuation: '#000000',  // Black for punctuation
+};
+
+// Syntax highlighting colors for dark mode (original IDE-style)
+const SYNTAX_COLORS_DARK = {
   keyword: '#C586C0',      // Purple for keywords
   string: '#CE9178',       // Orange for strings
   variable: '#9CDCFE',     // Light blue for variables
@@ -63,7 +76,7 @@ const SYNTAX_COLORS = {
   punctuation: '#D4D4D4',  // Light gray for punctuation
 };
 
-function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
+function highlightSyntax(code: string, lang: Lang, colors: typeof SYNTAX_COLORS_DARK): React.ReactNode[] {
   const lines = code.split('\n');
   return lines.map((line, lineIndex) => {
     const tokens: React.ReactNode[] = [];
@@ -72,12 +85,12 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
     if (lang === 'ts') {
       // TypeScript syntax highlighting patterns (order matters - first match wins)
       const patterns = [
-        { regex: /(\/\*.*?\*\/|\/\/.*$)/g, color: SYNTAX_COLORS.comment },
-        { regex: /(`[^`]*`)/g, color: SYNTAX_COLORS.string }, // Template literals first (includes ${...})
-        { regex: /(".*?"|'.*?')/g, color: SYNTAX_COLORS.string }, // Regular strings
-        { regex: /(export|const|let|var|function|return|if|else|for|while|class|interface|type|import|from)\b/g, color: SYNTAX_COLORS.keyword },
-        { regex: /(string|number|boolean|any|void|undefined|null)\b/g, color: SYNTAX_COLORS.type },
-        { regex: /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\s*[:\(])/g, color: SYNTAX_COLORS.variable },
+        { regex: /(\/\*.*?\*\/|\/\/.*$)/g, color: colors.comment },
+        { regex: /(`[^`]*`)/g, color: colors.string }, // Template literals first (includes ${...})
+        { regex: /(".*?"|'.*?')/g, color: colors.string }, // Regular strings
+        { regex: /(export|const|let|var|function|return|if|else|for|while|class|interface|type|import|from)\b/g, color: colors.keyword },
+        { regex: /(string|number|boolean|any|void|undefined|null)\b/g, color: colors.type },
+        { regex: /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\s*[:\(])/g, color: colors.variable },
       ];
 
       const matches: Array<{ start: number; end: number; color: string; text: string }> = [];
@@ -116,7 +129,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
         // Add unhighlighted text before this match
         if (match.start > lastEnd) {
           tokens.push(
-            <span key={`${lineIndex}-${index}-before`} style={{ color: SYNTAX_COLORS.operator }}>
+            <span key={`${lineIndex}-${index}-before`} style={{ color: colors.operator }}>
               {line.slice(lastEnd, match.start)}
             </span>
           );
@@ -136,7 +149,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
       // Add remaining unhighlighted text
       if (lastEnd < line.length) {
         tokens.push(
-          <span key={`${lineIndex}-end`} style={{ color: SYNTAX_COLORS.operator }}>
+          <span key={`${lineIndex}-end`} style={{ color: colors.operator }}>
             {line.slice(lastEnd)}
           </span>
         );
@@ -145,12 +158,12 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
     } else {
       // Python syntax highlighting patterns (order matters - first match wins)
       const patterns = [
-        { regex: /(#.*$)/g, color: SYNTAX_COLORS.comment },
-        { regex: /(f"[^"]*"|f'[^']*')/g, color: SYNTAX_COLORS.string }, // f-strings first
-        { regex: /(".*?"|'.*?')/g, color: SYNTAX_COLORS.string }, // regular strings
-        { regex: /(from|import|def|class|if|else|elif|for|while|return|try|except|finally|with|as|in|is|not|and|or|lambda|yield|async|await)\b/g, color: SYNTAX_COLORS.keyword },
-        { regex: /(str|int|float|bool|list|dict|tuple|set|None|True|False|Final)\b/g, color: SYNTAX_COLORS.type },
-        { regex: /\b([A-Z_][A-Z0-9_]*)\b/g, color: SYNTAX_COLORS.variable },
+        { regex: /(#.*$)/g, color: colors.comment },
+        { regex: /(f"[^"]*"|f'[^']*')/g, color: colors.string }, // f-strings first
+        { regex: /(".*?"|'.*?')/g, color: colors.string }, // regular strings
+        { regex: /(from|import|def|class|if|else|elif|for|while|return|try|except|finally|with|as|in|is|not|and|or|lambda|yield|async|await)\b/g, color: colors.keyword },
+        { regex: /(str|int|float|bool|list|dict|tuple|set|None|True|False|Final)\b/g, color: colors.type },
+        { regex: /\b([A-Z_][A-Z0-9_]*)\b/g, color: colors.variable },
       ];
 
       const matches: Array<{ start: number; end: number; color: string; text: string }> = [];
@@ -189,7 +202,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
         // Add unhighlighted text before this match
         if (match.start > lastEnd) {
           tokens.push(
-            <span key={`${lineIndex}-${index}-before`} style={{ color: SYNTAX_COLORS.operator }}>
+            <span key={`${lineIndex}-${index}-before`} style={{ color: colors.operator }}>
               {line.slice(lastEnd, match.start)}
             </span>
           );
@@ -209,7 +222,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
       // Add remaining unhighlighted text
       if (lastEnd < line.length) {
         tokens.push(
-          <span key={`${lineIndex}-end`} style={{ color: SYNTAX_COLORS.operator }}>
+          <span key={`${lineIndex}-end`} style={{ color: colors.operator }}>
             {line.slice(lastEnd)}
           </span>
         );
@@ -218,7 +231,7 @@ function highlightSyntax(code: string, lang: Lang): React.ReactNode[] {
 
     return (
       <div key={lineIndex}>
-        {tokens.length > 0 ? tokens : <span style={{ color: SYNTAX_COLORS.operator }}>{line}</span>}
+        {tokens.length > 0 ? tokens : <span style={{ color: colors.operator }}>{line}</span>}
       </div>
     );
   });
@@ -253,10 +266,12 @@ function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string
 }
 
 const CodeQuote: React.FC = () => {
+  const { theme } = useTheme();
   const quote = useMemo(() => pickDaily(QUOTES), []);
   const lang = useMemo(dailyLang, []);
   const snippet = useMemo(() => renderSnippet(quote, lang), [quote, lang]);
-  const highlightedCode = useMemo(() => highlightSyntax(snippet.body, lang), [snippet.body, lang]);
+  const syntaxColors = theme === 'light' ? SYNTAX_COLORS_LIGHT : SYNTAX_COLORS_DARK;
+  const highlightedCode = useMemo(() => highlightSyntax(snippet.body, lang, syntaxColors), [snippet.body, lang, syntaxColors]);
   const dailyPerson = useMemo(() => pickDaily(INSPIRATIONAL_PEOPLE), []);
   const [showOutput, setShowOutput] = useState(false);
 
