@@ -256,11 +256,11 @@ function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string
   // Python-style snippet
   const header = 'Python';
   const body = [
-    '# thought_of_the_day.py',
+    '# quote_of_the_day.py',
     'from typing import Final',
     `QUOTE: Final[str] = "${text}"`,
     `AUTHOR: Final[str] = "${author}"`,
-    'thought_of_the_day: Final[str] = f"{QUOTE} - {AUTHOR}".strip() if AUTHOR else QUOTE',
+    'quote_of_the_day: Final[str] = f"{QUOTE} - {AUTHOR}".strip() if AUTHOR else QUOTE',
   ].join('\n');
   return { header, body };
 }
@@ -291,7 +291,7 @@ const CodeQuote: React.FC = () => {
         border: '1px solid var(--border-default)',
         width: 360,
       }}
-      aria-label="Daily Thought (as code)"
+      aria-label="Daily Quote (as code)"
     >
       {/* Inspirational Person Section */}
       <div style={{ 
