@@ -45,12 +45,12 @@ const Navigation: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 clamp(1rem, 4vw, 2rem)'
+        padding: isMobile ? '0 1rem' : '0 2rem'
       }}>
         {/* Left side - Name and current page */}
         <div style={{
           color: 'var(--text-primary)',
-          fontSize: 'clamp(14px, 3vw, 18px)',
+          fontSize: isMobile ? '14px' : '18px',
           fontWeight: '500',
           fontFamily: 'Inter, sans-serif',
           whiteSpace: 'nowrap',

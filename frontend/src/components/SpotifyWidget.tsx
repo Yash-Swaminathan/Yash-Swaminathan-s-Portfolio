@@ -175,7 +175,7 @@ const SpotifyWidget: React.FC = () => {
           letterSpacing: '-0.03em',
           fontFamily: 'Inter, sans-serif'
         }}>
-          What I listen to
+          I also love music this is what I listen to!
         </h2>
         <a
           href="https://open.spotify.com/user/yeq062vvc2vmx1sq0rwew7gz9"

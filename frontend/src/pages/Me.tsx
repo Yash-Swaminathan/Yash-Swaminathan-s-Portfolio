@@ -66,13 +66,13 @@ const Me: React.FC = () => {
 
       {/* Main Content Area - Full Width */}
       <div style={{
-        padding: '0 clamp(1rem, 4vw, 2rem) 1rem',
+        padding: isMobile ? '0 1rem 1rem' : '0 2rem 1rem 2rem',
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
         {/* Personal Introduction - No Box */}
         <div style={{
-          marginLeft: 'clamp(0rem, 3vw, 2rem)',
+          marginLeft: isMobile ? '0' : '2rem',
           marginBottom: '2rem'
         }}>
           <div style={{
@@ -190,7 +190,7 @@ const Me: React.FC = () => {
 
         {/* Interactive Section Grid - Experience and Photo */}
         <div style={{
-          marginLeft: 'clamp(0rem, 3vw, 2rem)',
+          marginLeft: isMobile ? '0' : '2rem',
           marginBottom: '3rem',
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : 'auto auto',
@@ -361,7 +361,7 @@ const Me: React.FC = () => {
 
         {/* Map, Button, and Daily Code Quote - Side by Side */}
         <div style={{
-          marginLeft: 'clamp(0rem, 3vw, 2rem)',
+          marginLeft: isMobile ? '0' : '2rem',
           marginBottom: '3rem',
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : 'auto auto auto',
