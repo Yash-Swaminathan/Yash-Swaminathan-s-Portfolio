@@ -136,7 +136,7 @@ const Me: React.FC = () => {
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
               A 2A student studying Systems Design Engineering at{' '}
-              <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>University of Waterloo</span>
+              <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>University of Waterloo.</span>
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
@@ -153,11 +153,11 @@ const Me: React.FC = () => {
               >
                 Micromart
               </a>
-              {' '}as a Software Engineer
+              {' '}as a Software Engineer.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              Focused on backend scalability and reliability engineering. Developing in typescript and python based applications
+              Focused on backend scalability and reliability engineering. Developing in typescript and python based applications.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
