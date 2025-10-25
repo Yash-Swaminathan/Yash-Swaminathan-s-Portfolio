@@ -15,6 +15,11 @@ const Navigation: React.FC = () => {
   ];
 
   const getCurrentPage = () => {
+    // Handle nested project routes
+    if (location.pathname.startsWith('/projects')) {
+      return '/projects';
+    }
+
     const currentItem = navItems.find(item => {
       if (item.isHome) {
         return location.pathname === '/';
@@ -27,6 +32,10 @@ const Navigation: React.FC = () => {
   const isActive = (path: string, isHome: boolean) => {
     if (isHome) {
       return location.pathname === '/';
+    }
+    // Check if current path starts with the nav item path (for nested routes)
+    if (path === '/projects') {
+      return location.pathname.startsWith('/projects');
     }
     return location.pathname === path;
   };
