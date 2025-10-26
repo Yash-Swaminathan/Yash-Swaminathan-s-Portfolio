@@ -339,87 +339,67 @@ Supports custom validators, async rules, and nested object validation with preci
     status: 'live'
   },
   {
-    slug: "3d-map-calgary",
+    slug: "3D-Map-of-Calgary",
     title: "3D Map of Calgary",
-    subtitle: "3D Calgary with property insights",
+    subtitle: "Urban 3D dashboard with live open data",
     year: 2024,
-    tags: ["3D", "Mapping", "Visualization"],
-    metrics: ["3D rendering", "Interactive controls", "Real-time navigation"],
-    kpis: ["WebGL", "3D tiles", "Performance"],
-    coreStack: ["Three.js", "WebGL", "JavaScript"],
+    tags: ["3D", "Open Data", "LLM", "Flask"],
+    metrics: ["Live Socrata data", "LLM filters", "Save/load projects"],
+    kpis: ["BBox queries", "Hugging Face LLM", "SQLite projects"],
+    coreStack: ["Three.js", "React", "Flask"],
     cover: "/images/projects/calgary-3d.png",
-    description: "Interactive 3D map of Calgary overlaying building use and assessed value, powered by City Open Data and Three.js.",
+    description: "Full-stack 3D dashboard using Calgary Open Data (buildings, zoning, assessments) with LLM-powered filters and project persistence.",
     teamSize: "Solo project",
     timeline: "Ongoing",
-    overview: `I've always been interested in real estate and private equity, which is also why I'm pursuing the CFA. I noticed there aren't many accessible visuals that show what Calgary's buildings look like in 3D—along with how they’re used and what they’re worth.
+    overview: `I've always been interested in real estate and private equity. I noticed there aren't many accessible visuals that show what Calgary's buildings look like in 3D, along with how they’re used and what they’re worth.
 
-So I built a browser-based 3D map that combines the City of Calgary’s open data with Three.js. The goal: make it easy to explore the city spatially while layering in useful property context for investors, planners, and curious residents.`,
+Calgary also offers an excellent open data environment. Its portal exposes live datasets across buildings, zoning, and assessments, which makes it ideal for data-driven urban visualization. So I built a browser-based 3D dashboard that layers these sources on a Three.js scene for interactive analysis.`,
     sections: [
       {
-        heading: "Motivation",
-        content: `I wanted a practical, finance-aware view of the city: not just where buildings are, but what they’re used for and their relative assessed values. 3D makes patterns in density, use, and value much clearer than a flat map.`
+        heading: "The Challenge",
+        content: `Visualizing a city in 3D with live data involves:
+• Thousands of buildings with individual geometries
+• Multiple APIs (buildings, zoning, assessments)
+• Real-time filtering and smooth interaction
+
+To avoid overloading the browser, I fetch only buildings within the current view (bounding-box queries).`
       },
       {
-        heading: "Data Sources",
-        content: `City of Calgary Open Data APIs including:
-• Property assessments (relative assessed value)
-• Land use / zoning
-• Building footprints and parcels
-Supplementary footprints/metadata from OpenStreetMap where useful.
+        heading: "Architecture",
+        content: `Backend (Flask) integrates directly with Calgary’s Socrata Open Data API and merges live datasets:
+• Building footprints: uc4c-6kbd
+• 3D buildings (heights): cchr-krqg
+• Zoning districts: qe6k-p9nh
+• Property assessments: 4bsw-nn7w
 
-Data is cleaned and normalized, then joined (parcels ↔ buildings) to enable building-level overlays.`
+The service merges and returns structured JSON to a React + Three.js frontend for real-time visualization.`
       },
       {
-        heading: "Pipeline",
-        content: `ETL scripts fetch and cache open data, join parcels to building footprints, estimate heights (floors × average height where needed), and export pre-tiled GeoJSON/JSON.
+        heading: "Backend Pipeline",
+        content: `Flask services fetch data dynamically via Socrata REST endpoints and perform on-the-fly joins (buildings ↔ zoning ↔ assessments). Heights come from Calgary’s 3D buildings dataset.
 
-**Processing:**
-• Convert lat/lon to local metric coordinates
-• Pre-bake tiles (e.g., 256m grid) for streaming
-• Generate meshes (extrusions) per building
-
-**Optimization:**
-• Level-of-detail (simpler geometry for distant tiles)
-• Precomputed tiles to avoid heavy runtime transforms
-• Optional compression for lighter payloads`
+To keep the client light, requests include the current map bounds and only visible buildings are returned.`
       },
       {
-        heading: "Rendering & Performance",
-        content: `Built with Three.js and WebGL.
+        heading: "LLM Querying",
+        content: `Natural language queries like "show commercial buildings" or "highlight buildings over 100 feet" are sent to a Hugging Face model (Meta Llama) which translates them into structured filters. The backend applies these before returning data.
 
-**Tile streaming:**
-Loads only the tiles in view; unloads off-screen tiles to cap memory.
+Example filter:
+{ "attribute": "height", "operator": ">", "value": 100 }
 
-**LOD:**
-Simplified meshes for distance; detailed extrusions up close for smooth 60fps navigation on most laptops.
-
-**Overlays:**
-Color scales indicate land use and relative assessed value.
-
-**Controls:**
-Orbit/pan/zoom with sensible bounds to keep the camera above ground and near the city.`
-      },
-      {
-        heading: "Status & Next Steps",
-        content: `**Working today:**
-• Smooth navigation with tile streaming
-• Building extrusions with use/value overlays
-
-**Planned:**
-• Better LOD transitions (reduce visible "popping")
-• Search/jump-to-location and bookmarks
-• Labels for major streets/landmarks
-• Mobile touch gestures and performance pass`
+Another example:
+{ "attribute": "zoning", "operator": "in", "value": ["C-COR1", "C-COR2"] }
+`,
       },
       {
         heading: "Why This Matters",
         content: `3D makes value and density intuitive. For real estate analysis, planning, or education, seeing use and assessed value in context reveals clusters, corridors, and opportunities that 2D maps hide.
 
-The code is open-source—use it, fork it, or build on it.`
+The code is open source. Use it, fork it, or build on it.`
       }
     ],
-    longDescription: `Interactive 3D map of Calgary that blends geospatial data with finance-adjacent overlays (land use and relative assessed value). Built with Three.js, tile streaming, and level-of-detail to keep the experience smooth in the browser.`,
-    tech: ["Three.js", "WebGL", "JavaScript", "3D Graphics", "Geospatial Data"],
+    longDescription: `Urban 3D dashboard using live Calgary Open Data. Flask fetches and merges buildings, zoning, and assessments via Socrata APIs, applies LLM-derived filters, and serves data to a React + Three.js frontend. Users can save and reload projects backed by SQLite.`,
+    tech: ["React", "Three.js", "Flask", "Socrata API", "SQLite", "Hugging Face (Meta Llama)", "WebGL"],
     repoUrl: "https://github.com/Yash-Swaminathan/3D-Map-of-Calgary",
     featured: false,
     status: 'in-progress'

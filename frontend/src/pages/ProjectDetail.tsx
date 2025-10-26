@@ -236,15 +236,68 @@ const ProjectDetail: React.FC = () => {
             }}>
               {section.heading}
             </h2>
-            <div style={{
-              fontSize: '1.0625rem',
-              color: 'var(--text-secondary)',
-              lineHeight: '1.75',
-              whiteSpace: 'pre-line',
-              fontWeight: '400',
-            }}>
-              {section.content}
-            </div>
+            {(() => {
+              const content = section.content || '';
+              const codeFenceRegex = /```(\w+)?\n([\s\S]*?)```/g;
+              const segments: Array<{ type: 'text' | 'code'; lang?: string; value: string }> = [];
+              let lastIndex = 0;
+              let match: RegExpExecArray | null;
+              while ((match = codeFenceRegex.exec(content)) !== null) {
+                const [full, lang, code] = match;
+                const start = match.index;
+                if (start > lastIndex) {
+                  segments.push({ type: 'text', value: content.slice(lastIndex, start) });
+                }
+                segments.push({ type: 'code', lang: (lang || '').toLowerCase(), value: code.trim() });
+                lastIndex = start + full.length;
+              }
+              if (lastIndex < content.length) {
+                segments.push({ type: 'text', value: content.slice(lastIndex) });
+              }
+
+              return (
+                <div>
+                  {segments.map((seg, i) => {
+                    if (seg.type === 'code') {
+                      return (
+                        <pre
+                          key={i}
+                          style={{
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-primary)',
+                            border: '1px solid var(--border-default)',
+                            borderRadius: '8px',
+                            padding: '0.875rem 1rem',
+                            overflowX: 'auto',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.6,
+                            margin: '1rem 0'
+                          }}
+                        >
+                          <code style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace' }}>
+                            {seg.value}
+                          </code>
+                        </pre>
+                      );
+                    }
+                    return (
+                      <div
+                        key={i}
+                        style={{
+                          fontSize: '1.0625rem',
+                          color: 'var(--text-secondary)',
+                          lineHeight: '1.75',
+                          whiteSpace: 'pre-line',
+                          fontWeight: '400',
+                        }}
+                      >
+                        {seg.value}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </motion.section>
         ))}
 
