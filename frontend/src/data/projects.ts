@@ -384,11 +384,10 @@ To keep the client light, requests include the current map bounds and only visib
         heading: "LLM Querying",
         content: `Natural language queries like "show commercial buildings" or "highlight buildings over 100 feet" are sent to a Hugging Face model (Meta Llama) which translates them into structured filters. The backend applies these before returning data.
 
-Example filter:
+Example: buildings over 100 feet:
+\`\`\`json
 { "attribute": "height", "operator": ">", "value": 100 }
-
-Another example:
-{ "attribute": "zoning", "operator": "in", "value": ["C-COR1", "C-COR2"] }
+\`\`\`
 `,
       },
       {
@@ -399,7 +398,7 @@ The code is open source. Use it, fork it, or build on it.`
       }
     ],
     longDescription: `Urban 3D dashboard using live Calgary Open Data. Flask fetches and merges buildings, zoning, and assessments via Socrata APIs, applies LLM-derived filters, and serves data to a React + Three.js frontend. Users can save and reload projects backed by SQLite.`,
-    tech: ["React", "Three.js", "Flask", "Socrata API", "SQLite", "Hugging Face (Meta Llama)", "WebGL"],
+    tech: ["React", "Three.js", "Python", "Flask", "Socrata API", "SQLite", "Hugging Face (Meta Llama)", "WebGL"],
     repoUrl: "https://github.com/Yash-Swaminathan/3D-Map-of-Calgary",
     featured: false,
     status: 'in-progress'
