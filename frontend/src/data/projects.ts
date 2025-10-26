@@ -28,7 +28,7 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "netanomaly",
+    slug: "NetAnomaly",
     title: "NetAnomaly",
     subtitle: "Real-time network anomaly detection for small teams",
     year: 2024,

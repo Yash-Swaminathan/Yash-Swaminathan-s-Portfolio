@@ -106,64 +106,33 @@ const ProjectDetail: React.FC = () => {
 
         {/* Header */}
         <motion.div variants={itemVariants} style={{ marginBottom: '2rem' }}>
-          {/* Status + Meta */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-            marginBottom: '1.25rem',
-            flexWrap: 'wrap',
-          }}>
-            {project.status && (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.4rem',
+          {/* Status */}
+          {project.status && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              marginBottom: '1.25rem',
+            }}>
+              <span
+                style={{
+                  height: '6px',
+                  width: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: getStatusColor(project.status),
+                  display: 'inline-block',
+                }}
+              />
+              <span style={{
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)',
+                textTransform: 'capitalize',
+                fontWeight: '500',
               }}>
-                <span
-                  style={{
-                    height: '6px',
-                    width: '6px',
-                    borderRadius: '50%',
-                    backgroundColor: getStatusColor(project.status),
-                    display: 'inline-block',
-                  }}
-                />
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--text-secondary)',
-                  textTransform: 'capitalize',
-                  fontWeight: '500',
-                }}>
-                  {project.status}
-                </span>
-              </div>
-            )}
-            {project.timeline && (
-              <>
-                {project.status && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>}
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--text-secondary)',
-                  fontWeight: '500',
-                }}>
-                  {project.timeline}
-                </span>
-              </>
-            )}
-            {project.teamSize && (
-              <>
-                {(project.status || project.timeline) && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>}
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--text-secondary)',
-                  fontWeight: '500',
-                }}>
-                  {project.teamSize}
-                </span>
-              </>
-            )}
-          </div>
+                {project.status}
+              </span>
+            </div>
+          )}
 
           {/* Title */}
           <h1 style={{
