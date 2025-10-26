@@ -122,23 +122,14 @@ const Projects: React.FC = () => {
               {/* Content */}
               <div style={{ position: 'relative' }}>
 
-                {/* Header: Year + Status */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '1rem',
-                }}>
-                  <span style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--text-secondary)',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
+                {/* Header: Status */}
+                {project.status && (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    marginBottom: '1rem',
                   }}>
-                    {project.year}
-                  </span>
-                  {project.status && (
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -162,8 +153,8 @@ const Projects: React.FC = () => {
                         {project.status}
                       </span>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 {/* Title */}
                 <h3 style={{

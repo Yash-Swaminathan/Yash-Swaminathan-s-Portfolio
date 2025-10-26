@@ -114,15 +114,6 @@ const ProjectDetail: React.FC = () => {
             marginBottom: '1.25rem',
             flexWrap: 'wrap',
           }}>
-            <span style={{
-              fontSize: '0.75rem',
-              color: 'var(--text-secondary)',
-              fontWeight: '600',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-            }}>
-              {project.year}
-            </span>
             {project.status && (
               <div style={{
                 display: 'flex',
@@ -150,7 +141,7 @@ const ProjectDetail: React.FC = () => {
             )}
             {project.timeline && (
               <>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>
+                {project.status && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>}
                 <span style={{
                   fontSize: '0.75rem',
                   color: 'var(--text-secondary)',
@@ -162,7 +153,7 @@ const ProjectDetail: React.FC = () => {
             )}
             {project.teamSize && (
               <>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>
+                {(project.status || project.timeline) && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>•</span>}
                 <span style={{
                   fontSize: '0.75rem',
                   color: 'var(--text-secondary)',
