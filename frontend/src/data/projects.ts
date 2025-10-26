@@ -341,107 +341,84 @@ Supports custom validators, async rules, and nested object validation with preci
   {
     slug: "3d-map-calgary",
     title: "3D Map of Calgary",
-    subtitle: "Interactive 3D city visualization",
+    subtitle: "3D Calgary with property insights",
     year: 2024,
     tags: ["3D", "Mapping", "Visualization"],
     metrics: ["3D rendering", "Interactive controls", "Real-time navigation"],
     kpis: ["WebGL", "3D tiles", "Performance"],
     coreStack: ["Three.js", "WebGL", "JavaScript"],
     cover: "/images/projects/calgary-3d.png",
-    description: "Interactive 3D visualization of Calgary with real-time navigation and detailed city geometry.",
+    description: "Interactive 3D map of Calgary overlaying building use and assessed value, powered by City Open Data and Three.js.",
     teamSize: "Solo project",
     timeline: "Ongoing",
-    overview: `I've always been fascinated by cities—how they grow, how buildings cluster, how geography shapes urban design. Calgary is interesting because it's relatively flat, which makes 3D height data really pop visually.
+    overview: `I've always been interested in real estate and private equity, which is also why I'm pursuing the CFA. I noticed there aren't many accessible visuals that show what Calgary's buildings look like in 3D—along with how they’re used and what they’re worth.
 
-This project started as an experiment: could I render an entire city in the browser without killing performance? The answer is yes—but it required rethinking how 3D data is loaded, rendered, and optimized for the web.`,
+So I built a browser-based 3D map that combines the City of Calgary’s open data with Three.js. The goal: make it easy to explore the city spatially while layering in useful property context for investors, planners, and curious residents.`,
     sections: [
       {
-        heading: "The Challenge",
-        content: `Rendering a city in 3D sounds simple until you consider the data:
-• Thousands of buildings, each with unique geometry
-• Terrain elevation data across hundreds of square kilometers
-• Textures, shadows, and lighting for visual realism
-• Smooth navigation without frame drops
-
-Loading all this data upfront would crash most browsers. The challenge was figuring out how to stream only what's visible, when it's needed.`
+        heading: "Motivation",
+        content: `I wanted a practical, finance-aware view of the city: not just where buildings are, but what they’re used for and their relative assessed values. 3D makes patterns in density, use, and value much clearer than a flat map.`
       },
       {
-        heading: "WebGL and Three.js",
-        content: `I chose Three.js because it abstracts away the complexity of raw WebGL while still giving you control when you need it.
+        heading: "Data Sources",
+        content: `City of Calgary Open Data APIs including:
+• Property assessments (relative assessed value)
+• Land use / zoning
+• Building footprints and parcels
+Supplementary footprints/metadata from OpenStreetMap where useful.
 
-**Why not use a mapping library like Mapbox or Cesium?**
-They're great for standard use cases, but I wanted full control over the rendering pipeline. I wanted to experiment with custom shaders, level-of-detail (LOD) systems, and non-traditional camera controls.
-
-Three.js gave me that flexibility. The tradeoff? I had to build the tile-streaming system myself instead of getting it for free.`
+Data is cleaned and normalized, then joined (parcels ↔ buildings) to enable building-level overlays.`
       },
       {
-        heading: "Data Pipeline",
-        content: `The hardest part wasn't the rendering—it was preparing the data.
-
-**Sources:**
-• Building footprints from OpenStreetMap
-• Elevation data from SRTM (Shuttle Radar Topography Mission)
-• Height estimates from building metadata (number of floors × average floor height)
+        heading: "Pipeline",
+        content: `ETL scripts fetch and cache open data, join parcels to building footprints, estimate heights (floors × average height where needed), and export pre-tiled GeoJSON/JSON.
 
 **Processing:**
-• Converted geospatial data (lat/lon) to local coordinates (meters)
-• Generated 3D meshes for each building using footprint + height
-• Tiled the city into a grid (256m × 256m tiles) for streaming
+• Convert lat/lon to local metric coordinates
+• Pre-bake tiles (e.g., 256m grid) for streaming
+• Generate meshes (extrusions) per building
 
 **Optimization:**
-• Simplified building geometry for distant tiles (LOD)
-• Pre-generated meshes instead of computing them at runtime
-• Compressed mesh data using Draco compression
-
-The entire pipeline runs in Python (GeoPandas + Shapely) and outputs JSON that the browser can load.`
+• Level-of-detail (simpler geometry for distant tiles)
+• Precomputed tiles to avoid heavy runtime transforms
+• Optional compression for lighter payloads`
       },
       {
-        heading: "Rendering Techniques",
-        content: `**Tile streaming:**
-As you navigate, the app calculates which tiles are in view and loads them dynamically. Tiles outside the viewport are unloaded to save memory.
+        heading: "Rendering & Performance",
+        content: `Built with Three.js and WebGL.
 
-**Level of detail (LOD):**
-Buildings far from the camera use simplified meshes (fewer polygons). Up close, they render with full detail. This keeps frame rates smooth even with thousands of buildings.
+**Tile streaming:**
+Loads only the tiles in view; unloads off-screen tiles to cap memory.
 
-**Lighting:**
-I use a simple directional light (simulating the sun) plus ambient lighting. Real-time shadows are expensive, so I baked shadows into the terrain texture for static buildings.
+**LOD:**
+Simplified meshes for distance; detailed extrusions up close for smooth 60fps navigation on most laptops.
 
-**Camera controls:**
-Custom orbit controls let you pan, zoom, and rotate. I added constraints to prevent the camera from going underground or flying too far out.`
+**Overlays:**
+Color scales indicate land use and relative assessed value.
+
+**Controls:**
+Orbit/pan/zoom with sensible bounds to keep the camera above ground and near the city.`
       },
       {
-        heading: "Current Status & Next Steps",
-        content: `**What's working:**
-• City renders smoothly at 60fps on most hardware
-• Tile streaming keeps memory usage low
-• Navigation feels natural and responsive
+        heading: "Status & Next Steps",
+        content: `**Working today:**
+• Smooth navigation with tile streaming
+• Building extrusions with use/value overlays
 
-**What's left to build:**
-• Add building labels (street names, landmarks)
-• Improve LOD transitions (currently they "pop" visibly)
-• Add textures for major buildings (right now everything is flat-shaded)
-• Support mobile touch controls
-• Add search/location jump functionality
-
-The core rendering system is solid. Now it's about polish and features.`
+**Planned:**
+• Better LOD transitions (reduce visible "popping")
+• Search/jump-to-location and bookmarks
+• Labels for major streets/landmarks
+• Mobile touch gestures and performance pass`
       },
       {
         heading: "Why This Matters",
-        content: `This isn't just a tech demo—it's a different way to explore urban data.
+        content: `3D makes value and density intuitive. For real estate analysis, planning, or education, seeing use and assessed value in context reveals clusters, corridors, and opportunities that 2D maps hide.
 
-Flat maps are great for navigation, but they don't show you how tall buildings are, how neighborhoods cluster, or how terrain affects development. A 3D view makes those patterns obvious.
-
-I'm exploring how this could be useful for:
-• Urban planning (visualizing proposed developments)
-• Real estate (showing building heights and density)
-• Education (teaching geography or city design)
-
-The code is open-source. If you're interested in geospatial visualization or WebGL, feel free to dig in.`
+The code is open-source—use it, fork it, or build on it.`
       }
     ],
-    longDescription: `Built an interactive 3D map of Calgary using WebGL and modern 3D rendering techniques. The visualization allows users to explore the city from different angles with smooth navigation controls and detailed building models.
-
-Features include real-time 3D rendering, interactive camera controls, and optimized performance for large-scale city geometry. The map provides an immersive way to explore Calgary's urban landscape.`,
+    longDescription: `Interactive 3D map of Calgary that blends geospatial data with finance-adjacent overlays (land use and relative assessed value). Built with Three.js, tile streaming, and level-of-detail to keep the experience smooth in the browser.`,
     tech: ["Three.js", "WebGL", "JavaScript", "3D Graphics", "Geospatial Data"],
     repoUrl: "https://github.com/Yash-Swaminathan/3D-Map-of-Calgary",
     featured: false,
