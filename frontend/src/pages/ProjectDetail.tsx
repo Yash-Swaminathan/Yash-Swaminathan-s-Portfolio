@@ -40,18 +40,6 @@ const ProjectDetail: React.FC = () => {
     }
   };
 
-  const getStatusColor = (status?: 'live' | 'demo' | 'archived') => {
-    switch (status) {
-      case 'live':
-        return '#10b981';
-      case 'demo':
-        return '#f59e0b';
-      case 'archived':
-        return '#6b7280';
-      default:
-        return '#6b7280';
-    }
-  };
 
   return (
     <motion.div
@@ -106,33 +94,6 @@ const ProjectDetail: React.FC = () => {
 
         {/* Header */}
         <motion.div variants={itemVariants} style={{ marginBottom: '2rem' }}>
-          {/* Status */}
-          {project.status && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              marginBottom: '1.25rem',
-            }}>
-              <span
-                style={{
-                  height: '6px',
-                  width: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: getStatusColor(project.status),
-                  display: 'inline-block',
-                }}
-              />
-              <span style={{
-                fontSize: '0.75rem',
-                color: 'var(--text-secondary)',
-                textTransform: 'capitalize',
-                fontWeight: '500',
-              }}>
-                {project.status}
-              </span>
-            </div>
-          )}
 
           {/* Title */}
           <h1 style={{

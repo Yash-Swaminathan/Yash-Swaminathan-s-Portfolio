@@ -26,18 +26,6 @@ const Projects: React.FC = () => {
     }
   };
 
-  const getStatusColor = (status?: 'live' | 'demo' | 'archived') => {
-    switch (status) {
-      case 'live':
-        return '#10b981'; // emerald-500
-      case 'demo':
-        return '#f59e0b'; // amber-500
-      case 'archived':
-        return '#6b7280'; // gray-500
-      default:
-        return '#6b7280';
-    }
-  };
 
   return (
     <motion.div
@@ -81,7 +69,7 @@ const Projects: React.FC = () => {
               fontWeight: '400'
             }}
           >
-            Building solutions that solve real problems
+            What I've Built!
           </p>
         </motion.div>
 
@@ -122,39 +110,6 @@ const Projects: React.FC = () => {
               {/* Content */}
               <div style={{ position: 'relative' }}>
 
-                {/* Header: Status */}
-                {project.status && (
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    marginBottom: '1rem',
-                  }}>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                    }}>
-                      <span
-                        style={{
-                          height: '6px',
-                          width: '6px',
-                          borderRadius: '50%',
-                          backgroundColor: getStatusColor(project.status),
-                          display: 'inline-block',
-                        }}
-                      />
-                      <span style={{
-                        fontSize: '0.75rem',
-                        color: 'var(--text-secondary)',
-                        textTransform: 'capitalize',
-                        fontWeight: '500',
-                      }}>
-                        {project.status}
-                      </span>
-                    </div>
-                  </div>
-                )}
 
                 {/* Title */}
                 <h3 style={{
