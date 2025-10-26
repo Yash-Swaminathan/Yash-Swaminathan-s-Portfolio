@@ -11,7 +11,6 @@ export interface Project {
   tags: string[];
   metrics: string[];
   kpis?: string[];
-  cover: string;
   description: string;
   longDescription?: string;
   overview?: string;
@@ -22,7 +21,6 @@ export interface Project {
   repoUrl?: string;
   featured: boolean;
   status?: 'live' | 'demo' | 'archived' | 'in-progress';
-  teamSize?: string;
   timeline?: string;
 }
 
@@ -35,9 +33,7 @@ export const projects: Project[] = [
     tags: ["ML", "Security", "Backend"],
     metrics: ["95%+ accuracy", "Real-time detection", "Auto-scaling"],
     coreStack: ["Python", "TensorFlow", "Docker"],
-    cover: "/images/projects/netanomaly.png",
     description: "Autoencoders + Isolation Forests flag outliers in <200ms; reduced manual triage by ~38% in pilot.",
-    teamSize: "Solo project",
     timeline: "3 weeks",
     overview: `What started as a curiosity about why Netflix's security team uses unsupervised learning turned into a three-week deep dive into network anomaly detection.
 
@@ -119,9 +115,7 @@ Achieved 94.6% detection rate on validation set with sub-200ms p95 latency. Redu
     tags: ["Full-Stack", "Payments", "API"],
     metrics: ["Secure payments", "Real-time inventory", "User authentication"],
     coreStack: ["React", "Node.js", "MongoDB"],
-    cover: "/images/projects/ecommerce.png",
     description: "Cart + payments (Stripe) with idempotent APIs; handled 1k RPS spike in load-test without errors.",
-    teamSize: "Solo project",
     timeline: "4 weeks",
     overview: `Every developer has built a todo app. I wanted to build something harder: an e-commerce platform that wouldn't break under pressure.
 
@@ -215,9 +209,7 @@ Built custom cart session management with Redis, integrated Stripe webhooks for 
     tags: ["Library", "TypeScript", "DevTool"],
     metrics: ["Type-safe", "Fast validation", "Zero dependencies"],
     coreStack: ["TypeScript", "Node.js"],
-    cover: "/images/projects/schema-validator.png",
     description: "Lightweight validation library for APIs and forms; 100% TypeScript with composable rules and detailed error paths.",
-    teamSize: "Solo project",
     timeline: "2 weeks",
     overview: `After using Zod and Yup on several projects, I kept hitting the same frustration: heavy dependencies, bloated bundles, and validation logic that felt disconnected from my types.
 
@@ -336,17 +328,14 @@ Supports custom validators, async rules, and nested object validation with preci
     status: 'live'
   },
   {
-    slug: "3D-Map-of-Calgary",
-    title: "3D Map of Calgary",
-    subtitle: "Urban 3D dashboard with live open data",
-    year: 2024,
+    slug: "calgary-urban-intelligence",
+    title: "Calgary Urban Intelligence Dashboard",
+    subtitle: "3D real estate and zoning visualization",    
+    year: 2025,
     tags: ["3D", "Open Data", "LLM", "Flask"],
     metrics: ["Live Socrata data", "LLM filters", "Save/load projects"],
     coreStack: ["Three.js", "React", "Python", "Flask"],
-    cover: "/images/projects/calgary-3d.png",
-    description: "Full-stack 3D dashboard using Calgary Open Data (buildings, zoning, assessments) with LLM-powered filters and project persistence.",
-    teamSize: "Solo project",
-    timeline: "Ongoing",
+    description: "Interactive 3D visualization of Downtown Calgary. Buildings display live height, zoning, and assessed values. Leverages Calgary's open data portal and a Meta Llama API for real-time filtering.",
     overview: `I've always been interested in real estate and private equity. I noticed there aren't many accessible visuals that show what Calgary's buildings look like in 3D, along with how they’re used and what they’re worth.
 
 Calgary also offers an excellent open data environment. Its portal exposes live datasets across buildings, zoning, and assessments, which makes it ideal for data-driven urban visualization. So I built a browser-based 3D dashboard that layers these sources on a Three.js scene for interactive analysis.`,
