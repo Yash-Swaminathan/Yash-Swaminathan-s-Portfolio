@@ -190,9 +190,9 @@ const ProjectDetail: React.FC = () => {
           {/* Subtitle */}
           <p style={{
             fontSize: isMobile ? '1.125rem' : '1.25rem',
-            color: 'var(--text-accent, #007acc)',
+            color: 'var(--text-secondary)',
             margin: '0 0 1.5rem 0',
-            fontWeight: '600',
+            fontWeight: '500',
             lineHeight: '1.4',
           }}>
             {project.subtitle}
@@ -231,8 +231,8 @@ const ProjectDetail: React.FC = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1.25rem',
-                backgroundColor: 'var(--text-accent, #007acc)',
-                color: 'white',
+                backgroundColor: 'var(--text-primary)',
+                color: 'var(--bg-primary)',
                 textDecoration: 'none',
                 borderRadius: '8px',
                 fontWeight: '600',
@@ -241,7 +241,7 @@ const ProjectDetail: React.FC = () => {
                 transition: 'opacity 0.2s',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '0.9';
+                e.currentTarget.style.opacity = '0.85';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.opacity = '1';
@@ -395,8 +395,8 @@ const ProjectDetail: React.FC = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.875rem 1.5rem',
-                backgroundColor: 'var(--text-accent, #007acc)',
-                color: 'white',
+                backgroundColor: 'var(--text-primary)',
+                color: 'var(--bg-primary)',
                 textDecoration: 'none',
                 borderRadius: '8px',
                 fontWeight: '600',
