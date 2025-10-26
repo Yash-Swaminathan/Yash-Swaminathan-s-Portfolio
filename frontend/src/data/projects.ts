@@ -21,7 +21,7 @@ export interface Project {
   demoUrl?: string;
   repoUrl?: string;
   featured: boolean;
-  status?: 'live' | 'demo' | 'archived';
+  status?: 'live' | 'demo' | 'archived' | 'in-progress';
   teamSize?: string;
   timeline?: string;
 }
@@ -152,23 +152,23 @@ Supports custom validators, async rules, and nested object validation with preci
     status: 'live'
   },
   {
-    slug: "portfolio-website",
-    title: "Portfolio Website",
-    subtitle: "Analytics-backed personal site",
-    year: 2025,
-    tags: ["Frontend", "Database", "Design"],
-    metrics: ["PostgreSQL + Docker", "Interactive maps", "Theme system"],
-    kpis: ["PostgreSQL", "Docker", "Analytics"],
-    coreStack: ["React", "TypeScript", "PostgreSQL"],
-    cover: "/images/projects/portfolio.png",
-    description: "Portfolio with database-backed click tracking, interactive maps (Leaflet), and theme switching. Built with React + PostgreSQL + Docker.",
-    longDescription: `Personal portfolio website with a PostgreSQL backend for analytics tracking. Monitors button clicks, page views, and user interactions through a custom-built analytics system with Docker orchestration.
+    slug: "3d-map-calgary",
+    title: "3D Map of Calgary",
+    subtitle: "Interactive 3D city visualization",
+    year: 2024,
+    tags: ["3D", "Mapping", "Visualization"],
+    metrics: ["3D rendering", "Interactive controls", "Real-time navigation"],
+    kpis: ["WebGL", "3D tiles", "Performance"],
+    coreStack: ["Three.js", "WebGL", "JavaScript"],
+    cover: "/images/projects/calgary-3d.png",
+    description: "Interactive 3D visualization of Calgary with real-time navigation and detailed city geometry.",
+    longDescription: `Built an interactive 3D map of Calgary using WebGL and modern 3D rendering techniques. The visualization allows users to explore the city from different angles with smooth navigation controls and detailed building models.
 
-Features interactive city maps using Leaflet, smooth theme transitions with Framer Motion, and mobile-first responsive design. Implements context-based state management and a RESTful API for data persistence.`,
-    tech: ["React", "TypeScript", "PostgreSQL", "Docker", "Node.js", "Leaflet"],
-    demoUrl: "http://localhost:3000",
+Features include real-time 3D rendering, interactive camera controls, and optimized performance for large-scale city geometry. The map provides an immersive way to explore Calgary's urban landscape.`,
+    tech: ["Three.js", "WebGL", "JavaScript", "3D Graphics", "Geospatial Data"],
+    repoUrl: "https://github.com/Yash-Swaminathan/3D-Map-of-Calgary",
     featured: false,
-    status: 'live'
+    status: 'in-progress'
   }
 ];
 

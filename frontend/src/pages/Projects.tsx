@@ -110,6 +110,30 @@ const Projects: React.FC = () => {
               {/* Content */}
               <div style={{ position: 'relative' }}>
 
+                {/* Status indicator */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '0.75rem',
+                }}>
+                  <span
+                    style={{
+                      height: '8px',
+                      width: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: project.status === 'in-progress' ? '#f59e0b' : '#10b981',
+                      display: 'inline-block',
+                    }}
+                  />
+                  <span style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)',
+                    fontWeight: '500',
+                  }}>
+                    {project.status === 'in-progress' ? 'Currently working on' : 'Completed'}
+                  </span>
+                </div>
 
                 {/* Title */}
                 <h3 style={{
