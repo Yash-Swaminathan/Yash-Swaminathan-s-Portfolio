@@ -1,4 +1,4 @@
-const pool = require('../config/database');
+const supabase = require('../config/supabase');
 
 const buttonController = {
   // Increment button click count
@@ -13,18 +13,20 @@ const buttonController = {
         });
       }
 
-      // Use the stored function from our database
-      const result = await pool.query(
-        'SELECT increment_button_click($1) as new_count',
-        [buttonName]
-      );
+      // Use the stored function from Supabase
+      const { data, error } = await supabase.rpc('increment_button_click', {
+        button_name_param: buttonName
+      });
 
-      const newCount = result.rows[0].new_count;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       res.json({
         success: true,
         buttonName,
-        clickCount: newCount,
+        clickCount: data,
         message: `Button '${buttonName}' clicked successfully`
       });
 
@@ -40,11 +42,18 @@ const buttonController = {
   // Get all button click statistics
   async getClickStats(req, res) {
     try {
-      const result = await pool.query('SELECT * FROM button_click_stats');
+      const { data, error } = await supabase
+        .from('button_click_stats')
+        .select('*');
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       res.json({
         success: true,
-        data: result.rows
+        data: data
       });
 
     } catch (error) {
@@ -61,21 +70,26 @@ const buttonController = {
     try {
       const { buttonName } = req.params;
 
-      const result = await pool.query(
-        'SELECT * FROM button_clicks WHERE button_name = $1',
-        [buttonName]
-      );
+      const { data, error } = await supabase
+        .from('button_clicks')
+        .select('*')
+        .eq('button_name', buttonName)
+        .single();
 
-      if (result.rows.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: 'Button not found'
-        });
+      if (error) {
+        if (error.code === 'PGRST116') {
+          return res.status(404).json({
+            success: false,
+            message: 'Button not found'
+          });
+        }
+        console.error('Supabase error:', error);
+        throw error;
       }
 
       res.json({
         success: true,
-        data: result.rows[0]
+        data: data
       });
 
     } catch (error) {
