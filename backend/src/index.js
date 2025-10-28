@@ -36,13 +36,23 @@ app.use(cors({
       'http://localhost:3002',
       'http://localhost:3003',
       'http://127.0.0.1:3000',
-      'http://127.0.0.1:3001'
+      'http://127.0.0.1:3001',
+      'https://portfolio-frontend-pi-eight.vercel.app', // Your frontend URL
+      /\.vercel\.app$/ // Allow all Vercel preview deployments
     ];
 
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+    // Check if origin matches any allowed origins (including regex)
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (allowed instanceof RegExp) {
+        return allowed.test(origin);
+      }
+      return allowed === origin;
+    });
+
+    if (isAllowed || process.env.NODE_ENV === 'development') {
       callback(null, true);
     } else {
-      callback(null, true); // Allow all for now
+      callback(null, true); // Allow all for now during deployment
     }
   },
   credentials: true,
