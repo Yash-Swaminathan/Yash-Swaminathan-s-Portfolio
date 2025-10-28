@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:3001/api/buttons';
+const API_BASE_URL = process.env.REACT_APP_API_URL
+  ? `${process.env.REACT_APP_API_URL}/api/buttons`
+  : 'http://localhost:3001/api/buttons';
 
 export interface ButtonStats {
   id: string;
