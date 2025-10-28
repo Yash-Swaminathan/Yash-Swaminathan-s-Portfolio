@@ -11,6 +11,9 @@ const spotifyRoutes = require('./routes/spotify');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust proxy - required for Vercel
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
@@ -36,6 +39,9 @@ app.use(cors({
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Handle preflight requests explicitly
+app.options('*', cors());
 
 // Health check endpoint
 app.get('/health', (req, res) => {
