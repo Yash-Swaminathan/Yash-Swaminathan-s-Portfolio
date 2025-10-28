@@ -24,41 +24,13 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// CORS configuration
+// CORS configuration - Allow all origins for now (can restrict later)
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'http://localhost:3001',
-      'http://localhost:3002',
-      'http://localhost:3003',
-      'http://127.0.0.1:3000',
-      'http://127.0.0.1:3001',
-      'https://portfolio-frontend-pi-eight.vercel.app', // Your frontend URL
-      /\.vercel\.app$/ // Allow all Vercel preview deployments
-    ];
-
-    // Check if origin matches any allowed origins (including regex)
-    const isAllowed = allowedOrigins.some(allowed => {
-      if (allowed instanceof RegExp) {
-        return allowed.test(origin);
-      }
-      return allowed === origin;
-    });
-
-    if (isAllowed || process.env.NODE_ENV === 'development') {
-      callback(null, true);
-    } else {
-      callback(null, true); // Allow all for now during deployment
-    }
-  },
-  credentials: true,
+  origin: '*', // Allow all origins
+  credentials: false, // Must be false when origin is '*'
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  optionsSuccessStatus: 200 // For legacy browser support
+  optionsSuccessStatus: 200
 }));
 
 // Body parsing middleware
