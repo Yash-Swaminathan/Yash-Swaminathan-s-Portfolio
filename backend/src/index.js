@@ -85,11 +85,14 @@ app.use((error, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Portfolio backend server running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-  console.log(`🔗 Database: Connected to PostgreSQL`);
-});
+// Start server (only in non-serverless environments)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Portfolio backend server running on port ${PORT}`);
+    console.log(`📊 Health check: http://localhost:${PORT}/health`);
+    console.log(`🔗 Database: Connected to Supabase`);
+  });
+}
 
+// Export for Vercel serverless
 module.exports = app;
