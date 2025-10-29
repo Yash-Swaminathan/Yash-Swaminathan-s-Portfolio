@@ -22,15 +22,21 @@ class SpotifyService {
     }
 
     try {
+      const clientId = process.env.SPOTIFY_CLIENT_ID.trim();
+      const clientSecret = process.env.SPOTIFY_CLIENT_SECRET.trim();
+      const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN.trim();
+
+      // Base64 encode client_id:client_secret for Authorization header
+      const authString = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
       const response = await axios.post(this.tokenURL,
         new URLSearchParams({
           grant_type: 'refresh_token',
-          refresh_token: process.env.SPOTIFY_REFRESH_TOKEN.trim(),
-          client_id: process.env.SPOTIFY_CLIENT_ID.trim(),
-          client_secret: process.env.SPOTIFY_CLIENT_SECRET.trim()
+          refresh_token: refreshToken
         }), {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${authString}`
           }
         }
       );
