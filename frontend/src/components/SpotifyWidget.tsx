@@ -35,6 +35,8 @@ interface SpotifyData {
   lastUpdated: number;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_URL?.replace(/\/$/, '') || 'http://localhost:3001';
+
 const SpotifyWidget: React.FC = () => {
   const [spotifyData, setSpotifyData] = useState<SpotifyData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +54,7 @@ const SpotifyWidget: React.FC = () => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-      const response = await fetch('http://localhost:3001/api/spotify/music-data', {
+      const response = await fetch(`${API_BASE_URL}/api/spotify/music-data`, {
         signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
