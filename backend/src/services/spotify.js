@@ -25,9 +25,9 @@ class SpotifyService {
       const response = await axios.post(this.tokenURL,
         new URLSearchParams({
           grant_type: 'refresh_token',
-          refresh_token: process.env.SPOTIFY_REFRESH_TOKEN,
-          client_id: process.env.SPOTIFY_CLIENT_ID,
-          client_secret: process.env.SPOTIFY_CLIENT_SECRET
+          refresh_token: process.env.SPOTIFY_REFRESH_TOKEN.trim(),
+          client_id: process.env.SPOTIFY_CLIENT_ID.trim(),
+          client_secret: process.env.SPOTIFY_CLIENT_SECRET.trim()
         }), {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
