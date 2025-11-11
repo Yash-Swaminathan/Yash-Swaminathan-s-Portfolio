@@ -21,7 +21,6 @@ export interface Project {
   repoUrl?: string;
   featured: boolean;
   status?: 'live' | 'demo' | 'archived' | 'in-progress';
-  timeline?: string;
 }
 
 export const projects: Project[] = [
@@ -34,7 +33,6 @@ export const projects: Project[] = [
     metrics: ["95%+ accuracy", "Real-time detection", "Auto-scaling"],
     coreStack: ["Python", "TensorFlow", "Docker"],
     description: "Autoencoders + Isolation Forests flag outliers in <200ms; reduced manual triage by ~38% in pilot.",
-    timeline: "3 weeks",
     overview: `What started as a curiosity about why Netflix's security team uses unsupervised learning turned into a three-week deep dive into network anomaly detection.
 
 The idea was simple: could I build something that catches suspicious network traffic patterns without needing thousands of labeled examples? Small teams don't have the time or data to train massive supervised models, so I wanted to see if autoencoders and isolation forests could do the heavy lifting.`,
@@ -116,7 +114,6 @@ Achieved 94.6% detection rate on validation set with sub-200ms p95 latency. Redu
     metrics: ["Secure payments", "Real-time inventory", "User authentication"],
     coreStack: ["React", "Node.js", "MongoDB"],
     description: "Cart + payments (Stripe) with idempotent APIs; handled 1k RPS spike in load-test without errors.",
-    timeline: "4 weeks",
     overview: `Every developer has built a todo app. I wanted to build something harder: an e-commerce platform that wouldn't break under pressure.
 
 The question that drove this project: what does it take to handle real money at scale? Payments are unforgiving—drop a request during checkout and you've either lost revenue or double-charged a customer. Neither is acceptable.`,
@@ -210,7 +207,6 @@ Built custom cart session management with Redis, integrated Stripe webhooks for 
     metrics: ["Type-safe", "Fast validation", "Zero dependencies"],
     coreStack: ["TypeScript", "Node.js"],
     description: "Lightweight validation library for APIs and forms; 100% TypeScript with composable rules and detailed error paths.",
-    timeline: "2 weeks",
     overview: `After using Zod and Yup on several projects, I kept hitting the same frustration: heavy dependencies, bloated bundles, and validation logic that felt disconnected from my types.
 
 I wanted something lighter. Something that would give me TypeScript inference out of the box without pulling in 50KB of runtime code. So I built it myself—a zero-dependency validation library that's just TypeScript and clean abstractions.`,
