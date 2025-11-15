@@ -4,6 +4,110 @@ import { motion } from 'framer-motion';
 import { getProjectBySlug } from '../data/projects';
 import { useWindowSize } from '../hooks/useWindowSize';
 
+// Helper function to parse inline markdown (bold, inline code, links)
+const parseMarkdown = (text: string): React.ReactNode[] => {
+  const parts: React.ReactNode[] = [];
+  let currentIndex = 0;
+  let keyCounter = 0;
+
+  // Regex patterns for inline markdown
+  const patterns = [
+    { regex: /\*\*(.+?)\*\*/g, type: 'bold' },      // **bold**
+    { regex: /`(.+?)`/g, type: 'code' },            // `inline code`
+    { regex: /\[(.+?)\]\((.+?)\)/g, type: 'link' }, // [text](url)
+  ];
+
+  // Find all matches and their positions
+  const matches: Array<{ start: number; end: number; type: string; content: string; url?: string }> = [];
+
+  patterns.forEach(({ regex, type }) => {
+    const re = new RegExp(regex);
+    let match;
+    while ((match = re.exec(text)) !== null) {
+      if (type === 'link') {
+        matches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+          type,
+          content: match[1],
+          url: match[2]
+        });
+      } else {
+        matches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+          type,
+          content: match[1]
+        });
+      }
+    }
+  });
+
+  // Sort matches by position
+  matches.sort((a, b) => a.start - b.start);
+
+  // Process text with matches
+  matches.forEach((match) => {
+    // Add text before the match
+    if (match.start > currentIndex) {
+      parts.push(text.slice(currentIndex, match.start));
+    }
+
+    // Add the formatted content
+    switch (match.type) {
+      case 'bold':
+        parts.push(
+          <strong key={`bold-${keyCounter++}`} style={{ fontWeight: '600', color: 'var(--text-primary)' }}>
+            {match.content}
+          </strong>
+        );
+        break;
+      case 'code':
+        parts.push(
+          <code
+            key={`code-${keyCounter++}`}
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              padding: '0.15rem 0.4rem',
+              borderRadius: '4px',
+              fontSize: '0.9em',
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+              border: '1px solid var(--border-default)',
+            }}
+          >
+            {match.content}
+          </code>
+        );
+        break;
+      case 'link':
+        parts.push(
+          <a
+            key={`link-${keyCounter++}`}
+            href={match.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--text-primary)',
+              textDecoration: 'underline',
+            }}
+          >
+            {match.content}
+          </a>
+        );
+        break;
+    }
+
+    currentIndex = match.end;
+  });
+
+  // Add remaining text
+  if (currentIndex < text.length) {
+    parts.push(text.slice(currentIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+};
+
 const ProjectDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -130,6 +234,30 @@ const ProjectDetail: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Optional system / architecture diagram */}
+        {project.diagram && (
+          <motion.div
+            variants={itemVariants}
+            style={{
+              marginBottom: '2.5rem',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              border: '1px solid var(--border-default)',
+              backgroundColor: 'var(--bg-secondary)',
+            }}
+          >
+            <img
+              src={project.diagram}
+              alt={`${project.title} system architecture diagram`}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: 'auto',
+              }}
+            />
+          </motion.div>
+        )}
+
         {/* Action Buttons */}
         <motion.div
           variants={itemVariants}
@@ -214,7 +342,12 @@ const ProjectDetail: React.FC = () => {
               whiteSpace: 'pre-line',
               fontWeight: '400',
             }}>
-              {project.overview}
+              {project.overview.split('\n').map((line, lineIdx) => (
+                <React.Fragment key={lineIdx}>
+                  {parseMarkdown(line)}
+                  {lineIdx < project.overview!.split('\n').length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </div>
           </motion.div>
         )}
@@ -291,7 +424,12 @@ const ProjectDetail: React.FC = () => {
                           fontWeight: '400',
                         }}
                       >
-                        {seg.value}
+                        {seg.value.split('\n').map((line, lineIdx) => (
+                          <React.Fragment key={lineIdx}>
+                            {parseMarkdown(line)}
+                            {lineIdx < seg.value.split('\n').length - 1 && <br />}
+                          </React.Fragment>
+                        ))}
                       </div>
                     );
                   })}

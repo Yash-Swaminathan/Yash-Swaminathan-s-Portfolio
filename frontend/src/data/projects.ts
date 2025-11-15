@@ -14,6 +14,7 @@ export interface Project {
   description: string;
   longDescription?: string;
   overview?: string;
+  diagram?: string;
   sections?: ProjectSection[];
   tech: string[];
   coreStack?: string[];
@@ -27,80 +28,105 @@ export const projects: Project[] = [
   {
     slug: "NetAnomaly",
     title: "NetAnomaly",
-    subtitle: "Real-time network anomaly detection for small teams",
+    subtitle: "Real-time network anomaly detection backend",
     year: 2024,
     tags: ["ML", "Security", "Backend"],
-    metrics: ["95%+ accuracy", "Real-time detection", "Auto-scaling"],
-    coreStack: ["Python", "TensorFlow", "Docker"],
-    description: "Autoencoders + Isolation Forests flag outliers in <200ms; reduced manual triage by ~38% in pilot.",
-    overview: `What started as a curiosity about why Netflix's security team uses unsupervised learning turned into a three-week deep dive into network anomaly detection.
+    metrics: ["FastAPI API layer", "Dockerized deployment", "Hybrid ML + DL models"],
+    coreStack: ["Python 3.10", "FastAPI", "Docker"],
+    description: "FastAPI backend that ingests network traffic, engineers features with Pandas/NumPy, and runs ML and deep-learning models to flag anomalies in near real time.",
+    overview: `NetAnomaly started as a "what if?" question: how do smaller teams catch weird network behavior without the giant labeled datasets and heavy commercial tools that big companies rely on?
 
-The idea was simple: could I build something that catches suspicious network traffic patterns without needing thousands of labeled examples? Small teams don't have the time or data to train massive supervised models, so I wanted to see if autoencoders and isolation forests could do the heavy lifting.`,
+I wanted to learn what it really takes to go from raw packets to something an analyst can act on—not just a model in a notebook, but a service that can sit in the loop, score traffic in near real time, and trigger alerts. The project became my way of tying together networking, unsupervised learning, and modern Python infrastructure (FastAPI, Docker, Poetry) into a single, opinionated backend.`,
+    diagram: "/System_Diagram.png",
     sections: [
       {
-        heading: "The Challenge",
-        content: `Network security is a cat-and-mouse game. New attack patterns emerge constantly, so any model trained on "known bad" examples becomes outdated fast.
+        heading: "Why I Built This",
+        content: `Most security tooling is either extremely simple (log filters and threshold-based alerts) or extremely heavy (expensive IDS platforms that assume you have a dedicated SOC and mountains of labeled data).
 
-I needed an approach that could:
-• Detect anomalies it's never seen before (no labeled attack data)
-• Run fast enough for real-time alerting (<500ms)
-• Handle high-dimensional traffic features without overfitting
-• Deploy easily on modest hardware (no GPU clusters)`
+I wanted to explore a middle ground: something a small team could actually run that still uses modern ML ideas. NetAnomaly was my way of answering a few questions:
+• What does it look like to turn messy packet captures into features a model can actually use?
+• How far can unsupervised models (Isolation Forests, autoencoders, LSTMs) go without labeled attacks?
+• What does an "ML project" look like when you treat API design, deployability, and observability as first-class concerns, not afterthoughts?`
       },
       {
-        heading: "Why Autoencoders + Isolation Forests?",
-        content: `Autoencoders compress normal traffic patterns into a lower-dimensional space, then try to reconstruct the input. The reconstruction error spikes when something unusual shows up—like a port scan or data exfiltration attempt.
+        heading: "System Architecture",
+        content: `The system follows the architecture shown in the diagram above.
 
-But reconstruction error alone is noisy. That's where Isolation Forests come in: they're specifically designed to isolate outliers with very few tree splits. Combining both gave me better precision than either alone.
-
-The tradeoff? More complexity. I had to tune two models and figure out how to ensemble their scores. But the result was worth it—fewer false positives, better detection.`
+• Network traffic is captured at the edge by a packet capture module (Scapy / PyShark)
+• Features are extracted and engineered in a Python pipeline using Pandas and NumPy
+• An anomaly detection engine hosts both traditional ML models (Isolation Forest, One-Class SVM) and deep-learning models (autoencoders, LSTM)
+• A FastAPI backend exposes health, configuration, detection, and test-alert endpoints
+• Alerts and logs flow into a logging/notification layer that operators can connect to email, Slack, or webhooks`
       },
       {
-        heading: "Technical Implementation",
-        content: `I built the pipeline in Python with TensorFlow for the autoencoder and Scikit-learn for the isolation forest.
+        heading: "Data Collection & Preprocessing",
+        content: `NetAnomaly is designed to work with live packet capture, but the repo also ships with reproducible examples based on pcap files and synthetic flows.
 
-**Data ingestion:**
-• Parsed network logs (pcap files) into flow-level features: packet counts, byte distributions, connection duration, etc.
-• Normalized features to prevent high-cardinality fields from dominating
-
-**Modeling:**
-• Trained a 3-layer autoencoder on "normal" traffic (captured during business hours)
-• Fit an isolation forest on the autoencoder's latent space
-• Combined reconstruction error + isolation score with a weighted average
-
-**Deployment:**
-• Dockerized the entire pipeline for portability
-• Inference runs in ~180ms p95 on a single CPU core
-• Output: JSON alerts with confidence scores and feature attribution`
+• Capture raw packets with Scapy / PyShark or load pcap files for offline runs
+• Aggregate packets into connection-level flows
+• Extract features like IPs, ports, protocol, packet counts, byte volumes, durations, and inter-arrival times
+• Normalize and standardize numeric fields with Pandas / NumPy
+• Persist feature scalers alongside trained models so the API and training stay in sync`
       },
       {
-        heading: "Results & Learnings",
-        content: `**What worked:**
-• 94.6% detection rate on a validation set of simulated attacks
-• Sub-200ms latency made real-time alerting feasible
-• Reduced manual triage time by ~38% in a pilot with a small security team
+        heading: "Models & Training",
+        content: `The anomaly detection engine combines traditional ML and deep learning.
 
-**What I'd improve:**
-• Add streaming features (e.g., "packets in last 60 seconds") for better temporal context
-• Integrate with Kafka for true real-time processing instead of batch inference
-• Build a feedback loop so analysts can correct false positives and retrain the model
+Traditional ML:
+• Isolation Forest / One-Class SVM implemented with scikit-learn (e.g., in an \`anomaly_detection.py\` module)
+• A \`train_ml.py\` script generates synthetic flows or ingests preprocessed data
+• Trained models and scalers are saved into a \`models/\` directory
 
-The biggest lesson? Unsupervised ML is powerful, but it's not magic. You still need domain knowledge to engineer good features and interpret results. "Anomaly" doesn't always mean "attack."`
+Deep learning:
+• Autoencoder / LSTM models built in TensorFlow / Keras (e.g., in \`deep_learning.py\`)
+• A \`train_dl.py\` script demonstrates training on synthetic "normal" traffic to make reconstruction error usable as an anomaly score`
       },
       {
-        heading: "Try It Out",
-        content: `The code is open-source on GitHub. It includes:
-• Sample pcap files for testing
-• Jupyter notebooks showing feature engineering + model training
-• Docker setup for quick deployment
+        heading: "Backend API & Alerting",
+        content: `The FastAPI layer turns the models into a usable IDS-style service.
 
-Feel free to fork it, break it, or build on it. I'd love to hear what you find.`
+Core endpoints:
+• \`/api/v1/health\` — basic health check
+• \`/api/v1/config\` — inspect or tweak detection thresholds and model settings
+• \`/api/v1/detect\` — batch anomaly scoring for network flows
+• \`/api/v1/test-alert\` — fire a synthetic alert end-to-end
+
+Alerting & logging:
+• Python logging writes structured records into the \`logs/\` directory
+• Alert abstractions make it easy to plug in email, Slack, or webhook notifiers
+• Every prediction includes a score so downstream systems can tune thresholds without retraining`
+      },
+      {
+        heading: "What I Learned",
+        content: `Building NetAnomaly showed me how much of "ML engineering" is really systems work.
+
+Key takeaways:
+• Feature engineering and data plumbing matter more than model choice
+• Sharing scalers and schemas between training code and the FastAPI app avoids subtle drift bugs
+• Docker + Poetry make it much easier to ship a reproducible environment, especially with TensorFlow
+• Even in an ML-heavy project, API design, observability, and test alerts are just as important as model accuracy`
       }
     ],
-    longDescription: `Built a lightweight anomaly detection pipeline that monitors network traffic in near real-time. Combines unsupervised learning (autoencoders for dimensionality reduction) with Isolation Forests to flag suspicious patterns without labeled training data.
+    longDescription: `NetAnomaly is a FastAPI-based backend for network anomaly detection. It captures or ingests network traffic, engineers flow-level features with Pandas/NumPy, runs both traditional ML models and deep-learning models, and exposes everything behind clean REST endpoints.
 
-Achieved 94.6% detection rate on validation set with sub-200ms p95 latency. Reduced manual security triage time by approximately 38% in a pilot deployment. Would next upgrade to streaming features via Kafka + sliding windows for better temporal pattern detection.`,
-    tech: ["Python", "TensorFlow", "Scikit-learn", "Docker", "Isolation Forest", "Network Security"],
+The repo ships with training scripts (\`train_ml.py\`, \`train_dl.py\`), example data, and a Docker setup so you can run the entire stack locally with Python 3.10 and TensorFlow. It's meant as an experimentation sandbox rather than a production IDS, but the architecture mirrors how real-world systems are wired together.`,
+    tech: [
+      "Python 3.10",
+      "FastAPI",
+      "Uvicorn",
+      "Poetry",
+      "Docker",
+      "Docker Compose",
+      "Scapy",
+      "PyShark",
+      "Pandas",
+      "NumPy",
+      "TensorFlow",
+      "Keras",
+      "Scikit-learn",
+      "pytest",
+      "Network Security"
+    ],
     repoUrl: "https://github.com/Yash-Swaminathan/NetAnomaly",
     featured: true,
     status: 'demo'
@@ -200,124 +226,193 @@ Built custom cart session management with Redis, integrated Stripe webhooks for 
   },
   {
     slug: "schema-validator",
-    title: "Schema Validator",
-    subtitle: "Type-safe validation with zero dependencies",
+    title: "Configuration File Management & Validation System",
+    subtitle: "YAML validation service with FastAPI and PostgreSQL",
     year: 2024,
-    tags: ["Library", "TypeScript", "DevTool"],
-    metrics: ["Type-safe", "Fast validation", "Zero dependencies"],
-    coreStack: ["TypeScript", "Node.js"],
-    description: "Lightweight validation library for APIs and forms; 100% TypeScript with composable rules and detailed error paths.",
-    overview: `After using Zod and Yup on several projects, I kept hitting the same frustration: heavy dependencies, bloated bundles, and validation logic that felt disconnected from my types.
+    tags: ["Full-Stack", "API", "Database"],
+    metrics: ["YAML validation", "RESTful API", "Cloud deployed"],
+    coreStack: ["FastAPI", "React", "PostgreSQL"],
+    description: "FastAPI service that validates YAML configuration files against predefined schemas, stores configurations in PostgreSQL, and provides a REST API interface with React frontend.",
+    overview: `Building reliable configuration management systems requires robust validation. This project tackles the challenge of ensuring YAML configuration files adhere to predefined schemas while providing an intuitive interface for managing configurations.
 
-I wanted something lighter. Something that would give me TypeScript inference out of the box without pulling in 50KB of runtime code. So I built it myself—a zero-dependency validation library that's just TypeScript and clean abstractions.`,
+I wanted to create a production-ready validation service that could handle real-world scenarios—from file uploads and schema validation to database persistence and cloud deployment. The result is a containerized FastAPI backend with a React frontend, deployed on Vercel and Google Cloud Run.`,
+    diagram: "/System_Diagram_schema_validator.png",
     sections: [
       {
-        heading: "The Problem with Existing Libraries",
-        content: `Don't get me wrong—Zod is great. But for small projects or library code, it's overkill.
+        heading: "The Challenge",
+        content: `Configuration management is a common pain point in software engineering. Teams struggle with:
+• Validating complex YAML structures against evolving schemas
+• Maintaining configuration history and versioning
+• Providing user-friendly interfaces for non-technical stakeholders
+• Ensuring consistency across development, staging, and production environments
 
-The issues I kept running into:
-• Bundle size: Adding Zod means adding ~50KB to your bundle (before tree-shaking)
-• Type inference complexity: Fighting with generic types when you want custom validators
-• Unclear error paths: Getting "validation failed" isn't helpful when you're debugging nested objects
-• Over-engineering: Most projects don't need union types, lazy evaluation, or recursive schemas
-
-I wanted validation that was simple, fast, and gave me precise error messages without the overhead.`
+The core problem: how do you build a system that validates configurations reliably while remaining flexible enough to adapt to changing requirements?`
       },
       {
-        heading: "Design Goals",
-        content: `I started with three principles:
+        heading: "System Architecture",
+        content: `The system follows a modern three-tier architecture as shown in the system diagram:
 
-**1. Zero dependencies**
-No runtime dependencies. Just TypeScript. This keeps the bundle small and makes the library portable—you can drop it into any project without worrying about version conflicts.
+**Frontend (React.js)**
+• File upload interface with drag-and-drop support
+• Form validation using Formik and Yup
+• Real-time validation feedback
+• CRUD operations for managing configurations
+• Deployed on Vercel for global CDN distribution
 
-**2. Full TypeScript inference**
-If you define a schema, TypeScript should automatically know what type your validated data is. No manual type annotations. No casting. Just type-safe validation.
+**Backend (FastAPI)**
+• RESTful API endpoints for validation and database operations
+• YAML parsing with PyYAML
+• Schema validation using jsonschema
+• Poetry for dependency management
+• Dockerized for consistent deployment
+• Hosted on Google Cloud Run for auto-scaling
 
-**3. Composable rules**
-Validation logic should be reusable. Define a "positive number" validator once, then compose it with other rules. No copy-pasting validation logic across files.`
+**Database (PostgreSQL)**
+• Stores validated configurations and metadata
+• Configuration versioning and history tracking
+• Efficient querying with indexed fields
+• Containerized with docker-compose for local development`
       },
       {
-        heading: "Technical Implementation",
-        content: `The core API is intentionally minimal:
+        heading: "Backend API & Validation",
+        content: `The FastAPI backend provides several core endpoints:
 
-**Schema definition:**
-\`\`\`typescript
-const userSchema = object({
-  name: string().min(2).max(50),
-  email: string().email(),
-  age: number().min(18).optional(),
-  addresses: array(
-    object({
-      street: string(),
-      zipCode: string().matches(/^\\d{5}$/)
-    })
-  )
-});
-\`\`\`
+**Validation Endpoints:**
+• \`POST /api/validate\` — Validate YAML against predefined schemas
+• \`GET /api/schemas\` — Retrieve available validation schemas
+• \`POST /api/schemas\` — Register new validation schemas
 
-**Type inference:**
-TypeScript automatically infers the validated type:
-\`\`\`typescript
-type User = Infer<typeof userSchema>;
-// { name: string; email: string; age?: number; addresses: Array<{ street: string; zipCode: string }> }
-\`\`\`
+**Configuration Management:**
+• \`POST /api/configs\` — Store validated configurations
+• \`GET /api/configs\` — List all configurations
+• \`GET /api/configs/{id}\` — Retrieve specific configuration
+• \`PUT /api/configs/{id}\` — Update existing configuration
+• \`DELETE /api/configs/{id}\` — Delete configuration
 
-**Validation with precise errors:**
-Instead of generic "validation failed," you get exact paths:
-\`\`\`typescript
-const result = userSchema.validate(data);
-if (!result.success) {
-  console.log(result.errors);
-  // ["addresses[0].zipCode: must match pattern /^\\d{5}$/"]
-}
-\`\`\`
-
-The implementation uses TypeScript's conditional types and mapped types to build the inference system. Custom validators are just functions that return \`{ valid: boolean; error?: string }\`.`
+**Validation Flow:**
+1. User uploads YAML file through React frontend
+2. Backend parses YAML with PyYAML
+3. Schema validation via jsonschema library
+4. Detailed error reporting with line numbers and field paths
+5. On success, configuration stored in PostgreSQL with metadata`
       },
       {
-        heading: "Real-World Usage",
-        content: `I've used this library in production for:
-• API request validation (Express middleware)
-• Form validation (React forms with real-time feedback)
-• Configuration file parsing (ensuring valid JSON configs)
+        heading: "Frontend Implementation",
+        content: `The React frontend provides an intuitive user experience:
 
-The biggest win? Bundle size. Replacing Zod with this library saved ~45KB in one project—that's meaningful for client-side code.
+**Key Features:**
+• File upload with drag-and-drop using react-dropzone
+• Form management with Formik for complex validation flows
+• Client-side validation with Yup schemas
+• Real-time validation feedback with error highlighting
+• Configuration history viewer
+• Dark mode support for better UX
 
-**Performance:**
-Validation is fast because there's no runtime parsing. Schemas compile to simple function chains. In benchmarks, it's comparable to Yup and faster than Zod for simple schemas (because there's less abstraction overhead).
+**Form Validation:**
+The frontend validates user input before submission:
+• Required fields checking
+• Format validation (email, URLs, etc.)
+• Custom validation rules matching backend schemas
+• Progressive disclosure of validation errors
 
-**Developer experience:**
-The error paths are the most useful feature. When validation fails, you get something like:
-\`"user.addresses[2].zipCode: must be a 5-digit number"\`
-
-That's actionable. You know exactly what's wrong and where.`
+This dual-layer validation (client + server) ensures better UX while maintaining security.`
       },
       {
-        heading: "What I'd Improve",
-        content: `If I had more time:
-• Add schema composition helpers (combine schemas, pick fields, omit fields)
-• Export to JSON Schema for OpenAPI integration
-• Add async validators (for database uniqueness checks, etc.)
-• Support union types and discriminated unions
-• Add a CLI tool to generate schemas from TypeScript types
+        heading: "Deployment & DevOps",
+        content: `**Containerization:**
+The project uses Docker and docker-compose for local development:
+• PostgreSQL container with persistent volumes
+• FastAPI application container
+• Automated dependency installation with Poetry
+• Health checks for service readiness
 
-The core library is intentionally minimal. But there's room to expand without breaking the zero-dependency promise.`
+**Cloud Deployment:**
+• Frontend: Vercel (automatic deployments from Git)
+• Backend: Google Cloud Run (containerized FastAPI)
+• Database: Google Cloud SQL (managed PostgreSQL)
+
+**CI/CD Pipeline:**
+• Automated testing on pull requests
+• Linting with ESLint (frontend) and flake8 (backend)
+• Docker image building and pushing
+• Zero-downtime deployments
+
+**Monitoring:**
+• Application logging with structured JSON
+• Error tracking and alerting
+• API performance metrics
+• Database query optimization`
+      },
+      {
+        heading: "What I Learned",
+        content: `This project taught me valuable lessons about full-stack development:
+
+**Schema Design:**
+• jsonschema is powerful but has a steep learning curve
+• Clear error messages are crucial for user adoption
+• Schema versioning needs to be planned from day one
+
+**API Design:**
+• RESTful conventions matter for API discoverability
+• Proper HTTP status codes improve client error handling
+• API documentation (with FastAPI's auto-generated docs) is essential
+
+**Deployment:**
+• Docker makes development environments reproducible
+• Cloud Run's auto-scaling handles traffic spikes gracefully
+• Database connection pooling is critical for performance
+
+**Frontend-Backend Integration:**
+• TypeScript interfaces should mirror backend models
+• Optimistic UI updates improve perceived performance
+• Proper error handling on both layers prevents user confusion`
       },
       {
         heading: "Try It Out",
-        content: `The library is live and documented at the link above. The repo includes:
-• Full API documentation with examples
-• TypeScript types for IDE autocompletion
-• Test suite covering edge cases
-• Interactive playground for testing validators
+        content: `The live demo is available at https://schema-validator-lilac.vercel.app/
 
-It's small enough to read the entire codebase in 20 minutes. Fork it, use it, break it—I'd love feedback on what's missing.`
+**To run locally:**
+\`\`\`bash
+# Clone the repository
+git clone https://github.com/Yash-Swaminathan/Schema-Validator.git
+
+# Install backend dependencies
+poetry install
+# or
+pip install -r requirements.txt
+
+# Start services with Docker
+docker-compose up --build
+
+# In another terminal, start the frontend
+cd frontend
+npm install
+npm start
+\`\`\`
+
+**Test credentials and sample configurations are included in the repository.**`
       }
     ],
-    longDescription: `Created a zero-dependency validation library focused on developer experience. Provides full TypeScript inference so validation schemas automatically type-guard your data.
+    longDescription: `Full-stack configuration validation system built with FastAPI and React. Validates YAML files against predefined schemas using jsonschema, stores configurations in PostgreSQL, and provides a comprehensive REST API.
 
-Supports custom validators, async rules, and nested object validation with precise error paths (e.g., "user.addresses[0].zipCode"). Used in production for API request validation and form handling. Would next add schema composition helpers and JSON Schema export for OpenAPI integration.`,
-    tech: ["TypeScript", "Node.js", "Testing Framework", "API Design"],
+The frontend features file upload with Formik/Yup validation, while the backend handles schema validation and database operations. Containerized with Docker for local development and deployed to Vercel (frontend) and Google Cloud Run (backend). Includes automated testing, CI/CD pipeline, and comprehensive API documentation.`,
+    tech: [
+      "FastAPI",
+      "Python",
+      "PostgreSQL",
+      "React",
+      "TypeScript",
+      "Docker",
+      "Docker Compose",
+      "Poetry",
+      "jsonschema",
+      "PyYAML",
+      "Formik",
+      "Yup",
+      "Vercel",
+      "Google Cloud Run",
+      "pg (PostgreSQL client)"
+    ],
     demoUrl: "https://schema-validator-lilac.vercel.app/",
     repoUrl: "https://github.com/Yash-Swaminathan/Schema-Validator",
     featured: true,
