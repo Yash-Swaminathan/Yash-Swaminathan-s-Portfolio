@@ -234,30 +234,6 @@ const ProjectDetail: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Optional system / architecture diagram */}
-        {project.diagram && (
-          <motion.div
-            variants={itemVariants}
-            style={{
-              marginBottom: '2.5rem',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid var(--border-default)',
-              backgroundColor: 'var(--bg-secondary)',
-            }}
-          >
-            <img
-              src={project.diagram}
-              alt={`${project.title} system architecture diagram`}
-              style={{
-                display: 'block',
-                width: '100%',
-                height: 'auto',
-              }}
-            />
-          </motion.div>
-        )}
-
         {/* Action Buttons */}
         <motion.div
           variants={itemVariants}
@@ -369,6 +345,29 @@ const ProjectDetail: React.FC = () => {
             }}>
               {section.heading}
             </h2>
+
+            {/* Show diagram in System Architecture section */}
+            {section.heading === 'System Architecture' && project.diagram && (
+              <div
+                style={{
+                  marginBottom: '1.5rem',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border-default)',
+                  backgroundColor: 'var(--bg-secondary)',
+                }}
+              >
+                <img
+                  src={project.diagram}
+                  alt={`${project.title} system architecture diagram`}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto',
+                  }}
+                />
+              </div>
+            )}
             {(() => {
               const content = section.content || '';
               const codeFenceRegex = /```(\w+)?\n([\s\S]*?)```/g;

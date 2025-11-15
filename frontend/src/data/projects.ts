@@ -50,7 +50,7 @@ I wanted to explore a middle ground: something a small team could actually run t
       },
       {
         heading: "System Architecture",
-        content: `The system follows the architecture shown in the diagram above.
+        content: `The system follows the architecture shown in the system diagram below:
 
 • Network traffic is captured at the edge by a packet capture module (Scapy / PyShark)
 • Features are extracted and engineered in a Python pipeline using Pandas and NumPy
@@ -134,92 +134,104 @@ The repo ships with training scripts (\`train_ml.py\`, \`train_dl.py\`), example
   {
     slug: "e-commerce-platform",
     title: "E-Commerce Platform",
-    subtitle: "Checkout that survives traffic spikes",
+    subtitle: "Cloud-native microservices with Kubernetes orchestration",
     year: 2024,
-    tags: ["Full-Stack", "Payments", "API"],
-    metrics: ["Secure payments", "Real-time inventory", "User authentication"],
-    coreStack: ["React", "Node.js", "MongoDB"],
-    description: "Cart + payments (Stripe) with idempotent APIs; handled 1k RPS spike in load-test without errors.",
-    overview: `Every developer has built a todo app. I wanted to build something harder: an e-commerce platform that wouldn't break under pressure.
+    tags: ["Microservices", "Cloud", "DevOps"],
+    metrics: ["Kubernetes deployment", "AWS integration", "Automated CI/CD"],
+    coreStack: ["Spring Boot", "Go", "Kubernetes"],
+    description: "Modern e-commerce platform built with microservices architecture (Spring Boot & Go), Kubernetes orchestration, AWS cloud integration, and automated CI/CD pipeline.",
+    overview: `Building scalable e-commerce infrastructure requires more than just CRUD operations. This project explores what it takes to architect a production-grade platform that can handle real-world retail demands—from product catalogs and user authentication to order processing and payment integration.
 
-The question that drove this project: what does it take to handle real money at scale? Payments are unforgiving—drop a request during checkout and you've either lost revenue or double-charged a customer. Neither is acceptable.`,
+I wanted to tackle the challenges small-to-medium merchants face: how do you build a system that's reliable, scalable, and cost-effective without enterprise budgets? The answer: cloud-native microservices with modern DevOps practices. The result is a fully containerized platform with Spring Boot and Go services, Kubernetes orchestration, and infrastructure managed entirely as code.`,
+    diagram: "/System-Diagram_e-commerce.png",
     sections: [
       {
         heading: "The Challenge",
-        content: `E-commerce is deceptively hard. It's not just CRUD operations—you're dealing with:
-• Race conditions (two people buying the last item simultaneously)
-• Payment failures and retries (network hiccups during checkout)
-• Cart abandonment and session management
-• Inventory synchronization across multiple requests
+        content: `E-commerce platforms face unique technical challenges:
+• **Service isolation** — One failing service shouldn't bring down the entire platform
+• **Real-time inventory** — When a product is added or updated, all services need immediate access
+• **Distributed transactions** — Orders, payments, and inventory must stay synchronized
+• **Scalability** — Different services have different load patterns
 
-The core problem: how do you ensure exactly-once payment processing when networks are unreliable and users click "Pay" multiple times?`
+The core problem: how do you build a distributed system that's both reliable and maintainable without a massive DevOps team?`
       },
       {
-        heading: "The Idempotency Problem",
-        content: `Users will double-click. Networks will timeout and retry. You need idempotency.
+        heading: "System Architecture",
+        content: `The platform follows a microservices architecture as shown in the system diagram below:
 
-I implemented idempotent checkout endpoints using request tokens. Each checkout attempt gets a unique ID. If the same ID comes in twice (because the user refreshed or the network retried), we return the original transaction result instead of charging them again.
+**Spring Boot Services (Java 17)**
+• User Service — Authentication and user management
+• Order Service — Order processing and fulfillment
 
-This required careful database transactions: check for existing payment → create payment record → charge Stripe → update order status. All atomic, all logged.`
+**Go Services (Go 1.19)**
+• Product Catalog — Product information and inventory
+• Search Service — Full-text product search
+
+**Infrastructure**
+• PostgreSQL for data persistence
+• AWS S3 for product images
+• Kubernetes for orchestration
+• Docker for containerization
+
+When a new product is added, it's persisted in PostgreSQL and immediately propagated across all services in real time.`
       },
       {
-        heading: "Technical Implementation",
-        content: `**Frontend:**
-• Built with React and modern hooks for state management
-• Real-time cart updates with optimistic UI
-• Stripe Elements for secure card input (never touching raw card data)
+        heading: "Deployment & Infrastructure",
+        content: `**Kubernetes Orchestration:**
+• Separate deployments for each microservice
+• Horizontal pod autoscaling
+• Rolling updates with zero downtime
+• Health checks and monitoring
 
-**Backend:**
-• Express.js API with JWT authentication
-• MongoDB for products, orders, and user data
-• Redis for session management and cart storage
-• Stripe webhooks for payment confirmation (because webhooks are more reliable than client-side success callbacks)
+**AWS Cloud Integration:**
+• S3 for image storage with CloudFront CDN
+• EKS for managed Kubernetes cluster
+• Terraform for Infrastructure as Code
 
-**Key decisions:**
-• Used Redis TTL for cart expiration—carts automatically clean up after 24 hours
-• Implemented request deduplication with a 5-minute window
-• Added comprehensive logging for payment flow debugging`
+**CI/CD Pipeline:**
+GitHub Actions automates testing, building Docker images, and deploying to Kubernetes. The pipeline has been tested locally (GitHub Actions shows failures due to missing AWS credentials to avoid costs).`
       },
       {
-        heading: "Load Testing & Results",
-        content: `I used Apache JMeter to simulate traffic spikes. Peak load: 1,000 requests per second.
+        heading: "What I Learned",
+        content: `**Microservices Architecture:**
+• Service boundaries matter—each service should own its domain completely
+• Health checks and graceful shutdown are non-negotiable
+• Service discovery with Kubernetes is simpler than custom solutions
 
-**Results:**
-• Zero failed charges across 10,000+ test transactions
-• Average checkout time: 800ms
-• No race conditions in inventory updates
-• Payment webhook processing: 99.9% success rate
+**Kubernetes in Practice:**
+• Readiness probes prevent traffic to unhealthy pods
+• ConfigMaps and Secrets keep configuration separate from code
 
-**What I learned:**
-• Webhook ordering isn't guaranteed—your code must handle out-of-order events
-• MongoDB transactions are slower than you think (use them sparingly)
-• Stripe has great error messages (when you read them carefully)`
-      },
-      {
-        heading: "What I'd Improve",
-        content: `If I rebuilt this today:
-• Add distributed rate limiting with Redis (per-user checkout throttling)
-• Implement inventory reservation with TTL (hold items for 10 minutes during checkout)
-• Use a message queue for async order processing (RabbitMQ or SQS)
-• Add proper monitoring with metrics (payment success rate, checkout abandonment)
+**DevOps & Infrastructure:**
+• Infrastructure as Code (Terraform) makes environments reproducible
+• Docker multi-stage builds significantly reduce image sizes
+• CI/CD pipelines catch integration issues early
 
-The biggest lesson? Payments are a solved problem—but only if you understand the edge cases. Read the Stripe docs. Handle webhooks properly. Test the sad paths.`
-      },
-      {
-        heading: "Try It Out",
-        content: `The code is on GitHub. It includes:
-• Full checkout flow with Stripe test mode
-• Admin dashboard for order management
-• Seed data for testing
-• Docker Compose setup for local development
-
-Feel free to poke around, break things, and see how it handles edge cases.`
+**Language Choice:**
+• Spring Boot excels for complex business logic with database interactions
+• Go is perfect for high-throughput, stateless services like search`
       }
     ],
-    longDescription: `Full-stack e-commerce platform with focus on payment reliability and concurrency safety. Implemented idempotent checkout endpoints with request deduplication to prevent double-charging during retries.
+    longDescription: `Cloud-native e-commerce platform built with microservices architecture. Features Spring Boot services (User, Order) and Go services (Product Catalog, Search) orchestrated with Kubernetes.
 
-Built custom cart session management with Redis, integrated Stripe webhooks for payment confirmation, and added JWT-based authentication. Load-tested to 1,000 RPS with zero failed charges. Next step: add distributed rate-limiting and implement inventory reservation with TTL to prevent overselling.`,
-    tech: ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Redis"],
+Includes AWS integration (S3 for images, EKS for production), automated CI/CD with GitHub Actions, Infrastructure as Code with Terraform, and comprehensive monitoring with Prometheus and Grafana. Designed for small-to-medium merchants needing a scalable, production-grade solution. All infrastructure is containerized with Docker and deployable to both local Minikube and AWS EKS.`,
+    tech: [
+      "Spring Boot",
+      "Go",
+      "Java 17",
+      "Kubernetes",
+      "Docker",
+      "PostgreSQL",
+      "AWS S3",
+      "AWS EKS",
+      "Terraform",
+      "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+      "Next.js",
+      "REST API",
+      "Microservices"
+    ],
     repoUrl: "https://github.com/Yash-Swaminathan/E-Commerce-Platform",
     featured: true,
     status: 'demo'
@@ -250,7 +262,7 @@ The core problem: how do you build a system that validates configurations reliab
       },
       {
         heading: "System Architecture",
-        content: `The system follows a modern three-tier architecture as shown in the system diagram:
+        content: `The system follows a modern three-tier architecture as shown in the system diagram below:
 
 **Frontend (React.js)**
 • File upload interface with drag-and-drop support
