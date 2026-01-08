@@ -52,6 +52,23 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Supabase heartbeat - keeps free-tier project from pausing after 7 days of inactivity
+app.get('/api/supabase-heartbeat', async (req, res) => {
+  try {
+    const supabase = require('./config/supabase');
+    const { data, error } = await supabase
+      .from('button_click_stats')
+      .select('id')
+      .limit(1);
+    
+    if (error) throw error;
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('Heartbeat error:', error.message);
+    res.status(500).json({ ok: false });
+  }
+});
+
 // API routes
 app.use('/api/buttons', buttonRoutes);
 app.use('/api/spotify', spotifyRoutes);
