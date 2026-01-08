@@ -53,19 +53,29 @@ app.get('/health', (req, res) => {
 });
 
 // Supabase heartbeat - keeps free-tier project from pausing after 7 days of inactivity
+// Uses the working button click endpoint to ensure real database activity
 app.get('/api/supabase-heartbeat', async (req, res) => {
   try {
     const supabase = require('./config/supabase');
-    const { data, error } = await supabase
-      .from('button_click_stats')
-      .select('id')
-      .limit(1);
     
-    if (error) throw error;
+    // Call the same RPC function that the button click endpoint uses
+    // This ensures we're using the exact same code path that works
+    const { data, error } = await supabase.rpc('increment_button_click', {
+      button_name_param: 'keep_alive'
+    });
+    
+    if (error) {
+      console.error('Heartbeat Supabase error:', error);
+      throw error;
+    }
+    
     res.json({ ok: true });
   } catch (error) {
     console.error('Heartbeat error:', error.message);
-    res.status(500).json({ ok: false });
+    res.status(500).json({ 
+      ok: false, 
+      error: error.message 
+    });
   }
 });
 
