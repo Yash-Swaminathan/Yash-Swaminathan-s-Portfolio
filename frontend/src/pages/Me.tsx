@@ -5,6 +5,7 @@ import CurrentCityMap from '../components/CurrentCityMap';
 import AnimatedHeading from '../components/AnimatedHeading';
 import Experience from '../components/Experience';
 import CodeQuote from '../components/CodeQuote';
+import StockTicker from '../components/StockTicker';
 import { useWindowSize } from '../hooks/useWindowSize';
 
 const Me: React.FC = () => {
@@ -163,7 +164,10 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              I like Trading! Currently focused on swing trading leveraged Stocks and ETFs. I talk about it on {' '}
+              I like Trading! Some of my favourite tickers right now are{' '}
+              <StockTicker symbol="MU">MU</StockTicker>,{' '}
+              <StockTicker symbol="HL">HL</StockTicker> and{' '}
+              <StockTicker symbol="UAMY">UAMY</StockTicker>! I talk about it on{' '}
               <a
                 href="https://x.com/YashSwaminathan"
                 target="_blank"
