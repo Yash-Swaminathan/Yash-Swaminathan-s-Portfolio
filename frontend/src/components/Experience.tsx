@@ -16,10 +16,18 @@ interface ExperienceProps {
 const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
   const experiences: ExperienceItem[] = [
     {
+      title: "Software Engineering Intern",
+      company: "StackAdapt",
+      location: "Toronto, ON",
+      period: "May 2025 → Present",
+      description: "Backend integration engineering for a programmatic advertising platform",
+      website: "https://www.stackadapt.com"
+    },
+    {
       title: "Software Engineer Intern",
       company: "Micromart",
       location: "Toronto, ON",
-      period: "Aug 2025 → Present",
+      period: "Aug 2025 → Dec 2025",
       description: "DevOps and Backend Engineer focused on reliability and scalability",
       website: "https://www.micromart.com"
     },
@@ -42,6 +50,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
   ];
 
   const companyLogos: { [key: string]: string } = {
+    'StackAdapt': '/logos/stackadapt.jpg',
     'Micromart': '/logos/micromart.jpg',
     'Turing': '/logos/turing.jpg',
     'Gradiant (Synauta)': '/logos/gradiant.jpg'

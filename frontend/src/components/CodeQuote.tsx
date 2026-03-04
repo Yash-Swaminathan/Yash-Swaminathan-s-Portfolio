@@ -8,10 +8,10 @@ type Quote = {
 
 // People who inspire me and why
 const INSPIRATIONAL_PEOPLE = [
-  { name: 'Swaminathan Tanjore (My Dad)', reason: 'Immigrated to Canada from India and built a successful company through resilience and vision.' },
-  { name: 'Madhavi Swaminathan (My Mom)', reason: 'Her values, support, and patience shaped who I am today.' },
+  { name: 'My Dad!', reason: 'Immigrated to Canada from India and built a successful company through resilience and vision.' },
+  { name: 'My Mom!', reason: 'Her values, support, and patience shaped who I am today.' },
   { name: 'LeBron James', reason: "It's LeBron..." },
-  { name: 'Linus Torvalds', reason: 'Created Linux and Git — motivated by a passion for improvement rather than profit, proving that open-source collaboration can transform the world.' },
+  { name: 'Linus Torvalds', reason: 'Created Linux and Git, motivated by a passion for improvement rather than profit, proving that open-source collaboration can transform the world.' },
   { name: 'Alan Turing', reason: 'Father of computer science and AI, who laid the foundation for modern computing and artificial intelligence.' },
   { name: 'Steve Jobs', reason: 'His ability to blend design, innovation, and purpose, changing how the world interacts with technology.' },  
 ];
