@@ -80,7 +80,6 @@ function highlightSyntax(code: string, lang: Lang, colors: typeof SYNTAX_COLORS_
   const lines = code.split('\n');
   return lines.map((line, lineIndex) => {
     const tokens: React.ReactNode[] = [];
-    let currentIndex = 0;
 
     if (lang === 'ts') {
       // TypeScript syntax highlighting patterns (order matters - first match wins)
@@ -90,7 +89,7 @@ function highlightSyntax(code: string, lang: Lang, colors: typeof SYNTAX_COLORS_
         { regex: /(".*?"|'.*?')/g, color: colors.string }, // Regular strings
         { regex: /(export|const|let|var|function|return|if|else|for|while|class|interface|type|import|from)\b/g, color: colors.keyword },
         { regex: /(string|number|boolean|any|void|undefined|null)\b/g, color: colors.type },
-        { regex: /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\s*[:\(])/g, color: colors.variable },
+        { regex: /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\s*[:(])/g, color: colors.variable },
       ];
 
       const matches: Array<{ start: number; end: number; color: string; text: string }> = [];
@@ -248,7 +247,7 @@ function renderSnippet(quote: Quote, lang: Lang): { header: string; body: string
       '/* quote_of_the_day.ts */',
       `const quote: string = "${text}";`,
       `const author: string = "${author}";`,
-      'export const quoteOfTheDay: string = author ? `${quote} - ${author}` : quote;',
+      'export const quoteOfTheDay: string = author ? quote + " - " + author : quote;',
     ].join('\n');
     return { header, body };
   }
@@ -271,15 +270,12 @@ const CodeQuote: React.FC = () => {
   const lang = useMemo(dailyLang, []);
   const snippet = useMemo(() => renderSnippet(quote, lang), [quote, lang]);
   const syntaxColors = theme === 'light' ? SYNTAX_COLORS_LIGHT : SYNTAX_COLORS_DARK;
-  const highlightedCode = useMemo(() => highlightSyntax(snippet.body, lang, syntaxColors), [snippet.body, lang, syntaxColors]);
+  const highlightedCode = useMemo(
+    () => highlightSyntax(snippet.body, lang, syntaxColors),
+    [snippet.body, lang, syntaxColors]
+  );
   const dailyPerson = useMemo(() => pickDaily(INSPIRATIONAL_PEOPLE), []);
   const [showOutput, setShowOutput] = useState(false);
-
-  // Generate the actual output that the code would produce
-  const codeOutput = useMemo(() => {
-    const author = quote.author ? ` - ${quote.author}` : '';
-    return `${quote.text}${author}`;
-  }, [quote]);
 
   return (
     <div

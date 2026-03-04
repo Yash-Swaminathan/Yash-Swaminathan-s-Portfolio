@@ -21,10 +21,12 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
 
   // Clear all timeouts when component unmounts
   useEffect(() => {
+    const timeouts = timeoutsRef.current;
+
     return () => {
       isMountedRef.current = false;
       isRunningRef.current = false;
-      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+      timeouts.forEach(timeout => clearTimeout(timeout));
     };
   }, []);
 
@@ -47,6 +49,8 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
       clearInterval(cursorTimer);
       clearTimeout(startTimer);
     };
+    // We intentionally omit startAnimation from deps; it is stable enough for this usage.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delay = (ms: number): Promise<void> => {
@@ -72,7 +76,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
     }
   };
 
-  const startAnimation = async (): Promise<void> => {
+  async function startAnimation(): Promise<void> {
     console.log('Animation function started');
     try {
       while (isRunningRef.current) {
@@ -125,7 +129,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ className = '' }) => 
     } catch (error) {
       console.error('Animation error:', error);
     }
-  };
+  }
 
   return (
     <div style={{

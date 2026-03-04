@@ -41,14 +41,6 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
     }
   ];
 
-  const education = {
-    school: "University of Waterloo",
-    degree: "Systems Design Engineering",
-    period: "Present → 2029",
-    location: "Waterloo, ON",
-    website: "uwaterloo.ca"
-  };
-
   const companyLogos: { [key: string]: string } = {
     'Micromart': '/logos/micromart.jpg',
     'Turing': '/logos/turing.jpg',
