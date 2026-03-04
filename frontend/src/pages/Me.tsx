@@ -166,7 +166,7 @@ const Me: React.FC = () => {
               <span style={{ marginRight: '0.5rem' }}>›</span>
               I like Trading! Some of my favourite tickers right now are{' '}
               <StockTicker symbol="MU">MU</StockTicker>,{' '}
-              <StockTicker symbol="HL">HL</StockTicker> and{' '}
+              <StockTicker symbol="LITE">LITE</StockTicker> and{' '}
               <StockTicker symbol="UAMY">UAMY</StockTicker>! I talk about it on{' '}
               <a
                 href="https://x.com/YashSwaminathan"
@@ -178,7 +178,7 @@ const Me: React.FC = () => {
                   textDecoration: 'underline'
                 }}
               >
-                X(Twitter)
+                X (Twitter)
               </a>
             </p>
             <p style={{ margin: '0.3rem 0 3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
