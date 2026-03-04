@@ -143,9 +143,9 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              Working at{' '}
+              Incoming at{' '}
               <a
-                href="https://www.micromart.com/smart-store"
+                href="https://www.stackadapt.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -154,13 +154,13 @@ const Me: React.FC = () => {
                   textDecoration: 'underline'
                 }}
               >
-                Micromart
+                StackAdapt
               </a>
-              {' '}as a Software Engineer.
+              {' '} this summer as a Software Engineer on the Backend Integration Team.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              Focused on backend scalability and reliability engineering. Developing in typescript and python based applications.
+              Passionate about backend systems, APIs, pipelines, systems design and anything where latency, reliability and performance actually matter.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
