@@ -200,6 +200,7 @@ const Me: React.FC = () => {
           gridTemplateColumns: isMobile ? '1fr' : 'auto auto',
           gap: '2rem',
           alignItems: 'start',
+          justifyItems: isMobile ? 'center' : 'start',
           width: isMobile ? '100%' : 'fit-content'
         }}>
           {/* Experience Section */}
@@ -371,6 +372,7 @@ const Me: React.FC = () => {
           gridTemplateColumns: isMobile ? '1fr' : 'auto auto auto',
           gap: '2rem',
           alignItems: 'start',
+          justifyItems: isMobile ? 'center' : 'start',
           width: isMobile ? '100%' : 'fit-content'
         }}>
           {/* Map Section */}
