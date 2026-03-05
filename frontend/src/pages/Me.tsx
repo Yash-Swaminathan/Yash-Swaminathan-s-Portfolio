@@ -13,7 +13,7 @@ const Me: React.FC = () => {
   const [ageInYears, setAgeInYears] = useState(0);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isManualScroll, setIsManualScroll] = useState(false);
-  const { isMobile, width } = useWindowSize();
+  const { isMobile, isTablet, width } = useWindowSize();
 
   const photos = [
     { src: '/photos/IMG_0387.jpg', caption: 'High School Graduation' },
@@ -390,6 +390,7 @@ const Me: React.FC = () => {
             transition: 'all 0.3s ease',
             position: 'relative',
             overflow: 'hidden',
+            maxWidth: isMobile ? '90%' : isTablet ? '75%' : 'none',
             width: isMobile ? '100%' : 'fit-content'
           }}>
             {/* Text above map */}
@@ -415,8 +416,8 @@ const Me: React.FC = () => {
 
             {/* Map */}
             <div style={{
-              width: isMobile ? '100%' : '180px',
-              height: isMobile ? 'auto' : '180px',
+              width: isMobile ? '90%' : isTablet ? '75%' : '180px',
+              height: isMobile ? 'auto' : isTablet ? 'auto' : '180px',
               aspectRatio: '1 / 1',
               borderRadius: '8px',
               overflow: 'hidden',
@@ -425,8 +426,8 @@ const Me: React.FC = () => {
               justifyContent: 'center'
             }}>
               <CurrentCityMap
-                width={isMobile ? Math.min(width - 100, 300) : 180}
-                height={isMobile ? Math.min(width - 100, 300) : 180}
+                width={isMobile ? Math.min(width * 0.7, 300) : isTablet ? Math.min(width * 0.4, 350) : 180}
+                height={isMobile ? Math.min(width * 0.7, 300) : isTablet ? Math.min(width * 0.4, 350) : 180}
               />
             </div>
           </div>
