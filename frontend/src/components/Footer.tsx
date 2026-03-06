@@ -169,15 +169,6 @@ const Footer: React.FC = () => {
             </a>
           ))}
         </div>
-
-        {/* Copyright */}
-        <div style={{
-          textAlign: 'center',
-          fontSize: '12px',
-          color: '#666666'
-        }}>
-          © {new Date().getFullYear()} Yash Swaminathan
-        </div>
       </div>
     </footer>
   );
