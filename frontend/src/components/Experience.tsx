@@ -20,7 +20,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => {
       company: "StackAdapt",
       location: "Toronto, ON",
       period: "May 2025 → Present",
-      description: "Infra and backend engineering on 1P Backend Integration — data ingestion pipelines and observability for systems handling 3M+ requests/sec.",
+      description: "Infra and backend engineering on 1P Backend Integration handling 3M+ requests/sec.",
       website: "https://www.stackadapt.com"
     },
     {
