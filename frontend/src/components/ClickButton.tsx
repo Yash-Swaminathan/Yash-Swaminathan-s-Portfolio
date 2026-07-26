@@ -10,9 +10,21 @@ const ClickButton: React.FC = () => {
   const [animationState, setAnimationState] = useState<AnimationState>('idle');
   const [lastClickTime, setLastClickTime] = useState<number>(0);
 
-  // Load initial click count
+  // Load the real, persisted click count on mount so the UI reflects the database
   useEffect(() => {
-    // You can add logic here to load initial count if needed
+    let isMounted = true;
+    ButtonService.getButtonStats('click-me')
+      .then((response) => {
+        if (isMounted && response?.data?.click_count != null) {
+          setClickCount(response.data.click_count);
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to load initial click count:', error);
+      });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleClick = async () => {
@@ -32,11 +44,12 @@ const ClickButton: React.FC = () => {
     try {
       const response = await ButtonService.incrementClick('click-me');
       if (response.success) {
+        // Trust the server as the source of truth for the persisted count
         setClickCount(response.clickCount);
       }
     } catch (error) {
+      // Do not fake a local increment: if the request failed, nothing was persisted.
       console.error('Failed to track click:', error);
-      setClickCount(prev => prev + 1);
     }
 
     // Complete animation and return to idle (2100ms last goose delay + 3500ms animation = 5600ms total)

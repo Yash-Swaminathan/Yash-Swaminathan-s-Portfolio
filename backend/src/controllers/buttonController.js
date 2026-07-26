@@ -1,5 +1,11 @@
 const supabase = require('../config/supabase');
 
+// Normalize a Supabase/JS error into a small, safe detail object for API responses.
+const errorDetail = (error) => ({
+  error: error?.message || String(error),
+  code: error?.code || undefined
+});
+
 const buttonController = {
   // Increment button click count
   async incrementClick(req, res) {
@@ -34,7 +40,8 @@ const buttonController = {
       console.error('Error incrementing button click:', error);
       res.status(500).json({
         success: false,
-        message: 'Internal server error'
+        message: 'Failed to record button click',
+        ...errorDetail(error)
       });
     }
   },
@@ -60,7 +67,8 @@ const buttonController = {
       console.error('Error fetching click stats:', error);
       res.status(500).json({
         success: false,
-        message: 'Internal server error'
+        message: 'Failed to fetch click stats',
+        ...errorDetail(error)
       });
     }
   },
@@ -96,7 +104,8 @@ const buttonController = {
       console.error('Error fetching button stats:', error);
       res.status(500).json({
         success: false,
-        message: 'Internal server error'
+        message: 'Failed to fetch button stats',
+        ...errorDetail(error)
       });
     }
   }

@@ -76,7 +76,7 @@ const SpotifyWidget: React.FC = () => {
       if (result.success) {
         setSpotifyData(result.data);
       } else {
-        setError(result.message || 'Failed to load music data');
+        setError(result.error || result.message || 'Failed to load music data');
       }
     } catch (err: any) {
       if (err.name === 'AbortError') {
@@ -145,7 +145,17 @@ const SpotifyWidget: React.FC = () => {
           fontSize: '13px',
           textAlign: 'center'
         }}>
-          🎵 Music data temporarily unavailable
+          <div>🎵 Music data temporarily unavailable</div>
+          {error && (
+            <div style={{
+              marginTop: '6px',
+              fontSize: '11px',
+              opacity: 0.7,
+              wordBreak: 'break-word'
+            }}>
+              {error}
+            </div>
+          )}
         </div>
       </div>
     );
