@@ -156,7 +156,7 @@ const Me: React.FC = () => {
               >
                 StackAdapt
               </a>
-              {' '}this summer on first-party backend integration, building data ingestion pipelines and the infra/observability layer that keeps them reliable in production.
+              {' '}this summer on the 1P Backend Integration team, working on data ingestion, infra, and observability.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
