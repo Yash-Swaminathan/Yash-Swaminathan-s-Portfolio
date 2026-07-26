@@ -143,7 +143,7 @@ const Me: React.FC = () => {
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
-              Incoming at{' '}
+              Software Engineer at{' '}
               <a
                 href="https://www.stackadapt.com"
                 target="_blank"
@@ -156,7 +156,7 @@ const Me: React.FC = () => {
               >
                 StackAdapt
               </a>
-              {' '} this summer as a Software Engineer on the Backend Integration Team.
+              {' '}this summer on first-party backend integration, building data ingestion pipelines and the infra/observability layer that keeps them reliable in production.
             </p>
             <p style={{ margin: '0.3rem 0', fontSize: '17px', color: 'var(--text-secondary)' }}>
               <span style={{ marginRight: '0.5rem' }}>›</span>
