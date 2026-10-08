@@ -22,7 +22,7 @@ function AppContent() {
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navigation />
-      <div style={{ flex: 1 }}>
+      <div id="page-content" tabIndex={-1} style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Me />} />
           <Route path="/work" element={<Work />} />

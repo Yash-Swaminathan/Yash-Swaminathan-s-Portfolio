@@ -1,0 +1,19 @@
+.site-header { position: fixed; inset: 0 0 auto; z-index: 1000; height: 68px; background: var(--bg-primary); border-bottom: 1px solid var(--border); }
+.site-header-inner { max-width: 1120px; padding: 0 32px; margin: 0 auto; height: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; box-sizing: border-box; }
+.site-brand { color: var(--text-primary); display: flex; align-items: center; gap: 16px; text-decoration: none; font-size: 12px; font-weight: 500; }
+.site-brand > span { font-family: Georgia, serif; font-style: italic; font-size: 30px; letter-spacing: -.08em; }
+.site-header-controls { display: flex; align-items: center; gap: 24px; }
+.site-navigation { display: flex; align-items: center; gap: 26px; }
+.site-navigation a { font-size: 11px; color: var(--text-muted); text-decoration: none; padding: 10px 0; }
+.site-navigation a[aria-current="page"] { color: var(--text-primary); }
+.site-navigation a:hover { color: var(--text-primary); }
+.site-menu-toggle { display: none; background: transparent; border: 1px solid var(--border); color: var(--text-primary); font: inherit; font-size: 11px; border-radius: 4px; min-height: 36px; padding: 0 10px; cursor: pointer; }
+.site-header a:focus-visible, .site-header button:focus-visible, .site-footer a:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.site-skip-link { position: absolute; top: -80px; padding: 12px; color: var(--bg-primary); background: var(--text-primary); text-decoration: none; }
+.site-skip-link:focus { top: 8px; }
+.site-footer { border-top: 1px solid var(--border); color: var(--text-muted); background: var(--bg-primary); }
+.site-footer-inner { max-width: 1120px; padding: 24px 32px; margin: 0 auto; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 10px; }
+.site-footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.site-footer a { color: var(--text-muted); text-decoration: none; padding: 6px 0; }
+.site-footer a:hover { color: var(--text-primary); }
+@media (max-width: 600px) { .site-header-inner { padding: 0 22px; gap: 12px; } .site-brand { gap: 10px; font-size: 10px; } .site-header-controls { gap: 12px; } .site-menu-toggle { display: block; } .site-navigation { display: none; position: absolute; top: 68px; inset-inline: 0; padding: 14px 22px; background: var(--bg-primary); border-bottom: 1px solid var(--border); gap: 26px; } .site-navigation.is-open { display: flex; } .site-navigation a { min-height: 36px; display: flex; align-items: center; font-size: 12px; } .site-footer-inner { padding: 22px; flex-direction: column; align-items: flex-start; gap: 10px; } }
