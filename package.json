@@ -1,0 +1,9 @@
+{
+  "name": "yash-portfolio-workspace",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup-worktree.cjs",
+    "dev": "node scripts/dev.cjs",
+    "review": "node scripts/dev.cjs --review"
+  }
+}

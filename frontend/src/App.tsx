@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { MapProvider } from './contexts/MapContext';
 import Navigation from './components/Navigation';
@@ -10,23 +10,37 @@ import Work from './pages/Work';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 
+const Review = process.env.NODE_ENV === 'development' ? React.lazy(() => import('./pages/Review')) : null;
+
+function AppContent() {
+  const location = useLocation();
+
+  if (Review && location.pathname === '/review') {
+    return <React.Suspense fallback={<p>Loading portfolio review...</p>}><Review /></React.Suspense>;
+  }
+
+  return (
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Navigation />
+      <div style={{ flex: 1 }}>
+        <Routes>
+          <Route path="/" element={<Me />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
       <MapProvider>
         <Router>
-          <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <Navigation />
-            <div style={{ flex: 1 }}>
-              <Routes>
-                <Route path="/" element={<Me />} />
-                <Route path="/work" element={<Work />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-              </Routes>
-            </div>
-            <Footer />
-          </div>
+          <AppContent />
         </Router>
       </MapProvider>
     </ThemeProvider>

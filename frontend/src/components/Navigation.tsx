@@ -12,6 +12,9 @@ const Navigation: React.FC = () => {
     { path: '/', label: 'Me', pageIndicator: '/me', isHome: true, isExternal: false },
     { path: '/Yash_Swaminathan_Resume.pdf', label: 'Resume', pageIndicator: '/resume', isHome: false, isExternal: true },
     { path: '/projects', label: 'Projects', pageIndicator: '/projects', isHome: false, isExternal: false },
+    ...(process.env.NODE_ENV === 'development' && !new URLSearchParams(location.search).has('preview')
+      ? [{ path: '/review', label: 'Review', pageIndicator: '/review', isHome: false, isExternal: false }]
+      : []),
   ];
 
   const getCurrentPage = () => {
