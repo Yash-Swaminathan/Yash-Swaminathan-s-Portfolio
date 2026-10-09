@@ -27,26 +27,17 @@ const Me: React.FC = () => {
         </aside>
       </section>
 
-      <section className="home-section" aria-labelledby="home-work-heading">
-        <div className="home-section-heading"><div><p className="home-eyebrow">01 / Selected work</p><h2 id="home-work-heading">Ideas, put into practice.</h2></div>
-          <Link className="home-text-link" to="/projects">All projects <span aria-hidden="true">↗</span></Link></div>
-        <div className="home-project-grid">{selectedProjects.map(project => project && (
-          <Link key={project.slug} className="home-project" to={`/projects/${project.slug}`}>
-            <div className="home-project-topline"><span>{project.year} / {project.tags.slice(0, 2).join(' + ')}</span><span className="home-project-arrow" aria-hidden="true">↗</span></div>
-            <h3>{project.title}</h3>
-            <p>{project.subtitle}</p>
-            <div className="home-project-stack">{(project.coreStack || project.tech).slice(0, 3).map(technology => <span key={technology}>{technology}</span>)}</div>
-          </Link>
-        ))}</div>
-      </section>
-
-      <section className="home-section home-experience-section" aria-labelledby="home-experience-heading">
-        <div className="home-section-heading"><div><p className="home-eyebrow">02 / Experience</p><h2 id="home-experience-heading">Where I've contributed.</h2></div><span className="home-section-note">Open a role for details</span></div>
+      <div className="home-story">
+        <p>Here are some of the things I've built: {selectedProjects.map(project => project && (
+          <React.Fragment key={project.slug}>
+            <Link to={`/projects/${project.slug}`}>{project.title}</Link> — {project.subtitle}.{' '}
+          </React.Fragment>
+        ))}<Link to="/projects">See more of my work</Link>.</p>
         <Experience />
-      </section>
+      </div>
 
       <section className="home-contact-section" aria-labelledby="home-contact-heading">
-        <div><p className="home-eyebrow">03 / Get in touch</p><h2 id="home-contact-heading">Let's talk.</h2><p>Have an engineering opportunity in mind?<br />I'd love to hear about it.</p></div>
+        <div><p className="home-eyebrow">Get in touch</p><h2 id="home-contact-heading">Let's talk.</h2><p>Have an engineering opportunity in mind?<br />I'd love to hear about it.</p></div>
         <a className="home-contact-address" href={`mailto:${profile.email}`}>{profile.email} <span aria-hidden="true">↗</span></a>
       </section>
     </main>
