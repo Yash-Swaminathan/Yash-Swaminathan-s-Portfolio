@@ -39,6 +39,7 @@ const TechnicalProject: React.FC<{ project: Project }> = ({ project }) => {
       <nav className="technical-project-links" aria-label="Project resources">
         {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
         {project.setupUrl && <a href={project.setupUrl} target="_blank" rel="noopener noreferrer">Setup guide</a>}
+        {project.extensionUrl && <a href={project.extensionUrl} target="_blank" rel="noopener noreferrer">VS Code extension</a>}
         {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
       </nav>
       <p className="technical-project-stack">{project.tech.join(' · ')}</p>
@@ -59,7 +60,12 @@ const TechnicalProject: React.FC<{ project: Project }> = ({ project }) => {
                 <summary>{section.heading}<span aria-hidden="true">+</span></summary>
                 <div className="technical-project-detail-content">
                   {SectionFigure && <SectionFigure />}
-                  <ProjectText content={section.content} />
+                  {section.content && <ProjectText content={section.content} />}
+                  {section.bullets && (
+                    <ul className="technical-project-tradeoffs">
+                      {section.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}
+                    </ul>
+                  )}
                 </div>
               </details>
             );

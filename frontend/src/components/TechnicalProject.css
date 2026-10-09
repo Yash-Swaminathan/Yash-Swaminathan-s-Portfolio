@@ -21,5 +21,7 @@
 .technical-project details[open] summary span { transform: rotate(45deg); }
 .technical-project-detail-content { padding-bottom: 8px; }
 .technical-project-detail-content > p { max-width: 760px; }
+.technical-project-tradeoffs { max-width: 760px; padding-left: 20px; margin: 0 0 16px; color: var(--text-secondary); font-size: 15px; line-height: 1.85; }
+.technical-project-tradeoffs li + li { margin-top: 12px; }
 .technical-project code { font-size: .9em; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; background: var(--bg-secondary); padding: 2px 4px; border-radius: 3px; }
 @media (max-width: 600px) { .technical-project { padding: 108px 22px 36px; } .technical-project h1 { font-size: 28px; } .technical-project-heading { gap: 12px; } .technical-project p:not(.technical-project-subtitle):not(.technical-project-stack) { font-size: 14px; } .technical-project-back { margin-bottom: 24px; } }

@@ -39,9 +39,9 @@ export const reviewSections: ReviewSection[] = [
     questions: ['Which projects should be featured, removed, or added?', 'Which links, technologies, and results need updating?']
   },
   {
-    id: 'details', title: 'Project case studies', group: 'Your work', route: '/projects/NetAnomaly',
+    id: 'details', title: 'Project case studies', group: 'Your work', route: '/projects/chatterbox',
     files: ['pages/ProjectDetail.tsx', 'data/projects.ts'],
-    current: 'Project records include longer overviews, architecture diagrams, and multiple written sections. NetAnomaly is one existing case study.',
+    current: 'Project pages include concise overviews, architecture diagrams, and expandable technical sections. ChatterBox is one existing case study.',
     suggestion: 'Use a consistent sequence: problem, what you built, key decisions, results, and links. Trim repeated technology lists and explain your own contribution.',
     questions: ['Which project should we rewrite first?', 'What evidence or screenshots would make the project easier to understand?']
   },

@@ -508,7 +508,183 @@ const TermshareFlow: React.FC = () => {
   );
 };
 
+const EcommerceTopology: React.FC = () => {
+  const id = 'ecommerce-topology';
+  return (
+    <Frame
+      label="E-commerce service layout: a Next.js storefront calls the Go product catalog and the Spring Boot user service; the Go search service reads the same products table; the order service owns the orders tables. All four share one PostgreSQL database under Docker Compose. A payment service, a Node payments API and the deployment configuration are in the repository but not started by Compose"
+      width={1040}
+      height={518}
+      legend={[['ink', 'HTTP / JSON'], ['store', 'SQL']]}
+      caption="Each row is one service and the table it uses. The lower group is in the repository but is not started by Compose. Nothing is currently hosted."
+    >
+      <Defs id={id} />
+      <rect x={270} y={20} width={750} height={340} rx={8} className="fig-zone" />
+      <text x={288} y={44} className="fig-cap">DOCKER COMPOSE · FIVE CONTAINERS · ONE SHARED DATABASE</text>
+
+      <Box x={20} y={96} w={190} h={170} title="Storefront" lines={['Next.js 14 · React 18', 'axios · one base URL', 'per service']} />
+
+      <Box x={290} y={96} w={200} h={46} title="Product catalog" lines={['Go · Gin · :8080']} />
+      <Box x={518} y={96} w={222} h={46} variant="sub" title="CRUD /products" lines={['lib/pq · parameterized SQL']} />
+
+      <Box x={290} y={158} w={200} h={46} title="Search" lines={['Go · Gin · :8082']} />
+      <Box x={518} y={158} w={222} h={46} variant="sub" title="GET /search?q=" lines={['LIKE on name + description']} />
+
+      <Box x={290} y={220} w={200} h={46} title="User service" lines={['Spring Boot · :8081']} />
+      <Box x={518} y={220} w={222} h={46} variant="sub" title="POST /api/users/register" lines={['BCrypt hash · HTTP Basic']} />
+
+      <Box x={290} y={282} w={200} h={46} title="Order service" lines={['Spring Boot · :8083']} />
+      <Box x={518} y={282} w={222} h={46} variant="sub" title="Order + OrderItem" lines={['JPA service · no routes yet']} />
+
+      <Box x={800} y={56} w={200} h={286} variant="store" tone="store" title="PostgreSQL 15" lines={['database: ecommerce']} />
+      <Box x={814} y={108} w={172} h={84} variant="sub" title="products" lines={['name · price · stock', 'image_url']} />
+      <Box x={814} y={220} w={172} h={46} variant="sub" title="users" lines={['email · password hash']} />
+      <Box x={814} y={282} w={172} h={46} variant="sub" title="orders" lines={['order_items · total']} />
+
+      <Arrow id={id} d="M210 119H290" both />
+      <Arrow id={id} d="M210 243H290" both />
+      <Arrow id={id} d="M490 119H518" />
+      <Arrow id={id} d="M490 181H518" />
+      <Arrow id={id} d="M490 243H518" />
+      <Arrow id={id} d="M490 305H518" />
+      <Arrow id={id} d="M740 119H814" kind="store" both />
+      <Arrow id={id} d="M740 181H814" kind="store" />
+      <Arrow id={id} d="M740 243H814" kind="store" both />
+      <Arrow id={id} d="M740 305H814" kind="store" both />
+
+      <Label x={240} y={112}>JSON</Label>
+      <Label x={240} y={236}>JSON</Label>
+      <Label x={770} y={174} kind="store">read</Label>
+
+      <rect x={20} y={380} width={1000} height={118} rx={8} className="fig-zone" />
+      <text x={38} y={404} className="fig-cap">IN THE REPOSITORY · NOT STARTED BY COMPOSE</text>
+      <Box x={38} y={418} w={312} h={62} variant="dashed" title="Payment service" lines={['Spring Boot · Stripe PaymentIntent', 'create · process · list by order']} />
+      <Box x={364} y={418} w={312} h={62} variant="dashed" title="Node payments API" lines={['Express · Prisma · Stripe webhooks', 'refunds · disputes · S3 image upload']} />
+      <Box x={690} y={418} w={312} h={62} variant="dashed" title="Deployment config" lines={['k8s: 2 replicas each · HPA on users', 'Actions → ECR · Terraform S3 + IAM']} />
+    </Frame>
+  );
+};
+
+const SchemaTopology: React.FC = () => {
+  const id = 'schema-topology';
+  return (
+    <Frame
+      label="Schema Validator request paths: the React app calls one FastAPI container. Validation runs PyYAML then jsonschema against Schema.py; comparison runs PyYAML on both documents then DeepDiff; only the configs endpoints pass through Pydantic and psycopg2 to PostgreSQL"
+      width={1040}
+      height={482}
+      legend={[['ink', 'HTTP request / in-process call'], ['store', 'SQL']]}
+      caption="Each row is one request path, read left to right. Checking or comparing a file never saves it."
+    >
+      <Defs id={id} />
+      <rect x={280} y={20} width={740} height={336} rx={8} className="fig-zone" />
+      <text x={298} y={44} className="fig-cap">CLOUD RUN SERVICE · ONE DOCKER IMAGE · SCALES TO ZERO</text>
+
+      <Box x={20} y={92} w={196} h={248} title="Browser" lines={['React 18 SPA · Vercel']} />
+      <Box x={34} y={148} w={168} h={46} variant="sub" title="Validate" lines={['upload one file']} />
+      <Box x={34} y={212} w={168} h={46} variant="sub" title="Compare" lines={['files or pasted text']} />
+      <Box x={34} y={276} w={168} h={46} variant="sub" title="Config forms" lines={['Formik + Yup checks']} />
+
+      <rect x={300} y={60} width={700} height={280} rx={6} className="fig-box" />
+      <text x={318} y={86} className="fig-title">FastAPI app</text>
+      <text x={412} y={86} className="fig-mono">python:3.12-slim · uvicorn</text>
+      <Box x={780} y={74} w={202} h={46} variant="dashed" title="Schema.py" lines={['required: name age email']} />
+
+      <Box x={318} y={148} w={206} h={46} variant="sub" title="POST /validate" lines={['one uploaded YAML file']} />
+      <Box x={552} y={148} w={200} h={46} variant="sub" title="PyYAML" lines={['yaml.safe_load']} />
+      <Box x={780} y={148} w={202} h={46} variant="sub" title="jsonschema" lines={['validate against SCHEMA']} />
+
+      <Box x={318} y={212} w={206} h={46} variant="sub" title="POST /compare-schemas" lines={['+ /compare-schema-files']} />
+      <Box x={552} y={212} w={200} h={46} variant="sub" title="PyYAML × 2" lines={['safe_load both documents']} />
+      <Box x={780} y={212} w={202} h={46} variant="sub" title="DeepDiff" lines={['ignore_order=True']} />
+
+      <Box x={318} y={276} w={206} h={46} variant="sub" title="CRUD /configs" lines={['POST · GET PUT DELETE /{id}']} />
+      <Box x={552} y={276} w={200} h={46} variant="sub" title="Pydantic ConfigInput" lines={['name · age ≥ 0 · EmailStr']} />
+      <Box x={780} y={276} w={202} h={46} variant="sub" tone="store" title="psycopg2" lines={['parameterized SQL · %s']} />
+
+      <Box x={740} y={396} w={242} h={66} variant="store" tone="store" title="PostgreSQL" lines={['configs table · 11 columns', 'created on startup if absent']} />
+
+      <Arrow id={id} d="M216 171H318" both />
+      <Arrow id={id} d="M216 235H318" both />
+      <Arrow id={id} d="M216 299H318" both />
+      <Arrow id={id} d="M524 171H552" />
+      <Arrow id={id} d="M752 171H780" />
+      <Arrow id={id} d="M524 235H552" />
+      <Arrow id={id} d="M752 235H780" />
+      <Arrow id={id} d="M524 299H552" />
+      <Arrow id={id} d="M752 299H780" />
+      <Arrow id={id} d="M881 120V148" />
+      <Arrow id={id} d="M881 322V396" kind="store" both />
+
+      <Label x={248} y={164}>YAML file</Label>
+      <Label x={248} y={228}>YAML × 2</Label>
+      <Label x={248} y={292}>JSON</Label>
+      <Label x={869} y={382} anchor="end" kind="store">SQL · new connection per request</Label>
+    </Frame>
+  );
+};
+
+const CalgaryTopology: React.FC = () => {
+  const id = 'calgary-topology';
+  return (
+    <Frame
+      label="Calgary dashboard request paths: the React and three.js client calls one Flask app. Loading an area checks the building cache, and on a miss the DataFetcher merges OpenStreetMap with five Calgary open datasets; a question goes through LLMService and is applied as a filter in Python; projects store filters as JSON. All three use one SQLite database through SQLAlchemy"
+      width={1040}
+      height={482}
+      legend={[['ink', 'HTTP request / in-process call'], ['live', 'Outbound fetch to open data'], ['store', 'SQL']]}
+      caption="Each row is one request path, read left to right. Buildings are fetched once and cached; later loads and filters read the cached rows unless a refresh is requested."
+    >
+      <Defs id={id} />
+      <Box x={20} y={92} w={196} h={248} title="Browser" lines={['React 18 · three.js']} />
+      <Box x={34} y={148} w={168} h={46} variant="sub" title="3D map" lines={['extruded footprints']} />
+      <Box x={34} y={212} w={168} h={46} variant="sub" title="Query box" lines={['plain-English filter']} />
+      <Box x={34} y={276} w={168} h={46} variant="sub" title="Projects" lines={['save / load filters']} />
+
+      <rect x={270} y={60} width={534} height={280} rx={6} className="fig-box" />
+      <text x={286} y={86} className="fig-title">Flask app</text>
+      <text x={364} y={86} className="fig-mono">port 5001 · routes under /api · Flask-SQLAlchemy</text>
+
+      <Box x={286} y={148} w={170} h={46} variant="sub" title="GET /buildings/area" lines={['bounds · refresh']} />
+      <Box x={472} y={148} w={150} h={46} variant="sub" title="Cache check" lines={['empty or refresh?']} />
+      <Box x={638} y={148} w={150} h={46} variant="sub" tone="live" title="DataFetcher" lines={['merge 6 sources']} />
+
+      <Box x={286} y={212} w={170} h={46} variant="sub" title="POST /query/process" lines={['question + bounds']} />
+      <Box x={472} y={212} w={150} h={46} variant="sub" title="LLMService" lines={['flan-t5 then rules']} />
+      <Box x={638} y={212} w={150} h={46} variant="sub" title="Filter in Python" lines={['matches_filter()']} />
+
+      <Box x={286} y={276} w={170} h={46} variant="sub" title="/projects" lines={['save · list · load']} />
+      <Box x={472} y={276} w={150} h={46} variant="sub" title="Project model" lines={['filters as JSON']} />
+      <Box x={638} y={276} w={150} h={46} variant="sub" title="Reapply on load" lines={['same filter code']} />
+
+      <Box x={850} y={84} w={170} h={46} title="OpenStreetMap" lines={['Overpass · base layer']} />
+      <Box x={850} y={150} w={170} h={100} title="Calgary Open Data" lines={['Socrata · 5 datasets', 'outlines · 3D heights', 'permits · assessments', 'land-use districts']} />
+
+      <Box x={286} y={392} w={502} h={66} variant="store" tone="store" title="SQLite (default)" lines={['buildings: cached merge result · projects · users', 'DATABASE_URL swaps in another database']} />
+
+      <Arrow id={id} d="M216 171H286" both />
+      <Arrow id={id} d="M216 235H286" both />
+      <Arrow id={id} d="M216 299H286" both />
+      <Arrow id={id} d="M456 171H472" />
+      <Arrow id={id} d="M622 171H638" />
+      <Arrow id={id} d="M456 235H472" />
+      <Arrow id={id} d="M622 235H638" />
+      <Arrow id={id} d="M456 299H472" />
+      <Arrow id={id} d="M622 299H638" />
+      <Arrow id={id} d="M788 163H826V107H850" kind="live" />
+      <Arrow id={id} d="M788 179H826V200H850" kind="live" />
+      <Arrow id={id} d="M537 340V392" kind="store" both />
+
+      <Label x={243} y={164}>bounds</Label>
+      <Label x={243} y={228}>question</Label>
+      <Label x={243} y={292}>filters</Label>
+      <Label x={549} y={372} anchor="start" kind="store">SQLAlchemy</Label>
+    </Frame>
+  );
+};
+
 export const projectFigures: Record<string, React.FC> = {
+  'ecommerce-topology': EcommerceTopology,
+  'schema-topology': SchemaTopology,
+  'calgary-topology': CalgaryTopology,
   'chatterbox-topology': ChatterboxTopology,
   'chatterbox-server': ChatterboxServer,
   'chatterbox-message-flow': ChatterboxMessageFlow,
