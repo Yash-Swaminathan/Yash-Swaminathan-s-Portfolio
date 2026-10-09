@@ -4,8 +4,8 @@
 .projects-list li + li { margin-top: 32px; }
 .projects-entry-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
 .projects-entry-heading h2 { min-width: 0; font-size: 16px; line-height: 1.6; font-weight: 500; margin: 0; }
-.projects-entry-heading a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
-.projects-entry-heading a:hover { text-decoration-color: currentColor; }
+.projects-entry-heading a { color: var(--text-primary); text-decoration: none; }
+.projects-entry-heading a:hover { opacity: .75; }
 .projects-entry-heading a:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 .projects-entry-heading time { flex-shrink: 0; font-size: 12px; color: var(--text-muted); }
 .projects-list p { font-size: 14px; line-height: 1.8; color: var(--text-muted); margin: 6px 0 0; }

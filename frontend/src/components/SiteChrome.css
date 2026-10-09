@@ -11,7 +11,7 @@
 .site-skip-link { position: absolute; top: -80px; padding: 12px; color: var(--bg-primary); background: var(--text-primary); text-decoration: none; }
 .site-skip-link:focus { top: 8px; }
 .site-footer { color: var(--text-muted); background: var(--bg-primary); }
-.site-footer-inner { max-width: 1120px; padding: 24px 32px; margin: 0 auto; box-sizing: border-box; display: flex; justify-content: flex-start; align-items: center; gap: 20px; font-size: 12px; }
+.site-footer-inner { max-width: 1120px; padding: 24px 32px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; font-size: 12px; }
 .site-footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
 .site-footer a { color: var(--text-muted); text-decoration: none; padding: 6px 0; }
 .site-footer a:hover { color: var(--text-primary); }

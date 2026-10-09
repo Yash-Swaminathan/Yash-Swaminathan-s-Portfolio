@@ -1,6 +1,6 @@
 .technical-project { max-width: 1120px; padding: 120px 32px 64px; margin: 0 auto; box-sizing: border-box; color: var(--text-primary); }
-.technical-project a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
-.technical-project a:hover { text-decoration-color: currentColor; }
+.technical-project a { color: var(--text-primary); text-decoration: none; }
+.technical-project a:hover { opacity: .75; }
 .technical-project a:focus-visible, .technical-project summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 .technical-project-back { font-size: 12px; display: inline-block; margin-bottom: 32px; }
 .technical-project-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }

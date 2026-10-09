@@ -37,10 +37,10 @@ const TechnicalProject: React.FC<{ project: Project }> = ({ project }) => {
       </header>
       <div className="technical-project-overview"><ProjectText content={project.overview || project.description} /></div>
       <nav className="technical-project-links" aria-label="Project resources">
-        {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
+        {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">{project.resourceLabels?.repo || 'Source'}</a>}
         {project.setupUrl && <a href={project.setupUrl} target="_blank" rel="noopener noreferrer">Setup guide</a>}
         {project.extensionUrl && <a href={project.extensionUrl} target="_blank" rel="noopener noreferrer">VS Code extension</a>}
-        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">{project.resourceLabels?.demo || 'Live'}</a>}
       </nav>
       <p className="technical-project-stack">{project.tech.join(' · ')}</p>
       {architecture && (

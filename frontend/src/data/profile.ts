@@ -6,6 +6,7 @@ export const profile = {
   program: 'Systems Design Engineering',
   term: '2B',
   email: 'yswamina@uwaterloo.ca',
+  chatterbox: 'https://chat.yashswaminathan.com',
   github: 'https://github.com/Yash-Swaminathan',
   linkedin: 'https://www.linkedin.com/in/yash-swaminathan',
   x: 'https://x.com/YashSwaminathan',

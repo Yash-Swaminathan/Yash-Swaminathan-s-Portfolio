@@ -28,6 +28,7 @@ export interface Project {
   coreStack?: string[];
   demoUrl?: string;
   repoUrl?: string;
+  resourceLabels?: { repo: string; demo: string };
   featured: boolean;
   status?: 'live' | 'demo' | 'archived' | 'in-progress';
 }
@@ -36,13 +37,13 @@ const projectCatalog: Project[] = [
   {
     slug: 'chatterbox',
     title: 'ChatterBox',
-    subtitle: 'Real-time messaging with React, Socket.IO, PostgreSQL, and Redis',
+    subtitle: 'A real-time chat app where visitors can message me privately',
     year: 2025,
     month: 11,
     tags: ['Backend', 'Messaging'],
     metrics: ['Conversation rooms', 'Redis message caching'],
-    description: 'A messaging app with authenticated conversations, persistent message history, and live updates over Socket.IO.',
-    overview: 'ChatterBox is a real-time chat app. In owner-only mode, a portfolio visitor can start a conversation with the owner, who can receive a push notification or email when a message arrives. One Node process serves the React app, REST API, and Socket.IO connection from the same origin.',
+    description: 'A deployed messaging app where a quick signup opens a live chat with me. Visitors cannot see or message each other.',
+    overview: 'ChatterBox is a real-time messaging app I built and deployed on Railway, with live delivery and presence over WebSockets. On the live site, signing up opens a chat with me. I get notified when someone writes, and visitors cannot see or message each other.',
     figure: 'chatterbox-topology',
     technicalPresentation: true,
     setupUrl: 'https://github.com/Yash-Swaminathan/ChatterBox/blob/main/DEPLOY.md',
@@ -62,6 +63,10 @@ const projectCatalog: Project[] = [
           'Private by default in owner-only mode: visitors can only message the owner, with no user search or email exposure. The restrictions are enforced server-side, not just hidden in the UI.',
           'One deployable, one instance: Express serves the React build, avoiding a separate frontend proxy and cross-origin setup. Scaling out still requires coordinating process-local rate limits and connection checks, even with the Redis Socket.IO adapter.'
         ]
+      },
+      {
+        heading: 'Features and testing',
+        content: 'JWT authentication and password reset handle account access. Resend sends email notifications to me and to visitors when I reply. Owner-only mode keeps visitor conversations private, with restrictions enforced on the server. The project includes about 800 server tests.'
       },
       {
         heading: 'Inside the server',
@@ -89,11 +94,13 @@ const projectCatalog: Project[] = [
         content: 'PostgreSQL is the record. Redis holds everything that is cheap to lose: the server starts and keeps delivering messages without it, minus presence, unread badges, and throttling.'
       }
     ],
-    tech: ['React', 'Node.js', 'Express', 'Socket.IO', 'PostgreSQL', 'Redis', 'Docker'],
+    tech: ['Node.js', 'Express', 'Socket.IO', 'PostgreSQL', 'Redis', 'React', 'Vite', 'JWT', 'Docker', 'Railway'],
     coreStack: ['Node.js', 'PostgreSQL', 'Redis'],
     repoUrl: 'https://github.com/Yash-Swaminathan/ChatterBox',
+    demoUrl: 'https://chat.yashswaminathan.com',
+    resourceLabels: { repo: 'Source', demo: 'Live' },
     featured: true,
-    status: 'in-progress'
+    status: 'live'
   },
   {
     slug: 'termshare',
@@ -261,6 +268,7 @@ const projectCatalog: Project[] = [
       "Google Cloud Run"
     ],
     demoUrl: "https://schema-validator-lilac.vercel.app/",
+    resourceLabels: { repo: 'Source', demo: 'Live' },
     repoUrl: "https://github.com/Yash-Swaminathan/Schema-Validator",
     featured: true,
     status: 'live'
