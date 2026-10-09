@@ -8,6 +8,7 @@ export const profile = {
   email: 'yswamina@uwaterloo.ca',
   github: 'https://github.com/Yash-Swaminathan',
   linkedin: 'https://www.linkedin.com/in/yash-swaminathan',
+  x: 'https://x.com/YashSwaminathan',
   resume: '/Yash_Swaminathan_Resume.pdf'
 };
 
