@@ -12,8 +12,7 @@ const Me: React.FC = () => {
     <main className="home-page">
       <section className="home-intro" aria-labelledby="home-heading">
         <div className="home-intro-copy">
-          <p className="home-eyebrow">Hi, I'm {profile.firstName}.</p>
-          <h1 id="home-heading">{profile.headline}<br />{' '}<span>{profile.headlineEmphasis}</span></h1>
+          <h1 id="home-heading">Hi, I'm {profile.firstName}.</h1>
           <p className="home-introduction">I'm a {profile.term} {profile.program} student at the {profile.university}. {profile.introduction}</p>
           <div className="home-intro-actions">
             <a className="home-contact-button" href={`mailto:${profile.email}`}>Get in touch <span aria-hidden="true">↗</span></a>

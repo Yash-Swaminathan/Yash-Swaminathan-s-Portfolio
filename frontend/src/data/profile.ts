@@ -1,8 +1,6 @@
 export const profile = {
   name: 'Yash Swaminathan',
   firstName: 'Yash',
-  headline: 'Backend & infrastructure',
-  headlineEmphasis: 'engineering.',
   introduction: "I've worked on backend systems and infrastructure, and I enjoy taking complex problems and finding simple solutions.",
   university: 'University of Waterloo',
   program: 'Systems Design Engineering',

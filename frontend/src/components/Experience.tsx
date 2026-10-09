@@ -8,12 +8,12 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({ className = '' }) => (
   <p className={`experience-prose ${className}`}>
-    I've worked {experiences.map((experience, index) => (
+    I've previously worked on software at {experiences.map((experience, index) => (
       <React.Fragment key={experience.company}>
         {index > 0 ? index === experiences.length - 1 ? ', and ' : ', ' : ''}
-        at <a href={experience.website} target="_blank" rel="noopener noreferrer">{experience.company}</a> as a {experience.title.toLowerCase()} ({experience.period})
+        <a href={experience.website} target="_blank" rel="noopener noreferrer">{experience.company}</a>
       </React.Fragment>
-    ))}.
+    ))}, and I'm interested in backend and infrastructure engineering.
   </p>
 );
 
