@@ -28,6 +28,37 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'chatterbox',
+    title: 'ChatterBox',
+    subtitle: 'Real-time messaging with React, Socket.IO, PostgreSQL, and Redis',
+    year: 2025,
+    month: 11,
+    tags: ['Backend', 'Messaging'],
+    metrics: ['Conversation rooms', 'Redis message caching'],
+    description: 'A messaging app with authenticated conversations, persistent message history, and live updates over Socket.IO.',
+    overview: 'ChatterBox brings together the parts of a chat app that sit behind the interface: authentication, conversation membership, message storage, live delivery, and online presence. The React client uses an Express API for account and conversation operations, alongside Socket.IO for real-time events.',
+    diagram: '/chatterbox-system-diagram.svg',
+    sections: [
+      {
+        heading: 'System Architecture',
+        content: 'The React client connects to an Express server through HTTP and Socket.IO. Socket connections authenticate with an access token, and message handlers check conversation membership and blocking rules before accepting a message.\n\nPostgreSQL stores users, conversations, messages, and delivery/read status. Redis supports recent-message caching, unread counts, and presence state. The current deployment guide recommends one server instance; this diagram shows that core message path rather than claiming a production-scale deployment.'
+      },
+      {
+        heading: 'Following a message',
+        content: 'When a client sends a message, the server validates its content, checks the sender\'s conversation permissions, and applies rate limiting. It then saves the message to PostgreSQL, initializes recipient status, invalidates the recent-message cache, and increments unread counts.\n\nFinally, the server broadcasts a `message:new` event to the conversation room. The project also includes message editing and deletion, read-status handling, and presence updates. Cache reads can fall back when Redis is unavailable, while PostgreSQL remains the source of persisted messages.'
+      },
+      {
+        heading: 'Source and setup',
+        content: 'Explore the [source on GitHub](https://github.com/Yash-Swaminathan/ChatterBox) or the [deployment guide](https://github.com/Yash-Swaminathan/ChatterBox/blob/main/DEPLOY.md). The Docker setup serves the built React client, API, and Socket.IO endpoint from one origin, with PostgreSQL and Redis configured separately.\n\nNo public demo URL is listed in the repository metadata. The README contains an older progress checklist, so this description is based on the current implementation rather than its completion or performance claims.'
+      }
+    ],
+    tech: ['React', 'Node.js', 'Express', 'Socket.IO', 'PostgreSQL', 'Redis', 'Docker'],
+    coreStack: ['Node.js', 'PostgreSQL', 'Redis'],
+    repoUrl: 'https://github.com/Yash-Swaminathan/ChatterBox',
+    featured: true,
+    status: 'in-progress'
+  },
+  {
     slug: 'termshare',
     title: 'termshare',
     subtitle: 'Share a live terminal in the browser using Go and WebSockets',

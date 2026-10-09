@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="670" viewBox="0 0 480 670" role="img" aria-labelledby="title description">
+  <title id="title">ChatterBox core messaging architecture</title>
+  <desc id="description">React clients connect to a Node.js Express server through HTTP and Socket.IO. The server verifies access tokens and conversation permissions. PostgreSQL stores users, conversations, messages, and message status. Redis holds recent message caches, unread counts, and presence. Messages are saved before the server broadcasts to clients in the conversation room. This shows a single-server deployment.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="#53695f"/></marker></defs>
+  <rect width="480" height="670" fill="#f8faf8"/>
+  <g font-family="Arial, sans-serif" fill="#23372e">
+    <text x="28" y="44" font-size="24" font-weight="700">ChatterBox</text>
+    <text x="28" y="70" font-size="15" fill="#53695f">Core message flow · single server instance</text>
+    <g fill="#ffffff" stroke="#cad6ce" stroke-width="1.5">
+      <rect x="28" y="100" width="424" height="96" rx="10"/>
+      <rect x="28" y="288" width="424" height="148" rx="10"/>
+      <rect x="28" y="520" width="198" height="104" rx="10"/>
+      <rect x="254" y="520" width="198" height="104" rx="10"/>
+    </g>
+    <text x="48" y="132" font-size="18" font-weight="700">React browser clients</text>
+    <text x="48" y="158" font-size="15">Accounts · conversations · message history</text>
+    <text x="48" y="181" font-size="14" fill="#53695f">Live messages and presence updates</text>
+    <g stroke="#53695f" stroke-width="1.5" fill="none" marker-start="url(#arrow)" marker-end="url(#arrow)">
+      <path d="M240 204 V280"/>
+      <path d="M127 444 V512"/>
+      <path d="M353 444 V512"/>
+    </g>
+    <rect x="45" y="230" width="390" height="27" rx="4" fill="#f8faf8"/>
+    <text x="240" y="249" text-anchor="middle" font-size="15">HTTP API + Socket.IO events</text>
+    <text x="48" y="320" font-size="19" font-weight="700">Node.js / Express server</text>
+    <text x="48" y="348" font-size="15">JWT authentication · membership checks</text>
+    <text x="48" y="375" font-size="15">Validation · blocking rules · rate limits</text>
+    <text x="48" y="402" font-size="15">Persist message, then broadcast to its room</text>
+    <rect x="45" y="467" width="164" height="25" fill="#f8faf8"/>
+    <rect x="271" y="467" width="164" height="25" fill="#f8faf8"/>
+    <text x="127" y="485" text-anchor="middle" font-size="14">Persistent data</text>
+    <text x="353" y="485" text-anchor="middle" font-size="14">Cache + live state</text>
+    <text x="44" y="550" font-size="18" font-weight="700">PostgreSQL</text>
+    <text x="44" y="576" font-size="14">Users · conversations</text>
+    <text x="44" y="601" font-size="14">Messages · read status</text>
+    <text x="270" y="550" font-size="18" font-weight="700">Redis</text>
+    <text x="270" y="576" font-size="14">Recent-message cache</text>
+    <text x="270" y="601" font-size="14">Unread counts · presence</text>
+    <text x="240" y="652" text-anchor="middle" font-size="12" fill="#53695f">Core flow only; optional uploads and notifications omitted.</text>
+  </g>
+</svg>
