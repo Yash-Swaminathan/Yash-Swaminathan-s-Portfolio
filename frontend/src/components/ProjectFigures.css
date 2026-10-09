@@ -1,0 +1,104 @@
+.technical-project {
+  --fig-bg: var(--bg-primary);
+  --fig-zone: var(--bg-secondary);
+  --fig-ink: var(--text-primary);
+  --fig-live: #2251d1;
+  --fig-store: #0f766e;
+  --fig-notify: #b45309;
+  --fig-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+}
+[data-theme="dark"] .technical-project {
+  --fig-live: #8aa9ff;
+  --fig-store: #5ccfc0;
+  --fig-notify: #f0b35a;
+}
+
+.fig { margin: 0 0 24px; }
+.fig-scroll { overflow-x: auto; background: var(--fig-bg); border: 1px solid var(--border); border-radius: 8px; }
+.fig-scroll:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.fig-svg { display: block; width: 100%; min-width: 820px; height: auto; padding: 12px; box-sizing: border-box; font-family: inherit; }
+
+/* Shapes */
+.fig-box { fill: var(--fig-bg); stroke: var(--border-strong); stroke-width: 1.2; }
+.fig-sub { fill: var(--fig-zone); stroke: var(--border); stroke-width: 1; }
+.fig-dashed { fill: var(--fig-bg); stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.fig-store { fill: var(--fig-bg); stroke: var(--fig-store); stroke-width: 1.4; }
+.fig-zone { fill: var(--fig-zone); stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 5 4; }
+.fig-thead { fill: var(--fig-zone); }
+.fig-outline { fill: none; stroke: var(--border-strong); stroke-width: 1.2; }
+.fig-lifeline { stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 2 4; fill: none; }
+.fig-activation { fill: var(--fig-live); }
+
+/* Text */
+.fig-title { font-size: 14px; font-weight: 600; fill: var(--text-primary); }
+.fig-title-sm { font-size: 13px; }
+.fig-chip { font-size: 13px; fill: var(--text-primary); }
+.fig-mono, .fig-label, .fig-cap { font-family: var(--fig-mono); font-size: 11px; fill: var(--text-muted); }
+.fig-mono-strong { fill: var(--text-secondary); }
+.fig-cap { font-size: 10.5px; letter-spacing: .06em; }
+.fig-halo { paint-order: stroke; stroke: var(--fig-bg); stroke-width: 5px; stroke-linejoin: round; }
+.fig-text-ink { fill: var(--fig-ink); }
+.fig-text-live { fill: var(--fig-live); }
+.fig-text-store { fill: var(--fig-store); }
+.fig-text-notify { fill: var(--fig-notify); }
+
+/* Connectors */
+.fig-line { fill: none; stroke-width: 1.6; }
+.fig-line-ink { stroke: var(--fig-ink); }
+.fig-line-live { stroke: var(--fig-live); }
+.fig-line-store { stroke: var(--fig-store); }
+.fig-line-notify { stroke: var(--fig-notify); stroke-dasharray: 6 4; }
+.fig-head-ink { fill: var(--fig-ink); }
+.fig-head-live { fill: var(--fig-live); }
+.fig-head-store { fill: var(--fig-store); }
+.fig-head-notify { fill: var(--fig-notify); }
+
+/* Caption and legend */
+.technical-project .fig figcaption { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 12px; line-height: 1.7; color: var(--text-muted); }
+.fig-legend { display: flex; flex-wrap: wrap; gap: 6px 24px; }
+.fig-key { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.fig-key::before { content: ''; width: 24px; border-top: 2px solid var(--fig-ink); }
+.fig-key-live::before { border-color: var(--fig-live); }
+.fig-key-store::before { border-color: var(--fig-store); }
+.fig-key-notify::before { border-color: var(--fig-notify); border-top-style: dashed; }
+.fig-caption { max-width: 760px; }
+
+/* Server pipelines */
+.fig-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.fig-pipeline { border: 1px solid var(--border); border-radius: 8px; padding: 20px; --rail: var(--fig-ink); }
+.fig-pipeline-live { --rail: var(--fig-live); }
+.fig-pipeline h3, .fig-flow h3 { font-size: 15px; font-weight: 600; margin: 0 0 8px; }
+.technical-project .fig-path { display: block; background: none; padding: 0; font-size: 11.5px; line-height: 1.6; color: var(--text-muted); }
+.fig-pipeline ol { list-style: none; margin: 18px 0 0; padding: 0; }
+.fig-pipeline li { position: relative; padding: 0 0 18px 26px; }
+.fig-pipeline li:last-child { padding-bottom: 0; }
+.fig-pipeline li::before { content: ''; position: absolute; left: 0; top: 4px; width: 9px; height: 9px; border: 2px solid var(--rail); border-radius: 50%; background: var(--fig-bg); z-index: 1; }
+.fig-pipeline li::after { content: ''; position: absolute; left: 5.5px; top: 10px; bottom: -4px; width: 2px; background: var(--border-strong); }
+.fig-pipeline li:last-child::after { display: none; }
+.fig-pipeline strong { display: block; font-size: 14px; font-weight: 600; line-height: 1.4; }
+.fig-pipeline li span { display: block; margin-top: 4px; font-size: 13px; line-height: 1.7; color: var(--text-secondary); }
+
+/* Notification flows */
+.fig-flows { display: grid; gap: 12px; }
+.fig-flow { border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; }
+.fig-flow ol { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 0; margin: 12px 0 0; padding: 0; }
+.fig-flow li { display: flex; align-items: center; }
+.fig-flow li:not(:last-child)::after { content: '→'; margin: 0 10px; color: var(--text-muted); }
+.fig-flow li span, .fig-flow-key span { padding: 6px 12px; border: 1px solid var(--border-strong); border-radius: 5px; font-size: 13px; line-height: 1.5; color: var(--text-primary); }
+.fig-flow li .fig-flow-check, .fig-flow-key .fig-flow-check { border-style: dashed; color: var(--text-secondary); }
+.fig-flow li .fig-flow-out, .fig-flow-key .fig-flow-out { border-color: var(--fig-notify); color: var(--fig-notify); font-weight: 500; }
+.technical-project .fig-flow code { background: none; padding: 0; }
+.fig-flow-key { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 4px 0 0; font-size: 12px; }
+.fig-flow-key span { padding: 2px 9px; font-size: 11.5px; color: var(--text-muted); }
+
+/* Redis keys */
+.fig-table table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.fig-table th { text-align: left; padding: 12px 16px; font-family: var(--fig-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+.fig-table td { padding: 11px 16px; vertical-align: top; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+.fig-table tr:last-child td { border-bottom: 0; }
+.fig-table td:nth-child(2) { white-space: nowrap; color: var(--text-muted); }
+.technical-project .fig-table code { background: none; padding: 0; white-space: nowrap; color: var(--text-primary); }
+
+@media (max-width: 720px) {
+  .fig-columns { grid-template-columns: 1fr; }
+}

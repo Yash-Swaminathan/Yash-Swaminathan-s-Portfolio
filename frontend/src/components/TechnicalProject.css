@@ -1,0 +1,27 @@
+.technical-project { max-width: 1120px; padding: 120px 32px 64px; margin: 0 auto; box-sizing: border-box; color: var(--text-primary); }
+.technical-project a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
+.technical-project a:hover { text-decoration-color: currentColor; }
+.technical-project a:focus-visible, .technical-project summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.technical-project-back { font-size: 12px; display: inline-block; margin-bottom: 32px; }
+.technical-project-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+.technical-project h1 { font-size: 32px; font-weight: 550; letter-spacing: -.035em; margin: 0; }
+.technical-project-subtitle { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin: 12px 0 0; }
+.technical-project time { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+.technical-project-overview { max-width: 760px; margin: 24px 0; }
+.technical-project p:not(.technical-project-subtitle):not(.technical-project-stack) { font-size: 15px; line-height: 1.85; color: var(--text-secondary); margin: 0 0 16px; }
+.technical-project-links { display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; }
+.technical-project-stack { font-size: 12px; line-height: 1.8; color: var(--text-muted); margin: 20px 0 40px; }
+.technical-project h2 { font-size: 20px; letter-spacing: -.025em; font-weight: 500; margin: 0 0 20px; }
+.technical-project-architecture > p { max-width: 760px; }
+.technical-project-details { margin-top: 36px; }
+.technical-project details { border-top: 1px solid var(--border); }
+.technical-project details:last-child { border-bottom: 1px solid var(--border); }
+.technical-project summary { cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 20px 0; font-size: 14px; list-style: none; }
+.technical-project summary::-webkit-details-marker { display: none; }
+.technical-project details[open] summary span { transform: rotate(45deg); }
+.technical-project-detail-content { padding-bottom: 8px; }
+.technical-project-detail-content > p { max-width: 760px; }
+.technical-project-tradeoffs { max-width: 760px; padding-left: 20px; margin: 0 0 16px; color: var(--text-secondary); font-size: 15px; line-height: 1.85; }
+.technical-project-tradeoffs li + li { margin-top: 12px; }
+.technical-project code { font-size: .9em; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; background: var(--bg-secondary); padding: 2px 4px; border-radius: 3px; }
+@media (max-width: 600px) { .technical-project { padding: 108px 22px 36px; } .technical-project h1 { font-size: 28px; } .technical-project-heading { gap: 12px; } .technical-project p:not(.technical-project-subtitle):not(.technical-project-stack) { font-size: 14px; } .technical-project-back { margin-bottom: 24px; } }
