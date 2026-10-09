@@ -21,7 +21,7 @@ function AppContent() {
   }
 
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: location.pathname === '/' ? undefined : '100vh' }}>
       <Navigation />
       <div id="page-content" tabIndex={-1} style={{ flex: 1 }}>
         <Routes>
