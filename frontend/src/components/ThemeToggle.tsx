@@ -39,7 +39,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
           transition: 'all 0.3s ease'
         }}
       >
-        <span style={{ color: 'var(--text-muted)' }}>DARK</span>
+        <span style={{ color: 'var(--text-muted)' }}>LIGHT</span>
         <button
           onClick={toggleTheme}
           style={{
@@ -60,7 +60,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
           onBlur={(e) => {
             e.currentTarget.style.outline = 'none';
           }}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+          role="switch"
+          aria-checked={theme === 'dark'}
+          aria-label="Dark mode"
           title={`Current: ${themeConfig[theme].label}. Click to toggle.`}
         >
           <div
@@ -77,7 +79,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', compact = fal
             }}
           />
         </button>
-        <span style={{ color: 'var(--text-muted)' }}>LIGHT</span>
+        <span style={{ color: 'var(--text-muted)' }}>DARK</span>
       </div>
     );
   }

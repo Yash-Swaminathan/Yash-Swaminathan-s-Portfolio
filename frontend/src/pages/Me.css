@@ -1,0 +1,14 @@
+.home-page { max-width: 1120px; padding: 144px 32px 0; margin: 0 auto; box-sizing: border-box; }
+.home-page * { box-sizing: border-box; }
+.home-intro { max-width: 720px; padding-bottom: 4px; }
+.home-intro h1 { font-size: 24px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; margin: 0; color: var(--text-primary); }
+.home-introduction { max-width: 620px; color: var(--text-muted); font-size: 16px; line-height: 1.85; margin: 28px 0; }
+.home-story { max-width: 720px; }
+.home-story > p { color: var(--text-muted); font-size: 16px; line-height: 1.9; margin: 0 0 24px; }
+.home-story > p:last-child { margin-bottom: 0; }
+.home-story a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
+.home-story a:hover { text-decoration-color: currentColor; }
+.home-page a:focus-visible { outline: 2px solid var(--ring); outline-offset: 5px; }
+@media (max-width: 850px) { .home-page { padding-top: 120px; } }
+@media (max-width: 600px) { .home-page { padding: 108px 22px 0; } .home-introduction { font-size: 14px; line-height: 1.8; margin: 22px 0; } .home-story > p { font-size: 14px; line-height: 1.85; } }
+@media (prefers-reduced-motion: reduce) { .home-page * { transition: none; } }

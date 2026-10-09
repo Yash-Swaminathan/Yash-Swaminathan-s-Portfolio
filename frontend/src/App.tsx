@@ -9,6 +9,7 @@ import Me from './pages/Me';
 import Work from './pages/Work';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
+import Writing from './pages/Writing';
 
 const Review = process.env.NODE_ENV === 'development' ? React.lazy(() => import('./pages/Review')) : null;
 
@@ -20,14 +21,15 @@ function AppContent() {
   }
 
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: location.pathname === '/' ? undefined : '100vh' }}>
       <Navigation />
-      <div style={{ flex: 1 }}>
+      <div id="page-content" tabIndex={-1} style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Me />} />
           <Route path="/work" element={<Work />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/writing" element={<Writing />} />
         </Routes>
       </div>
       <Footer />

@@ -34,6 +34,15 @@ This is a substantial content and layout rework, but the existing React applicat
 
 ## PR workflow
 
+### Current progress
+
+- PR 1 is merged. The local review tab and Orca worktree setup remain available; no public README is required.
+- PR 2 implements the homepage and experience cleanup. Following the owner's preview feedback, projects and employment appear as plain paragraphs with inline links, not project cards or expandable role sections. Selected work temporarily uses the existing project catalog; project selection and evidence remain PR 3 work.
+- Further preview feedback removes the monograms and education/interests sidebar, places education directly in the introduction, and removes the bottom contact section. The top email action remains. Navigation uses the original light/dark slider instead of emoji icons.
+- The owner subsequently requested a Writing navigation tab now, before publishing articles. `/writing` therefore has an honest empty state without fabricated posts. The homepage project and writing paragraphs are removed; projects remain available through navigation and the introduction's link.
+- The latest homepage revision removes boxed calls to action. A plain "See my work" link follows the text, then Email, X, LinkedIn, GitHub, and Resume links without arrows or a footer divider. On the homepage these links follow the content rather than being pinned to the viewport bottom.
+- On 2026-10-08, the Vercel backend project's Root Directory was corrected from the repository root to `backend`. A production redeployment of main reached Ready, and `https://backend-ruby-nu.vercel.app/health` returned OK. This is a Vercel project setting, not a source-code change; preserve it for subsequent deployments.
+
 1. Put the review/setup changes on their own feature branch and PR first, so subsequent worktrees inherit the development workflow.
 2. After a PR is reviewed and merged, create the next branch/worktree from updated main. Keep dependent layout work sequential to avoid unnecessary conflicts.
 3. Each PR should ship a working site and contain one complete, reviewable outcome. Keep code, content, and styles for that outcome together rather than splitting every file into its own PR.

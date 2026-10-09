@@ -1,0 +1,5 @@
+.experience-prose { color: var(--text-muted); font-size: 16px; line-height: 1.9; margin: 0; }
+.experience-prose a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
+.experience-prose a:hover { text-decoration-color: currentColor; }
+.experience-prose a:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+@media (max-width: 600px) { .experience-prose { font-size: 14px; } }
