@@ -27,6 +27,36 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'termshare',
+    title: 'termshare',
+    subtitle: 'Share a live terminal in the browser using Go and WebSockets',
+    year: 2026,
+    tags: ['Backend', 'Developer tools'],
+    metrics: ['Host-controlled viewer input', 'Scrollback replay'],
+    description: 'A Go server connects a Unix shell to browser terminals over WebSockets, with read-only viewers and optional shared typing.',
+    overview: 'termshare lets someone watch a terminal from another browser without installing a terminal client. Start the Go program, open the host link, and share the viewer link with someone on the same network. The host can choose whether viewers are allowed to type.',
+    diagram: '/termshare-system-diagram.svg',
+    sections: [
+      {
+        heading: 'System Architecture',
+        content: 'The Go process serves the browser interface and upgrades connections at `/s/{id}/ws`. A session registry finds the shared session, which connects each browser to one Unix shell through a pseudo-terminal (PTY). xterm.js renders the terminal output in the browser.\n\nTerminal output travels as binary WebSocket frames to every connected client. Keystrokes travel back to the PTY only when the server grants write access. JSON messages carry role updates, viewer counts, resize requests, and permission changes.'
+      },
+      {
+        heading: 'Sharing and permissions',
+        content: 'The viewer URL contains the session ID. The host URL also contains a secret key, which grants typing, terminal resizing, and control over viewer write access. Viewers start read-only; the host can enable or disable their input during the session.\n\nThe session keeps up to 256 KiB of recent terminal output for new viewers. Each client has a bounded output queue, and clients that cannot keep up are disconnected rather than blocking the output broadcast.'
+      },
+      {
+        heading: 'Try it locally',
+        content: 'The [GitHub repository](https://github.com/Yash-Swaminathan/termshare) includes the source and [setup instructions](https://github.com/Yash-Swaminathan/termshare#quick-start). Run `go run .` with Go 1.24.3 or newer on Linux, macOS, or Windows through WSL, then open the printed host and viewer links.\n\nThis is a trusted-network tool, not a publicly hosted terminal service. It has no user accounts, built-in HTTPS, or tunneling. Keep the host key private and use a trusted LAN or VPN. Each process starts one shared shell.'
+      }
+    ],
+    tech: ['Go', 'Gorilla WebSocket', 'Unix PTY', 'xterm.js'],
+    coreStack: ['Go', 'WebSockets', 'xterm.js'],
+    repoUrl: 'https://github.com/Yash-Swaminathan/termshare',
+    featured: true,
+    status: 'demo'
+  },
+  {
     slug: "NetAnomaly",
     title: "NetAnomaly",
     subtitle: "Real-time network anomaly detection backend",
