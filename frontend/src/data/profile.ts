@@ -3,7 +3,7 @@ export const profile = {
   firstName: 'Yash',
   headline: 'Backend & infrastructure',
   headlineEmphasis: 'engineering.',
-  introduction: "I've worked on backend systems and infrastructure, and I enjoy figuring out how to make them faster and handle more data.",
+  introduction: "I've worked on backend systems and infrastructure, and I enjoy taking complex problems and finding simple solutions.",
   university: 'University of Waterloo',
   program: 'Systems Design Engineering',
   term: '2B',
