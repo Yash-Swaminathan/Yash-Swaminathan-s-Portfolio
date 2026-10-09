@@ -6,6 +6,7 @@ export interface ProjectSection {
 export interface Project {
   slug: string;
   title: string;
+  name?: string;
   subtitle: string;
   year: number;
   tags: string[];
@@ -238,6 +239,7 @@ Includes AWS integration (S3 for images, EKS for production), automated CI/CD wi
   },
   {
     slug: "schema-validator",
+    name: "Schema Validator",
     title: "Configuration File Management & Validation System",
     subtitle: "YAML validation service with FastAPI and PostgreSQL",
     year: 2024,
