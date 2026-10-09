@@ -9,6 +9,7 @@ import Me from './pages/Me';
 import Work from './pages/Work';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
+import Writing from './pages/Writing';
 
 const Review = process.env.NODE_ENV === 'development' ? React.lazy(() => import('./pages/Review')) : null;
 
@@ -28,6 +29,7 @@ function AppContent() {
           <Route path="/work" element={<Work />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/writing" element={<Writing />} />
         </Routes>
       </div>
       <Footer />

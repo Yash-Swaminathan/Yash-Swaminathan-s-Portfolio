@@ -10,6 +10,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/projects', label: 'Projects' },
+    { path: '/writing', label: 'Writing' },
     ...(process.env.NODE_ENV === 'development' && !new URLSearchParams(location.search).has('preview') ? [{ path: '/review', label: 'Review' }] : [])
   ];
 

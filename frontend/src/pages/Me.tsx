@@ -19,13 +19,6 @@ const Me: React.FC = () => {
       </section>
 
       <div className="home-story">
-        <p>I've built projects like {profile.selectedProjects.map((project, index) => (
-          <React.Fragment key={project.slug}>
-            {index > 0 ? index === profile.selectedProjects.length - 1 ? ' and ' : ', ' : ''}
-            <Link to={`/projects/${project.slug}`}>{project.name}</Link>
-          </React.Fragment>
-        ))}.</p>
-        <p>I also want to write more about what I'm learning and working on.</p>
         <Experience />
       </div>
 

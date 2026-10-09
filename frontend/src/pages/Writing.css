@@ -1,0 +1,5 @@
+.writing-page { max-width: 1120px; padding: 144px 32px 64px; margin: 0 auto; box-sizing: border-box; }
+.writing-page h1 { font-size: 24px; font-weight: 500; letter-spacing: -.025em; color: var(--text-primary); margin: 0 0 28px; }
+.writing-page p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin: 0; }
+@media (max-width: 850px) { .writing-page { padding-top: 120px; } }
+@media (max-width: 600px) { .writing-page { padding: 108px 22px 36px; } .writing-page p { font-size: 14px; } }

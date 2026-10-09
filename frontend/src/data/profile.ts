@@ -8,11 +8,7 @@ export const profile = {
   email: 'yswamina@uwaterloo.ca',
   github: 'https://github.com/Yash-Swaminathan',
   linkedin: 'https://www.linkedin.com/in/yash-swaminathan',
-  resume: '/Yash_Swaminathan_Resume.pdf',
-  selectedProjects: [
-    { slug: 'schema-validator', name: 'Schema Validator' },
-    { slug: 'NetAnomaly', name: 'NetAnomaly' }
-  ]
+  resume: '/Yash_Swaminathan_Resume.pdf'
 };
 
 export const experiences = [
