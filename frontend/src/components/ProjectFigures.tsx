@@ -439,6 +439,75 @@ const TermshareTopology: React.FC = () => {
   );
 };
 
+/* ---------- termshare: terminal flow ---------- */
+
+const TermshareFlow: React.FC = () => {
+  const id = 'ts-sequence';
+  const lanes: { x: number; name: string; store?: boolean }[] = [
+    { x: 110, name: 'Host browser' },
+    { x: 330, name: 'Viewer browser' },
+    { x: 600, name: 'Session loop' },
+    { x: 880, name: 'PTY · shell', store: true }
+  ];
+  return (
+    <Frame
+      label="termshare terminal flow: a late viewer receives its role and the scrollback replay; viewer keystrokes are ignored until the host allows typing; shell output is broadcast to every client and a client with a full queue is dropped"
+      width={1040}
+      height={546}
+      legend={[['live', 'WebSocket frame'], ['store', 'PTY read / write'], ['notify', 'Ignored or dropped']]}
+    >
+      <Defs id={id} />
+      {lanes.map(lane => (
+        <g key={lane.name}>
+          <path d={`M${lane.x} 50V530`} className="fig-lifeline" />
+          <rect x={lane.x - 70} y={16} width={140} height={34} rx={6} className={lane.store ? 'fig-store' : 'fig-box'} />
+          <text x={lane.x} y={38} textAnchor="middle" className={`fig-title fig-title-sm${lane.store ? ' fig-text-store' : ''}`}>{lane.name}</text>
+        </g>
+      ))}
+
+      <text x={24} y={80} className="fig-cap fig-halo">A VIEWER JOINS LATE</text>
+      <Arrow id={id} d="M330 106H600" kind="live" />
+      <Label x={465} y={99} kind="live" halo>{'connect /s/{id}/ws'}</Label>
+      <Arrow id={id} d="M600 138H330" kind="live" />
+      <Label x={465} y={131} kind="live" halo>role: viewer, canWrite false</Label>
+      <Arrow id={id} d="M600 170H330" kind="live" />
+      <Label x={465} y={163} kind="live" halo>scrollback replay, up to 256 KiB</Label>
+      <Arrow id={id} d="M600 202H110" kind="live" />
+      <Arrow id={id} d="M600 202H330" kind="live" />
+      <Label x={465} y={195} kind="live" halo>count: viewers</Label>
+      <Label x={220} y={195} kind="live" halo>count</Label>
+
+      <text x={24} y={240} className="fig-cap fig-halo">THE VIEWER TYPES BEFORE THE HOST ALLOWS IT</text>
+      <Arrow id={id} d="M330 266H600" kind="notify" />
+      <Label x={465} y={259} kind="notify" halo>keystroke</Label>
+      <Label x={614} y={270} anchor="start" kind="notify" halo>ignored: canWrite is false</Label>
+      <Arrow id={id} d="M110 298H600" kind="live" />
+      <Label x={220} y={291} kind="live" halo>set_acl: viewersWrite</Label>
+      <Label x={614} y={302} anchor="start" halo>host only</Label>
+      <Arrow id={id} d="M600 330H110" kind="live" />
+      <Arrow id={id} d="M600 330H330" kind="live" />
+      <Label x={465} y={323} kind="live" halo>role: canWrite true</Label>
+      <Label x={220} y={323} kind="live" halo>role</Label>
+      <Arrow id={id} d="M330 362H600" kind="live" />
+      <Label x={465} y={355} kind="live" halo>keystroke</Label>
+      <Arrow id={id} d="M600 362H880" kind="store" />
+      <Label x={740} y={355} kind="store" halo>write</Label>
+
+      <text x={24} y={400} className="fig-cap fig-halo">THE SHELL PRINTS OUTPUT</text>
+      <Arrow id={id} d="M880 426H600" kind="store" />
+      <Label x={740} y={419} kind="store" halo>read, up to 4096 bytes</Label>
+      <rect x={596} y={438} width={8} height={22} rx={2} className="fig-activation" />
+      <Label x={614} y={453} anchor="start" halo>append scrollback, queue per client</Label>
+      <Arrow id={id} d="M600 482H110" kind="live" />
+      <Arrow id={id} d="M600 482H330" kind="live" />
+      <Label x={465} y={475} kind="live" halo>output</Label>
+      <Label x={220} y={475} kind="live" halo>output</Label>
+      <Arrow id={id} d="M600 514H330" kind="notify" />
+      <Label x={465} y={507} kind="notify" halo>queue full (256 frames): dropped</Label>
+    </Frame>
+  );
+};
+
 export const projectFigures: Record<string, React.FC> = {
   'chatterbox-topology': ChatterboxTopology,
   'chatterbox-server': ChatterboxServer,
@@ -446,5 +515,6 @@ export const projectFigures: Record<string, React.FC> = {
   'chatterbox-notifications': ChatterboxNotifications,
   'chatterbox-data-model': ChatterboxDataModel,
   'chatterbox-redis': ChatterboxRedis,
-  'termshare-topology': TermshareTopology
+  'termshare-topology': TermshareTopology,
+  'termshare-flow': TermshareFlow
 };

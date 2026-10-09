@@ -109,6 +109,7 @@ export const projects: Project[] = [
       },
       {
         heading: 'Terminal flow and trade-offs',
+        figure: 'termshare-flow',
         content: 'The browser connects to `/s/{id}/ws`. Binary frames carry terminal output and authorized keystrokes; text frames carry JSON role updates, viewer counts, permission changes, and resize requests. Only the host can resize the PTY or change viewer permissions.\n\nThe session broadcasts shell output to each client, retaining recent bytes for late joiners. Bounded queues let the server disconnect slow clients rather than block the broadcast. State is in memory, so restarting the process does not preserve the shell or its scrollback.'
       },
       {
