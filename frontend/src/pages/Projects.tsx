@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
+import ProjectDate from '../components/ProjectDate';
 import './Projects.css';
 
 const Projects: React.FC = () => (
@@ -11,7 +12,7 @@ const Projects: React.FC = () => (
         <li key={project.slug}>
           <div className="projects-entry-heading">
             <h2><Link to={`/projects/${project.slug}`}>{project.name || project.title}</Link></h2>
-            <time dateTime={String(project.year)}>{project.year}</time>
+            <ProjectDate project={project} />
           </div>
           <p>{project.subtitle}</p>
         </li>
