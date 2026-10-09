@@ -13,7 +13,7 @@ const Experience: React.FC<ExperienceProps> = ({ className = '' }) => (
         {index > 0 ? index === experiences.length - 1 ? ', and ' : ', ' : ''}
         <a href={experience.website} target="_blank" rel="noopener noreferrer">{experience.company}</a>
       </React.Fragment>
-    ))}, and I'm interested in backend and infrastructure engineering.
+    ))}. I've worked on backend systems and infrastructure, and I'm interested in doing more of that.
   </p>
 );
 

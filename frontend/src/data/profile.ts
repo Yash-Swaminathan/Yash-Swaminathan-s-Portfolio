@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Yash Swaminathan',
   firstName: 'Yash',
-  introduction: "I've worked on backend systems and infrastructure, and I enjoy taking complex problems and finding simple solutions.",
+  introduction: 'I enjoy taking complex problems and finding simple solutions.',
   university: 'University of Waterloo',
   program: 'Systems Design Engineering',
   term: '2B',
@@ -9,7 +9,10 @@ export const profile = {
   github: 'https://github.com/Yash-Swaminathan',
   linkedin: 'https://www.linkedin.com/in/yash-swaminathan',
   resume: '/Yash_Swaminathan_Resume.pdf',
-  selectedProjectSlugs: ['schema-validator', 'NetAnomaly']
+  selectedProjects: [
+    { slug: 'schema-validator', name: 'Schema Validator' },
+    { slug: 'NetAnomaly', name: 'NetAnomaly' }
+  ]
 };
 
 export const experiences = [

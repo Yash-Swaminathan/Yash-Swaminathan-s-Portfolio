@@ -2,12 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Experience from '../components/Experience';
 import { profile } from '../data/profile';
-import { getProjectBySlug } from '../data/projects';
 import './Me.css';
 
 const Me: React.FC = () => {
-  const selectedProjects = profile.selectedProjectSlugs.map(getProjectBySlug);
-
   return (
     <main className="home-page">
       <section className="home-intro" aria-labelledby="home-heading">
@@ -22,11 +19,13 @@ const Me: React.FC = () => {
       </section>
 
       <div className="home-story">
-        <p>Here are some of the things I've built: {selectedProjects.map(project => project && (
+        <p>I've built projects like {profile.selectedProjects.map((project, index) => (
           <React.Fragment key={project.slug}>
-            <Link to={`/projects/${project.slug}`}>{project.title}</Link> — {project.subtitle}.{' '}
+            {index > 0 ? index === profile.selectedProjects.length - 1 ? ' and ' : ', ' : ''}
+            <Link to={`/projects/${project.slug}`}>{project.name}</Link>
           </React.Fragment>
-        ))}<Link to="/projects">See more of my work</Link>.</p>
+        ))}.</p>
+        <p>I also want to write more about what I'm learning and working on.</p>
         <Experience />
       </div>
 
