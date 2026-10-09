@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getProjectBySlug } from '../data/projects';
 import { useWindowSize } from '../hooks/useWindowSize';
+import TechnicalProject from '../components/TechnicalProject';
 
 // Helper function to parse inline markdown (bold, inline code, links)
 const parseMarkdown = (text: string): React.ReactNode[] => {
@@ -122,6 +123,10 @@ const ProjectDetail: React.FC = () => {
 
   if (!project) {
     return null;
+  }
+
+  if (project.technicalPresentation) {
+    return <TechnicalProject key={project.slug} project={project} />;
   }
 
   const containerVariants = {

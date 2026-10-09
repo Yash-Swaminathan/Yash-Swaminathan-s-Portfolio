@@ -1,48 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="830" viewBox="0 0 480 830" role="img" aria-labelledby="title description">
-  <title id="title">termshare system architecture</title>
-  <desc id="description">Host and viewer browsers use xterm.js and connect over WebSockets to a Go server. The server finds the session, checks write permissions, replays recent output, and broadcasts terminal output. Authorized input passes to a Unix pseudo-terminal connected to a shell. Viewers are read-only unless the host enables typing. Only the host can resize the terminal or change permissions.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">termshare session topology</title>
+  <desc id="desc">Host and viewer browsers connect to a Go process using WebSockets. A session registry locates the session, which checks input permissions, broadcasts PTY output, and retains recent scrollback. The session connects to a Unix PTY and shell. Only the host can resize or grant write access; viewers are read-only by default. Everything runs on a trusted network, without built-in HTTPS or tunneling.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="#53695f"/></marker>
+    <marker id="live" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="#2457e6"/></marker>
+    <marker id="io" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="#087f80"/></marker>
   </defs>
-  <rect width="480" height="830" fill="#f8faf8"/>
-  <g font-family="Arial, sans-serif" fill="#23372e">
-    <text x="28" y="44" font-size="24" font-weight="700">termshare</text>
-    <text x="28" y="70" font-size="15" fill="#53695f">One shell, shared with browser terminals.</text>
-    <g fill="#ffffff" stroke="#cad6ce" stroke-width="1.5">
-      <rect x="28" y="100" width="198" height="104" rx="10"/>
-      <rect x="254" y="100" width="198" height="104" rx="10"/>
-      <rect x="28" y="290" width="424" height="212" rx="10"/>
-      <rect x="28" y="585" width="424" height="75" rx="10"/>
-      <rect x="28" y="714" width="424" height="75" rx="10"/>
+  <rect width="1200" height="520" fill="#fff"/>
+  <g font-family="Arial, sans-serif" fill="#172437">
+    <text x="32" y="36" font-size="13" letter-spacing="2" fill="#64748b">TERMSHARE / SESSION TOPOLOGY</text>
+    <path d="M32 62 H62" stroke="#2457e6" stroke-width="2"/><text x="72" y="67" font-size="13" fill="#64748b">WebSocket: binary terminal bytes + JSON control</text>
+    <path d="M500 62 H530" stroke="#087f80" stroke-width="2"/><text x="540" y="67" font-size="13" fill="#64748b">Local terminal I/O</text>
+    <rect x="330" y="110" width="838" height="304" rx="8" fill="#f0f3f8" stroke="#94a3b8" stroke-dasharray="5 4"/>
+    <text x="350" y="137" font-family="monospace" font-size="12" fill="#64748b">HOST MACHINE · ONE GO PROCESS · ONE SHARED SHELL</text>
+    <g fill="#fff" stroke="#94a3b8" stroke-width="1.3">
+      <rect x="32" y="164" width="228" height="234" rx="6"/>
+      <rect x="350" y="164" width="292" height="234" rx="6"/>
+      <rect x="710" y="223" width="174" height="112" rx="6"/>
+      <rect x="954" y="223" width="194" height="112" rx="6"/>
     </g>
-    <text x="44" y="129" font-size="17" font-weight="700">Host browser</text>
-    <text x="44" y="155" font-size="14">xterm.js + host key</text>
-    <text x="44" y="180" font-size="14">Type · resize · permissions</text>
-    <text x="270" y="129" font-size="17" font-weight="700">Viewer browsers</text>
-    <text x="270" y="155" font-size="14">xterm.js + session ID</text>
-    <text x="270" y="180" font-size="14">Read-only by default</text>
-    <g stroke="#53695f" stroke-width="1.5" fill="none" marker-start="url(#arrow)" marker-end="url(#arrow)">
-      <path d="M127 211 V283"/>
-      <path d="M353 211 V283"/>
-      <path d="M240 510 V577"/>
-      <path d="M240 668 V706"/>
-    </g>
-    <rect x="45" y="228" width="390" height="45" rx="4" fill="#f8faf8"/>
-    <text x="240" y="245" text-anchor="middle" font-size="14">WebSockets: terminal bytes + JSON controls</text>
-    <text x="240" y="266" text-anchor="middle" font-size="12" fill="#53695f">Viewer input is accepted only when enabled by the host.</text>
-    <text x="48" y="322" font-size="19" font-weight="700">Go HTTP / WebSocket server</text>
-    <text x="48" y="349" font-size="14" fill="#53695f">Serves the UI · /s/{id}/ws · session registry</text>
-    <path d="M48 368 H432" stroke="#cad6ce"/>
-    <text x="48" y="396" font-size="17" font-weight="700">Shared session</text>
-    <text x="48" y="423" font-size="15">Host key + write-permission checks</text>
-    <text x="48" y="449" font-size="15">Recent output replay · up to 256 KiB</text>
-    <text x="48" y="475" font-size="15">Output fan-out · bounded client queues</text>
-    <text x="260" y="546" font-size="13" fill="#53695f">Input ↓ / output ↑</text>
-    <text x="48" y="615" font-size="18" font-weight="700">Unix pseudo-terminal (PTY)</text>
-    <text x="48" y="640" font-size="14" fill="#53695f">Terminal I/O and host-controlled resizing</text>
-    <text x="260" y="692" font-size="13" fill="#53695f">Shell I/O</text>
-    <text x="48" y="744" font-size="18" font-weight="700">Shell process</text>
-    <text x="48" y="769" font-size="14" fill="#53695f">$SHELL, or bash if unset · one shell per process</text>
-    <text x="240" y="816" text-anchor="middle" font-size="12" fill="#53695f">Trusted LAN / VPN · no built-in HTTPS or tunneling</text>
+    <text x="50" y="193" font-size="16" font-weight="700">Browser terminals</text>
+    <text x="50" y="216" font-family="monospace" font-size="12" fill="#64748b">xterm.js + fit addon</text>
+    <g fill="#f3f5f9" stroke="#d5dce6"><rect x="50" y="237" width="192" height="57" rx="4"/><rect x="50" y="307" width="192" height="57" rx="4"/></g>
+    <text x="64" y="259" font-size="14" font-weight="700">Host</text><text x="64" y="280" font-family="monospace" font-size="11" fill="#64748b">secret key · type / resize</text>
+    <text x="64" y="329" font-size="14" font-weight="700">Viewers</text><text x="64" y="350" font-family="monospace" font-size="11" fill="#64748b">session ID · read-only first</text>
+    <text x="370" y="193" font-size="16" font-weight="700">Go HTTP + WebSocket server</text>
+    <text x="370" y="216" font-family="monospace" font-size="12" fill="#64748b">embedded UI · /s/{id}/ws</text>
+    <path d="M370 235 H622" stroke="#d5dce6"/>
+    <text x="370" y="260" font-size="14" font-weight="700">Registry → shared session</text>
+    <text x="370" y="288" font-family="monospace" font-size="12" fill="#64748b">host key + input permission check</text>
+    <text x="370" y="315" font-family="monospace" font-size="12" fill="#64748b">256 KiB recent-output replay</text>
+    <text x="370" y="342" font-family="monospace" font-size="12" fill="#64748b">broadcast · bounded client queues</text>
+    <text x="370" y="374" font-size="12" fill="#2457e6">Host controls viewer typing.</text>
+    <g fill="none" stroke-width="1.8" marker-start="url(#live)" marker-end="url(#live)"><path d="M264 277 H344" stroke="#2457e6"/></g>
+    <g fill="none" stroke="#087f80" stroke-width="1.8" marker-start="url(#io)" marker-end="url(#io)"><path d="M648 279 H704"/><path d="M890 279 H948"/></g>
+    <text x="275" y="264" font-family="monospace" font-size="11" fill="#2457e6">WS</text>
+    <text x="661" y="266" font-family="monospace" font-size="11" fill="#087f80">bytes</text>
+    <text x="902" y="266" font-family="monospace" font-size="11" fill="#087f80">I/O</text>
+    <text x="730" y="252" font-size="16" font-weight="700">Unix PTY</text>
+    <text x="730" y="302" font-family="monospace" font-size="12" fill="#64748b">read / write</text><text x="730" y="322" font-family="monospace" font-size="12" fill="#64748b">host-only resize</text>
+    <text x="974" y="252" font-size="16" font-weight="700">Shell process</text>
+    <text x="974" y="302" font-family="monospace" font-size="12" fill="#64748b">$SHELL or bash</text><text x="974" y="322" font-family="monospace" font-size="12" fill="#64748b">one per process</text>
+    <text x="32" y="459" font-size="13" fill="#64748b">Output reaches every viewer; input reaches the PTY only when the session grants write access.</text>
+    <text x="32" y="483" font-size="12" fill="#64748b">Trusted LAN / VPN · in-memory sessions · no built-in HTTPS, accounts, or tunneling</text>
   </g>
 </svg>

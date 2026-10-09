@@ -17,6 +17,8 @@ export interface Project {
   longDescription?: string;
   overview?: string;
   diagram?: string;
+  technicalPresentation?: boolean;
+  setupUrl?: string;
   sections?: ProjectSection[];
   tech: string[];
   coreStack?: string[];
@@ -36,20 +38,26 @@ export const projects: Project[] = [
     tags: ['Backend', 'Messaging'],
     metrics: ['Conversation rooms', 'Redis message caching'],
     description: 'A messaging app with authenticated conversations, persistent message history, and live updates over Socket.IO.',
-    overview: 'ChatterBox brings together the parts of a chat app that sit behind the interface: authentication, conversation membership, message storage, live delivery, and online presence. The React client uses an Express API for account and conversation operations, alongside Socket.IO for real-time events.',
+    overview: 'ChatterBox is a real-time chat app. In owner-only mode, a portfolio visitor can start a conversation with the owner, who can receive a push notification or email when a message arrives. One Node process serves the React app, REST API, and Socket.IO connection from the same origin.',
     diagram: '/chatterbox-system-diagram.svg',
+    technicalPresentation: true,
+    setupUrl: 'https://github.com/Yash-Swaminathan/ChatterBox/blob/main/DEPLOY.md',
     sections: [
       {
         heading: 'System Architecture',
-        content: 'The React client connects to an Express server through HTTP and Socket.IO. Socket connections authenticate with an access token, and message handlers check conversation membership and blocking rules before accepting a message.\n\nPostgreSQL stores users, conversations, messages, and delivery/read status. Redis supports recent-message caching, unread counts, and presence state. The current deployment guide recommends one server instance; this diagram shows that core message path rather than claiming a production-scale deployment.'
+        content: 'PostgreSQL holds the persistent records; Redis handles presence, caches, unread counts, and notification throttling. Push and email are separate from the live message-delivery path. This shows the single-instance deployment described in the repository, not a claim about a running public service.'
       },
       {
-        heading: 'Following a message',
+        heading: 'Message flow',
         content: 'When a client sends a message, the server validates its content, checks the sender\'s conversation permissions, and applies rate limiting. It then saves the message to PostgreSQL, initializes recipient status, invalidates the recent-message cache, and increments unread counts.\n\nFinally, the server broadcasts a `message:new` event to the conversation room. The project also includes message editing and deletion, read-status handling, and presence updates. Cache reads can fall back when Redis is unavailable, while PostgreSQL remains the source of persisted messages.'
       },
       {
-        heading: 'Source and setup',
-        content: 'Explore the [source on GitHub](https://github.com/Yash-Swaminathan/ChatterBox) or the [deployment guide](https://github.com/Yash-Swaminathan/ChatterBox/blob/main/DEPLOY.md). The Docker setup serves the built React client, API, and Socket.IO endpoint from one origin, with PostgreSQL and Redis configured separately.\n\nNo public demo URL is listed in the repository metadata. The README contains an older progress checklist, so this description is based on the current implementation rather than its completion or performance claims.'
+        heading: 'Data model',
+        content: '`users` and `sessions` hold account and refresh-token records. `contacts` stores relationships and blocking settings. `conversation_participants` connects users to conversations and tracks roles and read position.\n\n`messages` belongs to a conversation and sender, with reply references and soft deletion. `message_status` tracks delivery and read state per recipient. PostgreSQL remains the record of messages; Redis caches recent history and unread counts rather than replacing it.'
+      },
+      {
+        heading: 'Engineering decisions',
+        content: 'One image, one origin: the Express server serves the Vite-built React client alongside the API and socket endpoint. This avoids a separate frontend reverse proxy in the documented deployment.\n\nStore before broadcasting: a message is written to PostgreSQL before recipients receive its live event. Notifications run after the broadcast without being awaited by message delivery. ntfy and Resend requests have an eight-second timeout and are skipped when their required configuration is absent.\n\nNotification limits live in Redis. Owner notifications have a ten-minute conversation cooldown and an hourly cap. Visitor reply emails have a thirty-minute cooldown. Unanswered conversations are scheduled in a Redis sorted set for a ninety-minute reminder, checked by a sixty-second sweep.\n\nThe deployment guide recommends one server instance because rate limits and connection checks also use process-local state. The Redis Socket.IO adapter alone does not make every part of the application safe to scale across instances.'
       }
     ],
     tech: ['React', 'Node.js', 'Express', 'Socket.IO', 'PostgreSQL', 'Redis', 'Docker'],
@@ -69,14 +77,20 @@ export const projects: Project[] = [
     description: 'A Go server connects a Unix shell to browser terminals over WebSockets, with read-only viewers and optional shared typing.',
     overview: 'termshare lets someone watch a terminal from another browser without installing a terminal client. Start the Go program, open the host link, and share the viewer link with someone on the same network. The host can choose whether viewers are allowed to type.',
     diagram: '/termshare-system-diagram.svg',
+    technicalPresentation: true,
+    setupUrl: 'https://github.com/Yash-Swaminathan/termshare#quick-start',
     sections: [
       {
         heading: 'System Architecture',
-        content: 'The Go process serves the browser interface and upgrades connections at `/s/{id}/ws`. A session registry finds the shared session, which connects each browser to one Unix shell through a pseudo-terminal (PTY). xterm.js renders the terminal output in the browser.\n\nTerminal output travels as binary WebSocket frames to every connected client. Keystrokes travel back to the PTY only when the server grants write access. JSON messages carry role updates, viewer counts, resize requests, and permission changes.'
+        content: 'A single Go process serves the browser interface and connects one shell to its viewers through a Unix pseudo-terminal. Terminal bytes travel over WebSockets; the session checks write permissions before accepting browser input.'
       },
       {
-        heading: 'Sharing and permissions',
+        heading: 'Permissions and session state',
         content: 'The viewer URL contains the session ID. The host URL also contains a secret key, which grants typing, terminal resizing, and control over viewer write access. Viewers start read-only; the host can enable or disable their input during the session.\n\nThe session keeps up to 256 KiB of recent terminal output for new viewers. Each client has a bounded output queue, and clients that cannot keep up are disconnected rather than blocking the output broadcast.'
+      },
+      {
+        heading: 'Terminal flow and trade-offs',
+        content: 'The browser connects to `/s/{id}/ws`. Binary frames carry terminal output and authorized keystrokes; text frames carry JSON role updates, viewer counts, permission changes, and resize requests. Only the host can resize the PTY or change viewer permissions.\n\nThe session broadcasts shell output to each client, retaining recent bytes for late joiners. Bounded queues let the server disconnect slow clients rather than block the broadcast. State is in memory, so restarting the process does not preserve the shell or its scrollback.'
       },
       {
         heading: 'Try it locally',
