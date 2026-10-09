@@ -38,6 +38,7 @@ This is a substantial content and layout rework, but the existing React applicat
 
 - PR 1 is merged. The local review tab and Orca worktree setup remain available; no public README is required.
 - PR 2 implements the homepage and experience cleanup. Following the owner's preview feedback, projects and employment appear as plain paragraphs with inline links, not project cards or expandable role sections. Selected work temporarily uses the existing project catalog; project selection and evidence remain PR 3 work.
+- Further preview feedback removes the monograms and education/interests sidebar, places education directly in the introduction, and removes the bottom contact section. The top email action remains. Navigation uses the original light/dark slider instead of emoji icons.
 - On 2026-10-08, the Vercel backend project's Root Directory was corrected from the repository root to `backend`. A production redeployment of main reached Ready, and `https://backend-ruby-nu.vercel.app/health` returned OK. This is a Vercel project setting, not a source-code change; preserve it for subsequent deployments.
 
 1. Put the review/setup changes on their own feature branch and PR first, so subsequent worktrees inherit the development workflow.

@@ -19,12 +19,12 @@ const Navigation: React.FC = () => {
     <header className="site-header">
       <a className="site-skip-link" href="#page-content">Skip to content</a>
       <div className="site-header-inner">
-        <Link className="site-brand" to="/" aria-label={`${profile.name}, home`}><span aria-hidden="true">ys.</span>{profile.name}</Link>
+        <Link className="site-brand" to="/" aria-label={`${profile.name}, home`}>{profile.name}</Link>
         <div className="site-header-controls">
           <nav id="site-navigation" className={`site-navigation ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
             {navItems.map(item => <Link key={item.path} to={item.path} aria-current={item.path === '/' ? location.pathname === '/' ? 'page' : undefined : location.pathname.startsWith(item.path) ? 'page' : undefined}>{item.label}</Link>)}
           </nav>
-          <ThemeToggle compact />
+          <ThemeToggle slider className="site-theme-toggle" />
           <button className="site-menu-toggle" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="site-navigation" onClick={() => setMenuOpen(previous => !previous)}>{menuOpen ? 'Close' : 'Menu'}</button>
         </div>
       </div>
