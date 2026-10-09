@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '../data/projects';
 import ProjectDate from './ProjectDate';
+import { projectFigures } from './ProjectFigures';
 import './TechnicalProject.css';
 
 const ProjectText: React.FC<{ content: string }> = ({ content }) => (
@@ -25,6 +26,7 @@ const ProjectText: React.FC<{ content: string }> = ({ content }) => (
 const TechnicalProject: React.FC<{ project: Project }> = ({ project }) => {
   const architecture = project.sections?.find(section => section.heading === 'System Architecture');
   const deepDives = project.sections?.filter(section => section !== architecture) || [];
+  const ArchitectureFigure = project.figure ? projectFigures[project.figure] : undefined;
 
   return (
     <main className="technical-project">
@@ -43,26 +45,25 @@ const TechnicalProject: React.FC<{ project: Project }> = ({ project }) => {
       {architecture && (
         <section className="technical-project-architecture" aria-labelledby="architecture-heading">
           <h2 id="architecture-heading">System architecture</h2>
-          {project.diagram && (
-            <figure>
-              <div className="technical-project-diagram" tabIndex={0} role="region" aria-label={`${project.title} architecture diagram, horizontally scrollable`}>
-                <img src={project.diagram} alt={`${project.title} system architecture; components and connections are explained below`} />
-              </div>
-              <figcaption><span>Scroll horizontally on smaller screens.</span><a href={project.diagram} target="_blank" rel="noopener noreferrer">Open full-size diagram</a></figcaption>
-            </figure>
-          )}
+          {ArchitectureFigure && <ArchitectureFigure />}
           <ProjectText content={architecture.content} />
         </section>
       )}
       {deepDives.length > 0 && (
         <section className="technical-project-details" aria-labelledby="technical-details-heading">
           <h2 id="technical-details-heading">Go deeper</h2>
-          {deepDives.map(section => (
-            <details key={section.heading}>
-              <summary>{section.heading}<span aria-hidden="true">+</span></summary>
-              <div className="technical-project-detail-content"><ProjectText content={section.content} /></div>
-            </details>
-          ))}
+          {deepDives.map(section => {
+            const SectionFigure = section.figure ? projectFigures[section.figure] : undefined;
+            return (
+              <details key={section.heading}>
+                <summary>{section.heading}<span aria-hidden="true">+</span></summary>
+                <div className="technical-project-detail-content">
+                  {SectionFigure && <SectionFigure />}
+                  <ProjectText content={section.content} />
+                </div>
+              </details>
+            );
+          })}
         </section>
       )}
     </main>

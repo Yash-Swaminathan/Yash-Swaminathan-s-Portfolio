@@ -1,6 +1,7 @@
 export interface ProjectSection {
   heading: string;
   content: string;
+  figure?: string;
 }
 
 export interface Project {
@@ -17,6 +18,7 @@ export interface Project {
   longDescription?: string;
   overview?: string;
   diagram?: string;
+  figure?: string;
   technicalPresentation?: boolean;
   setupUrl?: string;
   sections?: ProjectSection[];
@@ -39,21 +41,38 @@ export const projects: Project[] = [
     metrics: ['Conversation rooms', 'Redis message caching'],
     description: 'A messaging app with authenticated conversations, persistent message history, and live updates over Socket.IO.',
     overview: 'ChatterBox is a real-time chat app. In owner-only mode, a portfolio visitor can start a conversation with the owner, who can receive a push notification or email when a message arrives. One Node process serves the React app, REST API, and Socket.IO connection from the same origin.',
-    diagram: '/chatterbox-system-diagram.svg',
+    figure: 'chatterbox-topology',
     technicalPresentation: true,
     setupUrl: 'https://github.com/Yash-Swaminathan/ChatterBox/blob/main/DEPLOY.md',
     sections: [
       {
         heading: 'System Architecture',
-        content: 'PostgreSQL holds the persistent records; Redis handles presence, caches, unread counts, and notification throttling. Push and email are separate from the live message-delivery path. This shows the single-instance deployment described in the repository, not a claim about a running public service.'
+        content: 'One image, one origin: the Dockerfile builds the client and the server serves it alongside the API and the socket, so there is no Nginx and no cross-origin configuration. PostgreSQL is the record; Redis holds presence, caches, unread counts, and notification throttling. Push and email are plain `fetch` calls with an eight-second timeout, each skipped when its environment variable is missing, and the app starts without object storage.'
+      },
+      {
+        heading: 'Inside the server',
+        figure: 'chatterbox-server',
+        content: 'Two entry points share the same models and services. REST handles everything that can be fetched or changed on demand; the socket handles everything that has to arrive without asking.'
       },
       {
         heading: 'Message flow',
-        content: 'When a client sends a message, the server validates its content, checks the sender\'s conversation permissions, and applies rate limiting. It then saves the message to PostgreSQL, initializes recipient status, invalidates the recent-message cache, and increments unread counts.\n\nFinally, the server broadcasts a `message:new` event to the conversation room. The project also includes message editing and deletion, read-status handling, and presence updates. Cache reads can fall back when Redis is unavailable, while PostgreSQL remains the source of persisted messages.'
+        figure: 'chatterbox-message-flow',
+        content: 'The client shows the message immediately under a `tempId` and swaps in the real id on `message:sent`; a `message:error` carrying the same `tempId` turns it into a retry. The database write happens before any broadcast, so a recipient never sees a message that was not stored.\n\nLimits: 30 messages per minute, 5 per second, with a 30 second penalty.'
+      },
+      {
+        heading: 'Notifications',
+        figure: 'chatterbox-notifications',
+        content: 'Three paths, all throttled through Redis keys. If Redis is down the throttle check is allowed through, on the reasoning that a duplicate ping is better than a missed visitor.'
       },
       {
         heading: 'Data model',
-        content: '`users` and `sessions` hold account and refresh-token records. `contacts` stores relationships and blocking settings. `conversation_participants` connects users to conversations and tracks roles and read position.\n\n`messages` belongs to a conversation and sender, with reply references and soft deletion. `message_status` tracks delivery and read state per recipient. PostgreSQL remains the record of messages; Redis caches recent history and unread counts rather than replacing it.'
+        figure: 'chatterbox-data-model',
+        content: 'Messages carry a GIN full-text index for search, and direct-conversation creation takes a PostgreSQL advisory lock so two simultaneous requests cannot create duplicates.'
+      },
+      {
+        heading: 'What lives in Redis',
+        figure: 'chatterbox-redis',
+        content: 'PostgreSQL is the record. Redis holds everything that is cheap to lose: the server starts and keeps delivering messages without it, minus presence, unread badges, and throttling.'
       },
       {
         heading: 'Engineering decisions',
@@ -76,7 +95,7 @@ export const projects: Project[] = [
     metrics: ['Host-controlled viewer input', 'Scrollback replay'],
     description: 'A Go server connects a Unix shell to browser terminals over WebSockets, with read-only viewers and optional shared typing.',
     overview: 'termshare lets someone watch a terminal from another browser without installing a terminal client. Start the Go program, open the host link, and share the viewer link with someone on the same network. The host can choose whether viewers are allowed to type.',
-    diagram: '/termshare-system-diagram.svg',
+    figure: 'termshare-topology',
     technicalPresentation: true,
     setupUrl: 'https://github.com/Yash-Swaminathan/termshare#quick-start',
     sections: [
