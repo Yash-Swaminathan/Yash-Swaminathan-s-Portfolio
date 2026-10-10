@@ -12,7 +12,7 @@ const LEGEND: Record<Kind, string> = {
 
 /* ---------- SVG primitives ---------- */
 
-const Defs: React.FC<{ id: string }> = ({ id }) => (
+export const Defs: React.FC<{ id: string }> = ({ id }) => (
   <defs>
     {(Object.keys(LEGEND) as Kind[]).map(kind => (
       <marker key={kind} id={`${id}-${kind}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -22,7 +22,7 @@ const Defs: React.FC<{ id: string }> = ({ id }) => (
   </defs>
 );
 
-const Arrow: React.FC<{ id: string; d: string; kind?: Kind; both?: boolean }> = ({ id, d, kind = 'ink', both }) => (
+export const Arrow: React.FC<{ id: string; d: string; kind?: Kind; both?: boolean }> = ({ id, d, kind = 'ink', both }) => (
   <path
     d={d}
     className={`fig-line fig-line-${kind}`}
@@ -38,11 +38,11 @@ interface BoxProps {
   h: number;
   title?: string;
   lines?: string[];
-  variant?: 'box' | 'sub' | 'dashed' | 'store';
+  variant?: 'box' | 'sub' | 'dashed' | 'store' | 'keep' | 'cost';
   tone?: Kind;
 }
 
-const Box: React.FC<BoxProps> = ({ x, y, w, h, title, lines = [], variant = 'box', tone }) => (
+export const Box: React.FC<BoxProps> = ({ x, y, w, h, title, lines = [], variant = 'box', tone }) => (
   <g>
     <rect x={x} y={y} width={w} height={h} rx={6} className={`fig-${variant}`} />
     {title && <text x={x + 14} y={y + 20} className={`fig-title${tone ? ` fig-text-${tone}` : ''}`}>{title}</text>}
@@ -52,7 +52,7 @@ const Box: React.FC<BoxProps> = ({ x, y, w, h, title, lines = [], variant = 'box
   </g>
 );
 
-const Label: React.FC<{ x: number; y: number; kind?: Kind; anchor?: 'start' | 'middle' | 'end'; halo?: boolean; children: React.ReactNode }> = ({ x, y, kind, anchor = 'middle', halo, children }) => (
+export const Label: React.FC<{ x: number; y: number; kind?: Kind; anchor?: 'start' | 'middle' | 'end'; halo?: boolean; children: React.ReactNode }> = ({ x, y, kind, anchor = 'middle', halo, children }) => (
   <text x={x} y={y} textAnchor={anchor} className={`fig-label${kind ? ` fig-text-${kind}` : ''}${halo ? ' fig-halo' : ''}`}>{children}</text>
 );
 
@@ -65,7 +65,7 @@ interface FrameProps {
   children: React.ReactNode;
 }
 
-const Frame: React.FC<FrameProps> = ({ label, width, height, legend, caption, children }) => (
+export const Frame: React.FC<FrameProps> = ({ label, width, height, legend, caption, children }) => (
   <figure className="fig">
     <div className="fig-scroll" tabIndex={0} role="region" aria-label={`${label}, scrolls horizontally on small screens`}>
       <svg className="fig-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}>{children}</svg>

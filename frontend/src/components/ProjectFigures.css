@@ -1,16 +1,18 @@
-.technical-project {
+.technical-project, .writing-post {
   --fig-bg: var(--bg-primary);
   --fig-zone: var(--bg-secondary);
   --fig-ink: var(--text-primary);
   --fig-live: #2251d1;
   --fig-store: #0f766e;
   --fig-notify: #b45309;
+  --fig-error: #c0362c;
   --fig-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
 }
-[data-theme="dark"] .technical-project {
+[data-theme="dark"] .technical-project, [data-theme="dark"] .writing-post {
   --fig-live: #8aa9ff;
   --fig-store: #5ccfc0;
   --fig-notify: #f0b35a;
+  --fig-error: #ff8f80;
 }
 
 .fig { margin: 0 0 24px; }
@@ -54,7 +56,7 @@
 .fig-head-notify { fill: var(--fig-notify); }
 
 /* Caption and legend */
-.technical-project .fig figcaption { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 12px; line-height: 1.7; color: var(--text-muted); }
+.technical-project .fig figcaption, .writing-post .fig figcaption { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 12px; line-height: 1.7; color: var(--text-muted); }
 .fig-legend { display: flex; flex-wrap: wrap; gap: 6px 24px; }
 .fig-key { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 .fig-key::before { content: ''; width: 24px; border-top: 2px solid var(--fig-ink); }
@@ -102,3 +104,14 @@
 @media (max-width: 720px) {
   .fig-columns { grid-template-columns: 1fr; }
 }
+
+/* Trace sampler */
+.fig-keep { fill: var(--fig-bg); stroke: var(--fig-live); stroke-width: 1.4; }
+.fig-cost { fill: var(--fig-bg); stroke: var(--fig-notify); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.fig-rule { stroke: var(--border); stroke-width: 1; }
+.fig-text-error { fill: var(--fig-error); }
+.fig-glyph { fill: var(--fig-ink); stroke: var(--fig-ink); stroke-width: 1.6; }
+.fig-glyph-error { fill: var(--fig-error); stroke: var(--fig-error); }
+.fig-glyph-slow { fill: var(--fig-notify); stroke: var(--fig-notify); }
+.fig-glyph.is-lost { fill: var(--fig-bg); }
+.fig-glyph-norm.is-lost { stroke: var(--border-strong); }

@@ -1,5 +1,27 @@
 .writing-page { max-width: 1120px; padding: 144px 32px 64px; margin: 0 auto; box-sizing: border-box; }
-.writing-page h1 { font-size: 24px; font-weight: 500; letter-spacing: -.025em; color: var(--text-primary); margin: 0 0 28px; }
-.writing-page p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin: 0; }
+.writing-page h1 { font-size: 24px; font-weight: 500; letter-spacing: -.025em; color: var(--text-primary); margin: 0 0 40px; }
+.writing-list { max-width: 720px; list-style: none; padding: 0; margin: 0; }
+.writing-list li + li { margin-top: 32px; }
+.writing-entry-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+.writing-entry-heading h2 { min-width: 0; font-size: 16px; line-height: 1.6; font-weight: 500; margin: 0; }
+.writing-entry-heading a { color: var(--text-primary); text-decoration: none; }
+.writing-entry-heading a:hover { opacity: .75; }
+.writing-entry-heading a:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.writing-entry-heading time { flex-shrink: 0; font-size: 12px; color: var(--text-muted); }
+.writing-list p { font-size: 14px; line-height: 1.8; color: var(--text-muted); margin: 6px 0 0; }
+
+.writing-post { max-width: 1120px; padding: 120px 32px 64px; margin: 0 auto; box-sizing: border-box; color: var(--text-primary); }
+.writing-post a { color: var(--text-primary); text-decoration: none; }
+.writing-post a:hover { opacity: .75; }
+.writing-post a:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.writing-post-back { font-size: 12px; display: inline-block; margin-bottom: 32px; }
+.writing-post-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 24px; }
+.writing-post h1 { font-size: 32px; font-weight: 550; letter-spacing: -.035em; margin: 0; }
+.writing-post time { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+.writing-post h2 { font-size: 20px; letter-spacing: -.025em; font-weight: 500; margin: 36px 0 16px; }
+.writing-post > p { max-width: 760px; font-size: 15px; line-height: 1.85; color: var(--text-secondary); margin: 0 0 16px; }
+.writing-post .fig { margin-top: 24px; }
+.writing-post > .writing-post-stack { font-size: 12px; line-height: 1.8; color: var(--text-muted); margin: 40px 0 0; }
+
 @media (max-width: 850px) { .writing-page { padding-top: 120px; } }
-@media (max-width: 600px) { .writing-page { padding: 108px 22px 36px; } .writing-page p { font-size: 14px; } }
+@media (max-width: 600px) { .writing-page { padding: 108px 22px 36px; } .writing-page h1 { margin-bottom: 32px; } .writing-entry-heading { gap: 16px; } .writing-entry-heading h2 { font-size: 15px; } .writing-list p { font-size: 13px; } .writing-list li + li { margin-top: 28px; } .writing-post { padding: 108px 22px 36px; } .writing-post h1 { font-size: 28px; } .writing-post-heading { gap: 12px; } .writing-post > p { font-size: 14px; } .writing-post-back { margin-bottom: 24px; } }
