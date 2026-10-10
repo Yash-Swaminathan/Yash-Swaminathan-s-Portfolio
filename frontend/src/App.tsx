@@ -10,6 +10,7 @@ import Work from './pages/Work';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Writing from './pages/Writing';
+import WritingPost from './pages/WritingPost';
 
 const Review = process.env.NODE_ENV === 'development' ? React.lazy(() => import('./pages/Review')) : null;
 
@@ -30,6 +31,7 @@ function AppContent() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/writing" element={<Writing />} />
+          <Route path="/writing/:slug" element={<WritingPost />} />
         </Routes>
       </div>
       <Footer />
